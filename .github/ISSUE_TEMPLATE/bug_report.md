@@ -2,7 +2,7 @@
 name: Bug report
 about: 버그 제보에 대한 이슈 등록
 title: ''
-labels: ''
+labels: "\U0001F41B fix"
 assignees: ''
 
 ---

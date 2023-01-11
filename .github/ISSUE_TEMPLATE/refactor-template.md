@@ -2,7 +2,7 @@
 name: Refactor Template
 about: 리팩터링에 대한 이슈 등록
 title: ''
-labels: ''
+labels: "\U0001F6E0 refactor"
 assignees: ''
 
 ---

@@ -2,7 +2,7 @@
 name: Feature Template
 about: 구현할 기능에 대한 이슈 등록
 title: ''
-labels: ''
+labels: "✨ feat"
 assignees: ''
 
 ---
