@@ -1,7 +1,7 @@
 ---
 name: Feature Template
 about: 구현할 기능에 대한 이슈 등록
-title: ''
+title: "[type] 간략한 기능 설명"
 labels: "✨ feat"
 assignees: ''
 

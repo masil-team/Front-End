@@ -1,7 +1,7 @@
 ---
 name: Bug report
 about: 버그 제보에 대한 이슈 등록
-title: ''
+title: "[bug] 버그 설명"
 labels: "\U0001F41B fix"
 assignees: ''
 
