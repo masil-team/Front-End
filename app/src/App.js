@@ -2,7 +2,8 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './reset.css';
 import './App.css';
-import { Main } from './pages/index';
+import { Main, SignUp } from './pages/index';
+import { PATH } from './constants/path';
 
 /* prop 타입체크 */
 // import PropTypes from 'prop-types';
@@ -18,7 +19,8 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Main></Main>}></Route>
+        <Route path={PATH.MAIN} element={<Main></Main>}></Route>
+        <Route path={PATH.SIGNUP} element={<SignUp></SignUp>}></Route>
       </Routes>
     </div>
   );

@@ -1,0 +1,13 @@
+/* 이용약관 */
+.terms_service{ width: 340px; background: #fff; border-radius: 5px; padding: 0 0 5px; box-sizing: border-box;}
+.terms_service .line{display: block; width: 100%;height: 1px; background: #ccc;}
+.terms_service input{margin-right: 5px; width: 20px;height: 20px; cursor: pointer;}
+.terms_service label{width: 100%; height: 100%; color: #617584; cursor: pointer;}
+.terms_service .check_box:hover label{color: #465370; }
+.terms_service .all_check_box {display: flex; height: 45px; align-items: center; padding: 0 0 0 10px; box-sizing: border-box;}
+.terms_service .all_check_box label{line-height: 45px; font-size: 14px;font-weight: 600; color: #404d7b;}
+.terms_service .all_check_box:hover label{color: #65759a;}
+.terms_service .check_box{display: flex; height: 35px; align-items: center; padding: 0 0 0 20px ; box-sizing: border-box; position: relative;}
+.terms_service .check_box label{line-height: 35px; font-size: 12px;font-weight: 400;}
+.terms_service .check_box p{font-size: 12px; color: #888; position: absolute; top: 50%;right: 10px; transform: translateY(-50%); cursor: pointer;}
+.terms_service .check_box p:hover{color: #555;}
