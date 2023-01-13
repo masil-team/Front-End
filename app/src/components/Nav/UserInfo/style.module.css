@@ -1,0 +1,32 @@
+.user_info{}
+
+/* 로그인X */
+.non_login{}
+.non_login ul{display: flex;}
+.non_login ul li{margin-right: 30px; box-sizing: border-box; position: relative;}
+.non_login ul li::before{content: '';width: 1px;height: 10px; background: #555; position: absolute; top: 50%; right: -15px; transform: translateY(-50%);}
+.non_login ul li:last-child{margin-right: 0;}
+.non_login ul li:last-child::before{display: none;}
+.non_login ul li em{font-size: 16px;font-weight: 400; cursor: pointer;}
+
+/* 로그인O */
+.on_login{}
+.on_login > ul{display: flex; align-items: center; box-sizing: border-box;}
+.on_login > ul > li{margin-right: 30px; position: relative;}
+.on_login > ul > li::before{content: '';width: 1px;height: 10px; background: #555; position: absolute; top: 50%; right: -15px; transform: translateY(-50%);}
+.on_login > ul > li:last-child{margin-right: 0;}
+.on_login > ul > li:last-child::before{display: none;}
+.on_login > ul > li em{font-size: 16px;font-weight: 400; cursor: pointer;}
+
+.on_login > ul > li .user{display: flex; align-items: center; cursor: pointer;}
+.on_login > ul > li .user .userImg{width: 35px;height: 35px;background: #555;margin-right: 10px; border-radius: 50%;}
+.on_login > ul > li .user .userImg img{width: 100%;height: 100%;object-fit: cover;border-radius: 50%;}
+
+.on_login > ul > li .icon_box ul{display: flex;}
+.on_login > ul > li .icon_box ul li{margin-right: 20px; position: relative; }
+.on_login > ul > li .icon_box ul li::before{content: '';width: 1px;height: 10px; background: #555; position: absolute; top: 50%; right: -10px; transform: translateY(-50%);}
+.on_login > ul > li .icon_box ul li:last-child::before{display: none;}
+.on_login > ul > li .icon_box ul li:last-child{margin-right: 0;}
+.on_login > ul > li .icon_box ul li .icon{cursor: pointer;}
+
+
