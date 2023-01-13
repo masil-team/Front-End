@@ -1,0 +1,49 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.loginContainer {
+  width: 490px;
+  height: 800px;
+  background-color: grey;
+  border-radius: 2rem;
+  padding: 1rem;
+}
+.loginH1 {
+  width: fit-content;
+  height: fit-content;
+  font-size: 2.6rem;
+}
+.imageBox {
+  background-color: white;
+  width: 60px;
+  height: 50px;
+}
+
+.navBox {
+  width: 480px;
+  height: fit-content;
+  background-color: red;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.span {
+  display: block;
+  font-size: 14px;
+  margin: 20px 0px;
+}
+.sectionForm {
+  width: 100%;
+  background-color: yellow;
+  height: 460px;
+}
+
+.sectionSocial {
+  width: 100%;
+  height: 210px;
+  background-color: yellow;
+}
