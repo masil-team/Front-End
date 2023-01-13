@@ -29,4 +29,31 @@
 .on_login > ul > li .icon_box ul li:last-child{margin-right: 0;}
 .on_login > ul > li .icon_box ul li .icon{cursor: pointer;}
 
+/* 1024 이하 */
+.mobile{display: none;}
 
+@media (max-width : 1023px){
+    .mobile{width: 40px;height: 40px;background: #fff; border-radius: 5px; display: block; font-size: 24px; cursor: pointer; display: flex; justify-content: center; align-items: center;}
+    .user_info.visible{position: absolute; top: 60px;right: -260px; transition: all 0.6s;}
+    .user_info.active{right: 0;}
+    
+    .on_login{width: 250px;height: 100%;background: #fff; padding: 20px; box-sizing: border-box; border-radius: 10px; box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;} 
+    .on_login ul{height: 100%; flex-direction: column; justify-content: center; align-items: center;}
+    .on_login > ul > li{margin-right: 0; margin: 5px 0;}
+    .on_login > ul > li .user{ flex-direction: column; align-items: center; }
+    .on_login > ul > li .user .userImg{width: 100px;height: 100px; margin-right: 0;}
+    .on_login > ul > li::before{display: none;}
+    .on_login > ul > li .icon_box ul{display: flex; flex-direction: row;}
+    .on_login > ul > li .icon_box ul li::before{display: none;}
+    .on_login > ul > li .icon_box ul li .icon{font-size: 24px;}
+}
+
+@media (max-width : 767px){
+    .non_login ul li{margin-right: 10px;}
+    .non_login ul li::before{ right: -5px; }
+    .non_login ul li em{font-size: 14px;}
+}
+
+@media (max-width : 450px){
+
+}

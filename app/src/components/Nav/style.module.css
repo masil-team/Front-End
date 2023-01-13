@@ -1,5 +1,5 @@
 .nav{width: 100%;height: 60px;background: #eff2f4; position: fixed; top: 0;left: 0;z-index: 9000;}
-.container{max-width: 1440px; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; box-sizing: border-box; margin: 0 auto;}
+.container{max-width: 1440px; height: 100%; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; box-sizing: border-box; margin: 0 auto;}
 
 /* 로고 */
 .logo{width: 49px;height: 54px;}
