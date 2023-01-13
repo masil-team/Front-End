@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { BASE_URL, USER_URL } from '../../../constants/api';
 import axios from 'axios';
 import { useEffect } from 'react';
+import styles from './style.module.css';
 
 const Form = () => {
   const { register, handleSubmit, getValues, formState } = useForm();
@@ -29,14 +30,15 @@ const Form = () => {
   useEffect(() => {}, [formState]);
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(sendLoginData)}>
-        <span>이메일</span>
+    <>
+      <form className={styles.form} onSubmit={handleSubmit(sendLoginData)}>
+        <span className={styles.span}>이메일</span>
         {/* email 유효성검사 메시지 */}
         <span>{formState.errors.email?.message}</span>
         {/* password 유효성검사 메시지 */}
         <span>{formState.errors.password?.message}</span>
         <input
+          className={styles.input}
           {...register('email', {
             required: '이메일은 필수 입력입니다.',
             // email 최소길이
@@ -58,8 +60,9 @@ const Form = () => {
           type="text"
           placeholder="이메일을 입력해주세요"
         ></input>
-        <span>비밀번호</span>
+        <span className={styles.span}>비밀번호</span>
         <input
+          className={styles.input}
           {...register('password', {
             required: '비밀번호는 필수입니다.',
             minLength: {
@@ -81,11 +84,13 @@ const Form = () => {
           type="password"
           placeholder="비밀번호를 입력해주세요"
         ></input>
-        <Link to="#">비밀번호 찾기</Link>
-        <button>로그인</button>
-        <button>회원가입</button>
+        <div className={styles.passwordBox}>
+          <Link to="#">비밀번호 찾기</Link>
+        </div>
+        <button className={styles.btn}>로그인</button>
+        <button className={styles.btn}>회원가입</button>
       </form>
-    </div>
+    </>
   );
 };
 
