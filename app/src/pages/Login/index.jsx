@@ -7,17 +7,19 @@ const Login = () => {
   return (
     <div className={styles.container}>
       <div className={styles.loginContainer}>
-        <div className={styles.navBox}>
-          <h1 className={styles.loginH1}>로그인</h1>
-          <div className={styles.imageBox}></div>
+        <div className={styles.inner}>
+          <div className={styles.navBox}>
+            <h1 className={styles.loginH1}>로그인</h1>
+            <img src={`${process.env.PUBLIC_URL}/images/logo.png`}></img>
+          </div>
+          <span className={styles.span}>오늘부터 당신의 생각을 세상과 공유하세요</span>
+          <section className={styles.sectionForm}>
+            <Form />
+          </section>
+          <section className={styles.sectionSocial}>
+            <Social></Social>
+          </section>
         </div>
-        <span className={styles.span}>오늘부터 당신의 생각을 세상과 공유하세요</span>
-        <section className={styles.sectionForm}>
-          <Form />
-        </section>
-        <section className={styles.sectionSocial}>
-          <Social></Social>
-        </section>
       </div>
     </div>
   );

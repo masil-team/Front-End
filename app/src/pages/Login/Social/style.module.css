@@ -1,18 +1,16 @@
 .nameTag {
-  background-color: red;
-  padding: 20px 0px;
   display: flex;
   align-items: center;
-  height: 30px;
   width: 100%;
   justify-content: center;
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.6);
+  font-size: 16px;
+  color: #bab6cd;
+
+  margin-bottom: 30px;
 }
 
 .socialBtnContainer {
   width: 100%;
-  background-color: blue;
   height: 140px;
   display: flex;
   justify-content: space-around;
@@ -21,9 +19,8 @@
 }
 
 .btn {
-  width: 30%;
-  background-color: white;
-  height: 90%;
+  width: 140px;
+  height: 140px;
   border-radius: 0.4rem;
   display: flex;
   align-items: center;
@@ -31,4 +28,5 @@
   justify-content: center;
   cursor: pointer;
   border: 4px solid black;
+  cursor: pointer;
 }

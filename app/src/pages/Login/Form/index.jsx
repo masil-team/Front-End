@@ -60,7 +60,7 @@ const Form = () => {
           type="text"
           placeholder="이메일을 입력해주세요"
         ></input>
-        <span className={styles.span}>비밀번호</span>
+        <span className={styles.span2}>비밀번호</span>
         <input
           className={styles.input}
           {...register('password', {
