@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './reset.css';
 import './App.css';
-import { Main, SignUp } from './pages/index';
+import { Main, SignUp, Post } from './pages/index';
 import { PATH } from './constants/path';
 
 /* prop 타입체크 */
@@ -21,6 +21,7 @@ function App() {
       <Routes>
         <Route path={PATH.MAIN} element={<Main></Main>}></Route>
         <Route path={PATH.SIGNUP} element={<SignUp></SignUp>}></Route>
+        <Route path={PATH.POST} element={<Post></Post>}></Route>
       </Routes>
     </div>
   );
