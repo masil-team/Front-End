@@ -6,13 +6,10 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '../../../constants/path';
 import Modify from './Modify';
-// import useTime from '../../../hooks/useTime';
+import useTime from '../../../hooks/useTime';
 
 const Index = () => {
   const navigate = useNavigate();
-  // 날짜 포맷팅
-  // const time = useTime('2023-01-19:02:03');
-  // console.log(time);
   const [data, setData] = useState([]); //데이터 저장
   const [pageNum, setPageNum] = useState(1); //페이지 번호
   const [, /*loading */ setLoading] = useState(false); //로딩
@@ -24,6 +21,7 @@ const Index = () => {
     setLoading(true); //로딩 시작
     const res = await axios.get(`https://api.unsplash.com/photos/?client_id=${key}&page=${pageNum}&per_page=8`);
     setData([...data, ...res.data]); //기존의 data값과 새로운 data값을 복제해서 setData에 추가해줌
+    handleTimeFilter(res.data); //시간 포맷팅 함수
     setLoading(false); //로딩 끝
   };
 
@@ -52,12 +50,37 @@ const Index = () => {
     observer.observe(target.current); //옵저버 타겟 변수 이름 / Ref.current
   }, []);
 
+  // 날짜 포맷팅
+  const [day, setDay] = useState([]); //데이터의 날짜 저장
+  const time = useTime(day); //커스텀훅 매개변수 배열로 전달 해야함
+  const [newTime, setNewTime] = useState([]); //포맷팅된 시간 값을 배열로 저장
+
+  const handleTimeFilter = data => {
+    const newData = [...data]; //데이터 값 복사
+
+    /* 복사한 데이터 map으로 시간 값만 추출 */
+    const timeData = newData.map(item => {
+      return item.created_at;
+    });
+    setDay([...day, ...timeData]); //기존의 state값과 시간 추출 값을 spread로 배열합치기
+  };
+
+  /* time이 변경될때 마다 실행  */
+  useEffect(() => {
+    const newData = [...data]; //기존 데이터 복사
+    /* 복사한 데이터의 시간 값을 포맷팅된 시간 값의로 변경후 배열로 저장 */
+    const newTime = newData.map((item, index) => {
+      return (item.created_at = time && time[index]);
+    });
+    setNewTime(newTime);
+  }, [time]);
+
   return (
     <div className={styles.post_wrap}>
       {data && (
         <ul>
           {data &&
-            data.map(item => {
+            data.map((item, index) => {
               return (
                 <li key={item.id}>
                   <div className={styles.post}>
@@ -75,7 +98,7 @@ const Index = () => {
                                 <em>북구</em>
                               </li>
                               <li>
-                                <em>2023년 1월 10일</em>
+                                <em>{newTime[index]}</em>
                               </li>
                             </ul>
                           </div>
