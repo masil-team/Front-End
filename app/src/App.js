@@ -5,6 +5,7 @@ import './App.css';
 import { Main, SignUp, Post } from './pages/index';
 import { PATH } from './constants/path';
 import Login from './pages/Login';
+import CreatePost from './pages/Upload';
 
 /* prop 타입체크 */
 // import PropTypes from 'prop-types';
@@ -24,6 +25,7 @@ function App() {
         <Route path={PATH.SIGNUP} element={<SignUp></SignUp>}></Route>
         <Route path={PATH.LOGIN} element={<Login />}></Route>
         <Route path={PATH.POST} element={<Post></Post>}></Route>
+        <Route path={PATH.CREATE_POST} element={<CreatePost />}></Route>
       </Routes>
     </div>
   );
