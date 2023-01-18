@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './reset.css';
 import './App.css';
-import { Main, SignUp } from './pages/index';
+import { Main, SignUp, Post } from './pages/index';
 import { PATH } from './constants/path';
 import Login from './pages/Login';
 
@@ -22,7 +22,11 @@ function App() {
       <Routes>
         <Route path={PATH.MAIN} element={<Main></Main>}></Route>
         <Route path={PATH.SIGNUP} element={<SignUp></SignUp>}></Route>
+<<<<<<< HEAD
         <Route path={PATH.LOGIN} element={<Login />}></Route>
+=======
+        <Route path={PATH.POST} element={<Post></Post>}></Route>
+>>>>>>> 478e21e1a72341f1477fd1c9bcbf0e7b24cd9a79
       </Routes>
     </div>
   );

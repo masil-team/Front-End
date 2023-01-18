@@ -1,0 +1,42 @@
+.comment_wrap{}
+
+/* 댓글 입력 폼 */
+.my_form{}
+
+.comment_input{display: flex; align-items: center; position: relative;}
+.user_img{min-width: 30px;min-height: 30px; max-width: 30px; max-height: 30px; background: #555; border-radius: 50%;}
+.comment_input .user_img img{width: 100%;height: 100%;object-fit: cover; border-radius: 50%;}
+.comment_input input{width: 100%;height: 40px; padding: 0 50px 0 15px; margin-left: 10px; font-size: 16px;font-weight: 300; box-sizing: border-box; background: #fff; border: 1px solid #aaaa; border-radius: 5px;}
+.comment_input .btn{ box-sizing: border-box; position: absolute; top: 50%; right: 15px; transform: translateY(-50%); color: #2d8efe; background: none; cursor: pointer;}
+
+/* 댓글 리스트 */
+.comment_list{margin-top: 30px;}
+.comment_list > ul{}
+.comment_list > ul > li{ margin: 20px 0;}
+.comment_list > ul > li .one_depth_comment{ display: flex;}
+.comment_list > ul > li .comment{margin-left: 10px;}
+.comment_list > ul > li .comment h4{font-weight: 500;color: #222;}
+.comment_list > ul > li .comment p{font-size: 16px;font-weight: 300;}
+
+.comment_info{margin-top: 5px;}
+.comment_info > ul{display: flex;}
+.comment_info > ul > li{font-size: 12px; margin-right: 10px; position: relative; cursor: pointer;}
+.comment_info > ul > li:last-child{margin-right: 0;}
+.comment_info > ul > li::before{content: ''; width: 1px;height: 8px;background: #555; position: absolute; top: 50%;right: -5px; transform: translateY(-50%);}
+.comment_info > ul > li:last-child:before{display: none;}
+.comment_info > ul > li em{}
+.comment_info > ul > li .icon{margin-right: 5px;}
+.comment_info > ul > li:nth-child(1){cursor: auto;}
+
+/* 대댓글 */
+.two_depth_comment{margin: 10px 0 0 40px; }
+.two_depth_comment .two_depth_comment_wrap{display: flex;}
+
+.two_depth_comment .comment_input{margin-top: 20px;}
+
+
+
+
+
+
+

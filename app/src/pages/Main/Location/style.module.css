@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .location{width: 140px;height: 40px;border-radius: 20px; background: #eff2f4; cursor: pointer;}
 .location ul{height: 100%; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; box-sizing: border-box;}
 .location ul li{font-size: 16px; }
@@ -5,6 +6,17 @@
 .location ul li .icon{}
 
 .add_location{width: 120px;height: 40px;border-radius: 20px; background: #eff2f4; cursor: pointer;}
+=======
+.wrap{display: inline-block;}
+
+.location{width: 140px;height: 40px;border-radius: 20px; background: #eff2f4; cursor: pointer;  }
+.location ul{height: 100%; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; box-sizing: border-box;}
+.location ul li{font-size: 16px;}
+.location ul li em{}
+.location ul li .icon{}
+
+.add_location{width: 120px;height: 40px;border-radius: 20px; background: #eff2f4; cursor: pointer; }
+>>>>>>> 478e21e1a72341f1477fd1c9bcbf0e7b24cd9a79
 .add_location ul{height: 100%; display: flex; justify-content: center; align-items: center; box-sizing: border-box;}
 .add_location ul li{font-size: 16px; }
 .add_location ul li em{}

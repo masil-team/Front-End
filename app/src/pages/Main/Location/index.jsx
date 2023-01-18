@@ -9,7 +9,11 @@ import usePopupClose from '../../../hooks/usePopupClose';
 import { useEffect } from 'react';
 
 const Index = () => {
+<<<<<<< HEAD
   const [location] = useState(false); //위치 설정 true,false 체크
+=======
+  const [location] = useState(true); //위치 설정 true,false 체크
+>>>>>>> 478e21e1a72341f1477fd1c9bcbf0e7b24cd9a79
   const [popUp, setPopUp] = useState(false); //팝업 true,false
   const target = useRef(); //팝업 타겟
   const close = usePopupClose(target); //팝업 커스텀 훅
@@ -18,7 +22,11 @@ const Index = () => {
     setPopUp(close);
   }, [close]);
   return (
+<<<<<<< HEAD
     <div ref={target}>
+=======
+    <div ref={target} className={styles.wrap}>
+>>>>>>> 478e21e1a72341f1477fd1c9bcbf0e7b24cd9a79
       {location === true ? (
         <div
           className={styles.location}

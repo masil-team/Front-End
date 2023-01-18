@@ -1,10 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './style.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+<<<<<<< HEAD
 import { faStreetView, faEllipsisV, faHeart, faComment, faBookmark } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
 const Index = () => {
+=======
+import { faStreetView, faHeart, faComment, faBookmark } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '../../../constants/path';
+import Modify from './Modify';
+
+const Index = () => {
+  const navigate = useNavigate();
+
+>>>>>>> 478e21e1a72341f1477fd1c9bcbf0e7b24cd9a79
   const [data, setData] = useState([]); //데이터 저장
   const [pageNum, setPageNum] = useState(1); //페이지 번호
   const [, /*loading */ setLoading] = useState(false); //로딩
@@ -73,11 +85,22 @@ const Index = () => {
                           </div>
                         </div>
                       </div>
+<<<<<<< HEAD
                       <div className={styles.modify}>
                         <FontAwesomeIcon icon={faEllipsisV} />
                       </div>
                     </div>
                     <div className={styles.text_wrap}>
+=======
+                      <Modify item={item}></Modify>
+                    </div>
+                    <div
+                      className={styles.text_wrap}
+                      onClick={() => {
+                        navigate(PATH.POST);
+                      }}
+                    >
+>>>>>>> 478e21e1a72341f1477fd1c9bcbf0e7b24cd9a79
                       <div className={styles.img}>
                         <img src={item.urls.small} />
                       </div>
