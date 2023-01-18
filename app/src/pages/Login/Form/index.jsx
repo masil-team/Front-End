@@ -32,11 +32,14 @@ const Form = () => {
   return (
     <>
       <form className={styles.form} onSubmit={handleSubmit(sendLoginData)}>
-        <span className={styles.span}>이메일</span>
+        <span className={styles.span}>
+          이메일<span className={styles.spanICon}>*</span>
+          <span className={styles.error}>{formState.errors.email?.message}</span>
+        </span>
         {/* email 유효성검사 메시지 */}
-        <span>{formState.errors.email?.message}</span>
+
         {/* password 유효성검사 메시지 */}
-        <span>{formState.errors.password?.message}</span>
+
         <input
           className={styles.input}
           {...register('email', {
@@ -60,7 +63,10 @@ const Form = () => {
           type="text"
           placeholder="이메일을 입력해주세요"
         ></input>
-        <span className={styles.span2}>비밀번호</span>
+        <span className={styles.span2}>
+          비밀번호<span className={styles.spanICon}>*</span>
+          <span className={styles.error}>{formState.errors.password?.message}</span>
+        </span>
         <input
           className={styles.input}
           {...register('password', {
@@ -85,7 +91,9 @@ const Form = () => {
           placeholder="비밀번호를 입력해주세요"
         ></input>
         <div className={styles.passwordBox}>
-          <Link to="#">비밀번호 찾기</Link>
+          <Link to="#">
+            <span>비밀번호 찾기</span>
+          </Link>
         </div>
         <button className={styles.btn}>로그인</button>
         <button className={styles.btn}>회원가입</button>

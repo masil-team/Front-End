@@ -2,15 +2,17 @@ import React from 'react';
 import Form from './Form';
 import styles from './style.module.css';
 import Social from './Social';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const nav = useNavigate();
   return (
     <div className={styles.container}>
       <div className={styles.loginContainer}>
         <div className={styles.inner}>
           <div className={styles.navBox}>
             <h1 className={styles.loginH1}>로그인</h1>
-            <img src={`${process.env.PUBLIC_URL}/images/logo.png`}></img>
+            <img onClick={() => nav('/')} src={`${process.env.PUBLIC_URL}/images/logo.png`}></img>
           </div>
           <span className={styles.span}>오늘부터 당신의 생각을 세상과 공유하세요</span>
           <section className={styles.sectionForm}>

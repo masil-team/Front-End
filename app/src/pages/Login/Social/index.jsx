@@ -9,11 +9,17 @@ const Social = () => {
       </div>
       <div className={styles.socialBtnContainer}>
         <div className={styles.btn}>
-          <div>K</div>
-          <span>kakao</span>
+          <span className={styles.span1}>K</span>
+          <span className={styles.span2}>Kakao</span>
         </div>
-        <div className={styles.btn}></div>
-        <div className={styles.btn}></div>
+        <div className={styles.btn}>
+          <span className={styles.span1}>G</span>
+          <span className={styles.span2}>Google</span>
+        </div>
+        <div className={styles.btn}>
+          <span className={styles.span1}>N</span>
+          <span className={styles.span2}>Naver</span>
+        </div>
       </div>
     </>
   );
