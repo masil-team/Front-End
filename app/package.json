@@ -17,10 +17,7 @@
     "react": "^18.2.0",
     "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
-<<<<<<< HEAD
     "react-hook-form": "^7.41.5",
-=======
->>>>>>> 478e21e1a72341f1477fd1c9bcbf0e7b24cd9a79
     "react-intersection-observer": "^9.4.1",
     "react-redux": "^8.0.4",
     "react-router-dom": "^6.4.2",
