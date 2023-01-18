@@ -6,10 +6,13 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '../../../constants/path';
 import Modify from './Modify';
+// import useTime from '../../../hooks/useTime';
 
 const Index = () => {
   const navigate = useNavigate();
-
+  // 날짜 포맷팅
+  // const time = useTime('2023-01-19:02:03');
+  // console.log(time);
   const [data, setData] = useState([]); //데이터 저장
   const [pageNum, setPageNum] = useState(1); //페이지 번호
   const [, /*loading */ setLoading] = useState(false); //로딩
