@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+.address_wrap{width: 640px;min-height: 300px; max-height: 500px; overflow-y: auto; display: flex; flex-direction: column; padding: 20px; box-sizing: border-box; position: fixed; top: 90px; left: 50%; transform: translateX(-50%); background: #fff; box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;}
+=======
 .address_wrap{width: 640px;min-height: 300px; max-height: 500px; border-radius: 10px; overflow-y: auto; display: flex; flex-direction: column; padding: 20px; box-sizing: border-box; position: fixed; top: 90px; left: 50%; z-index: 9999; transform: translateX(-50%); background: #fff; box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;}
+>>>>>>> 478e21e1a72341f1477fd1c9bcbf0e7b24cd9a79
 
 .form{}
 .form .address_search{display: flex;align-items: center;}

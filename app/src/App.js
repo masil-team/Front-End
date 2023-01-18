@@ -4,6 +4,7 @@ import './reset.css';
 import './App.css';
 import { Main, SignUp, Post } from './pages/index';
 import { PATH } from './constants/path';
+import Login from './pages/Login';
 
 /* prop 타입체크 */
 // import PropTypes from 'prop-types';
@@ -21,6 +22,7 @@ function App() {
       <Routes>
         <Route path={PATH.MAIN} element={<Main></Main>}></Route>
         <Route path={PATH.SIGNUP} element={<SignUp></SignUp>}></Route>
+        <Route path={PATH.LOGIN} element={<Login />}></Route>
         <Route path={PATH.POST} element={<Post></Post>}></Route>
       </Routes>
     </div>
