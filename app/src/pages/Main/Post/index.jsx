@@ -1,13 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './style.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStreetView, faEllipsisV, faHeart, faComment, faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { faStreetView, faHeart, faComment, faBookmark } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '../../../constants/path';
+import Modify from './Modify';
 
 const Index = () => {
   const navigate = useNavigate();
+
   const [data, setData] = useState([]); //데이터 저장
   const [pageNum, setPageNum] = useState(1); //페이지 번호
   const [, /*loading */ setLoading] = useState(false); //로딩
@@ -76,9 +78,7 @@ const Index = () => {
                           </div>
                         </div>
                       </div>
-                      <div className={styles.modify}>
-                        <FontAwesomeIcon icon={faEllipsisV} />
-                      </div>
+                      <Modify item={item}></Modify>
                     </div>
                     <div
                       className={styles.text_wrap}
