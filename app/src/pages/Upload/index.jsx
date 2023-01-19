@@ -7,14 +7,16 @@ import { useState } from 'react';
 
 const CreatePost = () => {
   const [image, setImage] = useState([]);
+  const [count, setCount] = useState(0);
+
   return (
     <>
       <Nav />
       <div className={styles.container}>
         <div className={styles.innerContainer}>
-          <Form image={image} setImage={setImage} />
+          <Form image={image} setImage={setImage} count={count} setCount={setCount} />
           <div className={styles.thirdsection}>
-            <GridItem image={image} />
+            <GridItem image={image} setImage={setImage} count={count} setCount={setCount} />
           </div>
         </div>
       </div>

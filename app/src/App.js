@@ -36,5 +36,4 @@ Index.propTypes = {
   prop이름: PropTypes.array,
 };
 */
-
 export default App;

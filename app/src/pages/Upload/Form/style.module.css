@@ -41,11 +41,20 @@
 .secondsection {
   width: 100%;
   height: fit-content;
-  background-color: yellow;
 }
 textarea {
   width: 96.3%;
   height: 228px;
   padding: 10px 17px;
   resize: none;
+}
+
+@media screen and (max-width: 769px) {
+  textarea {
+    width: 93%;
+    height: 180px;
+  }
+  .secondsection {
+    width: 96%;
+  }
 }

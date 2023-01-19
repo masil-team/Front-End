@@ -9,7 +9,7 @@
   width: fit-content;
 }
 .gridItem {
-  width: 196px;
+  width: 194px;
   height: 188px;
   background-color: skyblue;
   border-radius: 0.4rem;
@@ -34,4 +34,19 @@
   right: 4%;
   font-size: 36px;
   color: white;
+}
+
+@media screen and (max-width: 769px) {
+  .gridContainer {
+    cursor: grab;
+    overflow: hidden;
+  }
+  .gridBox {
+    display: flex;
+  }
+  .gridItem {
+    min-width: 100px;
+    min-height: 160px;
+    border-radius: 20px;
+  }
 }

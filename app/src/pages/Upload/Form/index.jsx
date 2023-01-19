@@ -3,12 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import styles from './style.module.css';
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
+import PropTypes from 'prop-types';
 
-const Form = () => {
+const Form = ({ image, setImage, count, setCount }) => {
   const { register, getValues } = useForm();
-  const [image, setImage] = useState([]);
-  const [count, setCount] = useState(0);
   const getImages = () => {
     if (count === 10) {
       alert('사진은 최대 10장입니다.');
@@ -50,5 +48,11 @@ const Form = () => {
       </div>
     </>
   );
+};
+Form.propTypes = {
+  image: PropTypes.array,
+  setImage: PropTypes.func,
+  count: PropTypes.number,
+  setCount: PropTypes.func,
 };
 export default Form;
