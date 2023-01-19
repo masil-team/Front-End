@@ -53,7 +53,6 @@ const Index = () => {
   // 날짜 포맷팅
   const [day, setDay] = useState([]); //데이터의 날짜 저장
   const time = useTime(day); //커스텀훅 매개변수 배열로 전달 해야함
-  const [newTime, setNewTime] = useState([]); //포맷팅된 시간 값을 배열로 저장
 
   const handleTimeFilter = data => {
     const newData = [...data]; //데이터 값 복사
@@ -70,9 +69,10 @@ const Index = () => {
     const newData = [...data]; //기존 데이터 복사
     /* 복사한 데이터의 시간 값을 포맷팅된 시간 값의로 변경후 배열로 저장 */
     const newTime = newData.map((item, index) => {
-      return (item.created_at = time && time[index]);
+      item.newTime = time && time[index];
+      return item;
     });
-    setNewTime(newTime);
+    setData(newTime);
   }, [time]);
 
   return (
@@ -80,7 +80,7 @@ const Index = () => {
       {data && (
         <ul>
           {data &&
-            data.map((item, index) => {
+            data.map(item => {
               return (
                 <li key={item.id}>
                   <div className={styles.post}>
@@ -98,7 +98,7 @@ const Index = () => {
                                 <em>북구</em>
                               </li>
                               <li>
-                                <em>{newTime[index]}</em>
+                                <em>{item.newTime}</em>
                               </li>
                             </ul>
                           </div>
