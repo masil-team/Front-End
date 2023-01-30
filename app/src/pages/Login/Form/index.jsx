@@ -2,33 +2,34 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 // import { BASE_URL, USER_URL } from '../../../constants/api';
-import axios from 'axios';
 import { useEffect } from 'react';
 import styles from './style.module.css';
-
+import axios from '../../../utils/token';
 const Form = () => {
   const { register, handleSubmit, getValues, formState } = useForm();
   // input 에 들어있는 email value
-  const email = getValues('email');
   // input 에 들어있는 password value
-  const password = getValues('password');
   // 회원가입시 전송될 데이터
   const sendLoginData = async () => {
     //login api data
+    const email = getValues('email');
+    const password = getValues('password');
+
     const loginRequest = {
       email,
       password,
     };
     try {
-      const response = await axios.post(`http://13.209.94.72:8080/auth/login`, { loginRequest });
-      console.log(response);
+      const response = await axios.post(`http://13.209.94.72:8080/auth/login`, loginRequest);
+      if (response) {
+        sessionStorage.setItem('refreshToken', response.data.refreshToken);
+      }
     } catch (err) {
       console.log(err);
     }
   };
   // form 안에 input, error 등이 변할경우 useEffect 실행.
   useEffect(() => {}, [formState]);
-
   return (
     <>
       <form className={styles.form} onSubmit={handleSubmit(sendLoginData)}>
