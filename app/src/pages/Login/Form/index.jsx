@@ -15,12 +15,12 @@ const Form = () => {
   // 회원가입시 전송될 데이터
   const sendLoginData = async () => {
     //login api data
-    const user = {
+    const loginRequest = {
       email,
       password,
     };
     try {
-      const response = await axios.post(`http://13.209.94.72:8080/auth/login`, { user });
+      const response = await axios.post(`http://13.209.94.72:8080/auth/login`, { loginRequest });
       console.log(response);
     } catch (err) {
       console.log(err);
