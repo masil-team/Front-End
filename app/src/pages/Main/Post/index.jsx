@@ -14,14 +14,16 @@ const Index = () => {
   const [pageNum, setPageNum] = useState(1); //페이지 번호
   const [, /*loading */ setLoading] = useState(false); //로딩
   const target = useRef(); //옵저버 타겟
-  const key = `op3tqDTCZAqsZw-MWnpq8iqj7aWEP_xe7npS5IXd3fc`;
+  const [lastPage, setLastPage] = useState(); //마지막 페이지 확인
 
   //데이터 호출 함수
   const handleData = async () => {
     setLoading(true); //로딩 시작
-    const res = await axios.get(`https://api.unsplash.com/photos/?client_id=${key}&page=${pageNum}&per_page=8`);
-    setData([...data, ...res.data]); //기존의 data값과 새로운 data값을 복제해서 setData에 추가해줌
-    handleTimeFilter(res.data); //시간 포맷팅 함수
+    const res = await axios.get(`http://13.209.94.72:8080/boards/${1}/posts?page=${pageNum}&size=8`);
+    console.log(res.data.isLast);
+    setData([...data, ...res.data.posts]); //기존의 data값과 새로운 data값을 복제해서 setData에 추가해줌
+    handleTimeFilter(res.data.posts); //시간 포맷팅 함수
+    setLastPage(res.data.isLast);
     setLoading(false); //로딩 끝
   };
 
@@ -35,13 +37,13 @@ const Index = () => {
 
   //옵저버가 타겟을 식별하게 되면 loadMore 함수 실행
   useEffect(() => {
-    let num = 1; // 페이지 호출 번호
-    const totalPage = 6; //총 페이지 수
+    // let num = 1; // 페이지 호출 번호
+    // const totalPage = 20; //총 페이지 수
     const observer = new IntersectionObserver(entries => {
       if (entries[0].isIntersecting) {
-        num++; //호출 번호 증가시킴
+        // num++; //페이지 호출 번호 증가시킴
         loadMore();
-        if (num >= totalPage) {
+        if (lastPage == true) {
           //총 페이지 수 이상이거나 같으면 탐색중지
           observer.unobserve(target.current); //옵저버 타겟 변수 이름 / Ref.current
         }
@@ -59,7 +61,7 @@ const Index = () => {
 
     /* 복사한 데이터 map으로 시간 값만 추출 */
     const timeData = newData.map(item => {
-      return item.created_at;
+      return item.createDate;
     });
     setDay([...day, ...timeData]); //기존의 state값과 시간 추출 값을 spread로 배열합치기
   };
@@ -80,9 +82,9 @@ const Index = () => {
       {data && (
         <ul>
           {data &&
-            data.map(item => {
+            data.map((item, index) => {
               return (
-                <li key={item.id}>
+                <li key={index}>
                   <div className={styles.post}>
                     <div className={styles.info}>
                       <div className={styles.user_info}>
@@ -112,9 +114,7 @@ const Index = () => {
                         navigate(PATH.POST);
                       }}
                     >
-                      <div className={styles.img}>
-                        <img src={item.urls.small} />
-                      </div>
+                      <div className={styles.img}></div>
                       <div className={styles.text}>
                         <p>
                           어머니는 낯선 사람이란 없으며, 아직 만나지 않은 친구가 있을 뿐이라고 말씀 하셨다. 어머니는
