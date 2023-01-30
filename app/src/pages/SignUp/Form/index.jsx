@@ -7,7 +7,6 @@ import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'; //폰�
 import { useNavigate } from 'react-router-dom';
 import TermsService from './TermsService';
 import { PATH } from '../../../constants/path';
-import { BASE_URL, USER_URL } from '../../../constants/api';
 
 const Index = () => {
   const navigate = useNavigate();
@@ -30,14 +29,15 @@ const Index = () => {
   const joinData = {
     email: inputValue.userEmail,
     password: inputValue.userPassword,
-    passwordCheck: inputValue.userPasswordCheck,
+    passwordConfirmation: inputValue.userPasswordCheck,
     nickname: inputValue.userName,
   };
+  console.log(joinData);
 
   //회원가입 버튼 클릭시 전송
   const sendJoinForm = async () => {
     try {
-      const res = await axios.post(`${BASE_URL} ${USER_URL.SIGNUP}`, joinData);
+      const res = await axios.post(`http://13.209.94.72:8080/auth/signup `, joinData);
       console.log(res);
       navigate(`${PATH.LOGIN}`);
     } catch (error) {
