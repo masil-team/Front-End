@@ -29,10 +29,9 @@ const Index = () => {
   const joinData = {
     email: inputValue.userEmail,
     password: inputValue.userPassword,
-    passwordConfirmation: inputValue.userPasswordCheck,
+    passwordConfirm: inputValue.userPasswordCheck,
     nickname: inputValue.userName,
   };
-  console.log(joinData);
 
   //회원가입 버튼 클릭시 전송
   const sendJoinForm = async () => {
