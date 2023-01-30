@@ -10,7 +10,8 @@ import useTime from '../../../hooks/useTime';
 
 const Index = () => {
   const navigate = useNavigate();
-  const [data, setData] = useState([]); //데이터 저장
+  const [data, setData] = useState([]); //API 데이터 저장
+  const [newData, setNewData] = useState([]); //시간 포맷팅된 새로운 데이터 저장
   const [pageNum, setPageNum] = useState(0); //페이지 번호
   const [, /*loading */ setLoading] = useState(false); //로딩
   const target = useRef(); //옵저버 타겟
@@ -25,8 +26,6 @@ const Index = () => {
     setLastPage(res.data.isLast);
     setLoading(false); //로딩 끝
   };
-
-  console.log(data);
 
   //옵저버가 타겟을 식별하게 되면 현재 페이지에 +1
   const loadMore = () => setPageNum(prev => prev + 1);
@@ -76,14 +75,15 @@ const Index = () => {
       return item;
     });
     setData(newTime);
+    setNewData(newTime);
   }, [time]);
 
   return (
     <div className={styles.post_wrap}>
       {data && (
         <ul>
-          {data &&
-            data.map((item, index) => {
+          {newData &&
+            newData.map((item, index) => {
               return (
                 <li key={index}>
                   <div className={styles.post}>
