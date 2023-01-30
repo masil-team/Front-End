@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
 import styles from './style.module.css';
 import axios from '../../../utils/token';
+import { setCookie } from '../../../utils/cookie';
 const Form = () => {
   const { register, handleSubmit, getValues, formState } = useForm();
   // input 에 들어있는 email value
@@ -23,6 +24,7 @@ const Form = () => {
       const response = await axios.post(`http://13.209.94.72:8080/auth/login`, loginRequest);
       if (response) {
         sessionStorage.setItem('refreshToken', response.data.refreshToken);
+        setCookie('accessToken', response.data.accessToken);
       }
     } catch (err) {
       console.log(err);
