@@ -4,14 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStreetView, faHeart, faComment, faBookmark } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { PATH } from '../../../constants/path';
+//import { PATH } from '../../../constants/path';
 import Modify from './Modify';
 import useTime from '../../../hooks/useTime';
 
 const Index = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]); //데이터 저장
-  const [pageNum, setPageNum] = useState(1); //페이지 번호
+  const [pageNum, setPageNum] = useState(0); //페이지 번호
   const [, /*loading */ setLoading] = useState(false); //로딩
   const target = useRef(); //옵저버 타겟
   const [lastPage, setLastPage] = useState(); //마지막 페이지 확인
@@ -20,12 +20,13 @@ const Index = () => {
   const handleData = async () => {
     setLoading(true); //로딩 시작
     const res = await axios.get(`http://13.209.94.72:8080/boards/${1}/posts?page=${pageNum}&size=8`);
-    console.log(res.data.isLast);
     setData([...data, ...res.data.posts]); //기존의 data값과 새로운 data값을 복제해서 setData에 추가해줌
     handleTimeFilter(res.data.posts); //시간 포맷팅 함수
     setLastPage(res.data.isLast);
     setLoading(false); //로딩 끝
   };
+
+  console.log(data);
 
   //옵저버가 타겟을 식별하게 되면 현재 페이지에 +1
   const loadMore = () => setPageNum(prev => prev + 1);
@@ -91,7 +92,7 @@ const Index = () => {
                         <div className={styles.user_img}></div>
                         <div className={styles.user}>
                           <div className={styles.user_name}>
-                            <h4>username</h4>
+                            <h4>{item.member.nickname}</h4>
                           </div>
                           <div className={styles.user_address}>
                             <ul>
@@ -111,26 +112,23 @@ const Index = () => {
                     <div
                       className={styles.text_wrap}
                       onClick={() => {
-                        navigate(PATH.POST);
+                        navigate(`/post/${item.id}`);
                       }}
                     >
                       <div className={styles.img}></div>
                       <div className={styles.text}>
-                        <p>
-                          어머니는 낯선 사람이란 없으며, 아직 만나지 않은 친구가 있을 뿐이라고 말씀 하셨다. 어머니는
-                          지금 호주에서 최고 보안시설의 치매 노인요양소에 계시다.
-                        </p>
+                        <p>{item.content}</p>
                       </div>
                     </div>
                     <div className={styles.sns}>
                       <ul>
                         <li>
                           <FontAwesomeIcon icon={faHeart} className={styles.icon} />
-                          <em>1</em>
+                          <em>{item.commentCount}</em>
                         </li>
                         <li>
                           <FontAwesomeIcon icon={faComment} className={styles.icon} />
-                          <em>1</em>
+                          <em>{item.likeCount}</em>
                         </li>
                         <li>
                           <FontAwesomeIcon icon={faBookmark} className={styles.icon} />

@@ -6,6 +6,6 @@ export const PATH = {
   MAIN: '/',
   LOGIN: '/login',
   SIGNUP: '/signup',
-  POST: '/post',
+  POST: '/post/:id',
   CREATE_POST: '/createPost',
 };
