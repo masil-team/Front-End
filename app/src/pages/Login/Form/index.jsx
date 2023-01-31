@@ -1,35 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-// import { BASE_URL, USER_URL } from '../../../constants/api';
+import { BASE_URL, USER_URL } from '../../../constants/api';
+import axios from 'axios';
 import { useEffect } from 'react';
 import styles from './style.module.css';
-import axios from '../../../utils/token';
-import { setCookie } from '../../../utils/cookie';
-import { useNavigate } from 'react-router-dom';
+
 const Form = () => {
-  const nav = useNavigate();
   const { register, handleSubmit, getValues, formState } = useForm();
+  // input 에 들어있는 email value
+  const email = getValues('email');
+  // input 에 들어있는 password value
+  const password = getValues('password');
   // 회원가입시 전송될 데이터
   const sendLoginData = async () => {
-    // input 에 들어있는 email value
-    const email = getValues('email');
-    // input 에 들어있는 password value
-    const password = getValues('password');
     //login api data
-    const loginRequest = {
+    const user = {
       email,
       password,
     };
     try {
-      const response = await axios.post(`http://13.209.94.72:8080/auth/login`, loginRequest);
-      if (response) {
-        //sessionStorage 에 refresh token 저장
-        sessionStorage.setItem('refreshToken', response.data.refreshToken);
-        //cookie 에 access token 저장
-        setCookie('accessToken', response.data.accessToken);
-        nav('/');
-      }
+      const response = await axios.post(`${BASE_URL} ${USER_URL.LOGIN}`, { user });
+      console.log(response);
     } catch (err) {
       console.log(err);
     }
@@ -44,11 +36,28 @@ const Form = () => {
           <span className={styles.error}>{formState.errors.email?.message}</span>
         </span>
         {/* email 유효성검사 메시지 */}
+
         {/* password 유효성검사 메시지 */}
+
         <input
           className={styles.input}
           {...register('email', {
             required: '이메일은 필수 입력입니다.',
+            // email 최소길이
+            minLength: {
+              value: 5,
+              message: '5글자이상 입력해주세요.',
+            },
+            // email 정규식
+            pattern: {
+              value: /^[a-zA-Z0-9]+@[a-z0-9]+\.[a-z]{2,3}/,
+              message: '이메일 형식은 @와 .이들어가야합니다.',
+            },
+            // email 최대길이
+            maxLength: {
+              value: 22,
+              message: '22글자 이하로 입력해주세요.',
+            },
           })}
           type="text"
           placeholder="이메일을 입력해주세요"
@@ -61,6 +70,21 @@ const Form = () => {
           className={styles.input}
           {...register('password', {
             required: '비밀번호는 필수입니다.',
+            minLength: {
+              // password 최소길이
+              value: 8,
+              message: '비밀번호는 8글자이상입력부탁드립니다',
+            },
+            // password 최대길이
+            maxLength: {
+              value: 14,
+              message: '비밀번호는 14글자 이하로부탁드립니다',
+            },
+            // password 정규식
+            pattern: {
+              value: /[`~!@#$%^&*|₩₩₩'₩";:₩/?]/gi,
+              message: '비밀번호는 특수문자 ~!@#$%^&* 포함해주셔야합니다.',
+            },
           })}
           type="password"
           placeholder="비밀번호를 입력해주세요"

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .location {
   width: 140px;
   height: 40px;
@@ -77,3 +78,25 @@
 .add_location ul li .icon {
   margin-right: 5px;
 }
+=======
+.location {width: 140px;height: 40px;border-radius: 20px;background: #eff2f4;cursor: pointer;}
+.location ul {height: 100%;display: flex;justify-content: space-between;align-items: center;padding: 0 20px;box-sizing: border-box;}
+.location ul li {font-size: 16px;}
+.location ul li em {}
+.location ul li .icon {}
+
+.add_location {width: 120px;height: 40px;border-radius: 20px;background: #eff2f4;cursor: pointer;}
+.wrap {display: inline-block;}
+
+.location {width: 140px;height: 40px;border-radius: 20px;background: #eff2f4;cursor: pointer;}
+.location ul {height: 100%;display: flex;justify-content: space-between;align-items: center;padding: 0 20px;box-sizing: border-box;}
+.location ul li {font-size: 16px;}
+.location ul li em {}
+.location ul li .icon {}
+
+.add_location {width: 120px;height: 40px;border-radius: 20px;background: #eff2f4;cursor: pointer;}
+.add_location ul {height: 100%;display: flex;justify-content: center;align-items: center;box-sizing: border-box;}
+.add_location ul li {font-size: 16px;}
+.add_location ul li em {}
+.add_location ul li .icon {margin-right: 5px;}
+>>>>>>> 90d162a6bad55ca2549583c22fcc668cc0fba327

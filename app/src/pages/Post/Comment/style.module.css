@@ -16,7 +16,7 @@
 .comment_list > ul > li .one_depth_comment{ display: flex;}
 .comment_list > ul > li .comment{margin-left: 10px;}
 .comment_list > ul > li .comment h4{font-weight: 500;color: #222;}
-.comment_list > ul > li .comment p{font-size: 16px;font-weight: 300;}
+.comment_list > ul > li .comment p{font-size: 16px;font-weight: 300; word-break:break-all;}
 
 .comment_info{margin-top: 5px;}
 .comment_info > ul{display: flex;}
