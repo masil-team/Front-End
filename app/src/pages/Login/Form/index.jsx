@@ -6,16 +6,17 @@ import { useEffect } from 'react';
 import styles from './style.module.css';
 import axios from '../../../utils/token';
 import { setCookie } from '../../../utils/cookie';
+import { useNavigate } from 'react-router-dom';
 const Form = () => {
+  const nav = useNavigate();
   const { register, handleSubmit, getValues, formState } = useForm();
-  // input 에 들어있는 email value
-  // input 에 들어있는 password value
   // 회원가입시 전송될 데이터
   const sendLoginData = async () => {
-    //login api data
+    // input 에 들어있는 email value
     const email = getValues('email');
+    // input 에 들어있는 password value
     const password = getValues('password');
-
+    //login api data
     const loginRequest = {
       email,
       password,
@@ -23,8 +24,11 @@ const Form = () => {
     try {
       const response = await axios.post(`http://13.209.94.72:8080/auth/login`, loginRequest);
       if (response) {
+        //sessionStorage 에 refresh token 저장
         sessionStorage.setItem('refreshToken', response.data.refreshToken);
+        //cookie 에 access token 저장
         setCookie('accessToken', response.data.accessToken);
+        nav('/');
       }
     } catch (err) {
       console.log(err);
@@ -40,9 +44,7 @@ const Form = () => {
           <span className={styles.error}>{formState.errors.email?.message}</span>
         </span>
         {/* email 유효성검사 메시지 */}
-
         {/* password 유효성검사 메시지 */}
-
         <input
           className={styles.input}
           {...register('email', {

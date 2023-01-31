@@ -7,9 +7,9 @@ const axios = Axios.create({
 
 axios.interceptors.request.use(
   function (config) {
-    const accessToken = getCookie('accessToken'); // 세션스토리지에 있는 accessToken 토큰을 가지고 오기
+    const accessToken = getCookie('accessToken'); // 쿠키에 있는 accessToken 토큰을 가지고 오기
     if (accessToken) {
-      config.headers.Authorization = accessToken;
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config;
   },
@@ -30,8 +30,8 @@ axios.interceptors.response.use(
         if (err.response.data.message === 'accessToken이 지급되지 않았습니다') {
           throw Error('새로고침 필요');
         }
-        let accessToken = getCookie('accessToken'); // 세션스토리지에 있는 accessToken 토큰을 가지고 오기
-        let refreshToken = sessionStorage.getItem('refreshToken'); // 로컬스토리지에 있는 refreshToken 토큰을 가지고 오기
+        let accessToken = getCookie('accessToken'); // 쿠키에 있는 accessToken 토큰을 가지고 오기
+        let refreshToken = sessionStorage.getItem('refreshToken'); // 세션스토리지에 있는 refreshToken 토큰을 가지고 오기
         const data = await Axios({
           url: `http://13.209.94.72:8080/api/auth/refresh`, //refreshToken 토큰 요청하는 API주소
           method: 'GET',
