@@ -36,9 +36,9 @@ export const Main = () => {
               </ul>
             </div>
             <div className={styles.writing}>
-              <button className={styles.btn}>
+              <button onClick={() => nav('/createPost')} className={styles.btn}>
                 <FontAwesomeIcon icon={faPlus} className={styles.icon} />
-                <em onClick={() => nav('/createPost')}>글쓰기</em>
+                <em>글쓰기</em>
               </button>
             </div>
           </div>
