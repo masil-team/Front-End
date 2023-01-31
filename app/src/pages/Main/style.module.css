@@ -22,16 +22,13 @@
 .category {
 }
 .category ul {
-  display: grid;
+  display: flex;
   flex-wrap: wrap;
-  grid-template-columns: repeat(5, minmax(auto, auto));
-  grid-gap: 0 10px;
 }
 .category ul li {
-  width: 100%;
   height: 40px;
   padding: 0 20px;
-  text-align: center;
+  margin: 0 10px 10px 0;
   line-height: 40px;
   box-sizing: border-box;
   background: #e5edfe;
@@ -64,6 +61,52 @@
   margin-right: 5px;
   font-size: 16px;
 }
+.section {
+  padding-top: 60px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background: #f8f9fa;
+}
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  box-sizing: border-box;
+}
+
+/* 상단 네비,글쓰기 */
+.top_nav {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 카테고리 */
+.category {
+}
+.category ul {
+  display: grid;
+  flex-wrap: wrap;
+  grid-template-columns: repeat(5, minmax(auto, auto));
+  grid-gap: 0 10px;
+}
+.category ul li {
+  width: 100%;
+  height: 40px;
+  padding: 0 20px;
+  text-align: center;
+  line-height: 40px;
+  box-sizing: border-box;
+  background: #e5edfe;
+  cursor: pointer;
+  border-radius: 30px;
+}
+.category ul li:last-child {
+  margin-right: 0;
+}
+.category ul li em {
+  color: #2d8efe;
+}
 
 @media (max-width: 767px) {
   .container {
@@ -78,7 +121,7 @@
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 530px) {
   .category ul {
     grid-gap: 0 5px;
   }
@@ -88,8 +131,11 @@
   }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 410px) {
   .category ul li {
     padding: 0 5px;
+  }
+  .category ul li em {
+    font-size: 13px;
   }
 }

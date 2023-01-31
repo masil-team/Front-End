@@ -4,9 +4,12 @@ import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import styles from './style.module.css';
 import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
+import axios from '../../../utils/token';
+import { useNavigate } from 'react-router-dom';
 
 const Form = ({ image, setImage, count, setCount }) => {
   const { register, getValues } = useForm();
+  const nav = useNavigate();
   const getImages = () => {
     if (count === 10) {
       alert('사진은 최대 10장입니다.');
@@ -18,9 +21,18 @@ const Form = ({ image, setImage, count, setCount }) => {
     }
   };
 
-  const uploadData = () => {
+  const uploadData = async () => {
     const category = getValues('category');
     const text = getValues('text');
+    try {
+      const response = await axios.post('http://13.209.94.72:8080/boards/1/posts', { content: 'hello' });
+      if (response.status === 201) {
+        alert('게시물 업로드 완료');
+        nav('/');
+      }
+    } catch (err) {
+      console.log(err);
+    }
     console.log(category, text, image);
   };
 

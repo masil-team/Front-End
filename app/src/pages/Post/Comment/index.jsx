@@ -1,11 +1,14 @@
 import React from 'react';
 import styles from './style.module.css';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
-const Index = () => {
+const Index = ({ commentData }) => {
   const [twoComment, setTwoComment] = useState(); //대댓글이 몇번째 댓글에 달려야 하는지 위치 지정
+  console.log(commentData);
+
   return (
     <div className={styles.comment_wrap}>
       <form className={styles.my_form}>
@@ -141,6 +144,10 @@ const Index = () => {
       </div>
     </div>
   );
+};
+
+Index.propTypes = {
+  commentData: PropTypes.array,
 };
 
 export default Index;

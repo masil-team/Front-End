@@ -147,16 +147,16 @@
   height: 160px;
   padding: 10px;
   box-sizing: border-box;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 6;
-  -webkit-box-orient: vertical;
 }
 .post .text p {
+  word-break: break-all;
   font-size: 16px;
   font-weight: 300;
   line-height: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
 }
 
 /* 게시글 아이콘 */

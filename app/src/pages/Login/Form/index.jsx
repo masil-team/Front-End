@@ -1,14 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-// import { BASE_URL, USER_URL } from '../../../constants/api';
+import axios from 'axios';
 import { useEffect } from 'react';
 import styles from './style.module.css';
-import axios from '../../../utils/token';
+import { setCookie } from '../../../utils/cookie';
+import { useNavigate } from 'react-router-dom';
+
 const Form = () => {
   const { register, handleSubmit, getValues, formState } = useForm();
+  const nav = useNavigate();
   // input 에 들어있는 email value
-  // input 에 들어있는 password value
+
   // 회원가입시 전송될 데이터
   const sendLoginData = async () => {
     //login api data
@@ -23,6 +26,8 @@ const Form = () => {
       const response = await axios.post(`http://13.209.94.72:8080/auth/login`, loginRequest);
       if (response) {
         sessionStorage.setItem('refreshToken', response.data.refreshToken);
+        setCookie('accessToken', response.data.accessToken);
+        nav('/');
       }
     } catch (err) {
       console.log(err);
@@ -37,14 +42,11 @@ const Form = () => {
           이메일<span className={styles.spanICon}>*</span>
           <span className={styles.error}>{formState.errors.email?.message}</span>
         </span>
-        {/* email 유효성검사 메시지 */}
-
-        {/* password 유효성검사 메시지 */}
-
         <input
           className={styles.input}
           {...register('email', {
             required: '이메일은 필수 입력입니다.',
+            // email 최대길이
           })}
           type="text"
           placeholder="이메일을 입력해주세요"
