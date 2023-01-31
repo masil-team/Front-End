@@ -5,8 +5,10 @@ import Location from './Location';
 import Post from './Post';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router';
 
 export const Main = () => {
+  const nav = useNavigate();
   return (
     <>
       <Nav></Nav>
@@ -36,7 +38,7 @@ export const Main = () => {
             <div className={styles.writing}>
               <button className={styles.btn}>
                 <FontAwesomeIcon icon={faPlus} className={styles.icon} />
-                <em>글쓰기</em>
+                <em onClick={() => nav('/createPost')}>글쓰기</em>
               </button>
             </div>
           </div>

@@ -28,7 +28,6 @@ const Form = () => {
   };
   // form 안에 input, error 등이 변할경우 useEffect 실행.
   useEffect(() => {}, [formState]);
-
   return (
     <>
       <form className={styles.form} onSubmit={handleSubmit(sendLoginData)}>
