@@ -1,15 +1,16 @@
 .gridBox {
   height: 359px;
   display: grid;
-  grid-template-columns: repeat(5, 196px);
+  grid-template-columns: repeat(auto-fill, 196px);
   place-items: start;
   justify-content: center;
-  gap: 13px;
+  gap: 16px;
   margin-top: 13px;
-  width: fit-content;
+  width: 100%;
+  box-sizing: border-box;
 }
 .gridItem {
-  width: 194px;
+  width: 200px;
   height: 188px;
   background-color: skyblue;
   border-radius: 0.4rem;

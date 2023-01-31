@@ -3,7 +3,9 @@
   height: fit-content;
 }
 .innerContainer {
-  width: 1031px;
+  /* width: 1031px; */
+  width: 55%;
+
   margin: 90px auto;
 }
 

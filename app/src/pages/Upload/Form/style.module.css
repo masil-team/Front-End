@@ -43,18 +43,19 @@
   height: fit-content;
 }
 textarea {
-  width: 96.3%;
+  width: 100%;
   height: 228px;
   padding: 10px 17px;
+  box-sizing: border-box;
   resize: none;
 }
 
 @media screen and (max-width: 769px) {
   textarea {
-    width: 93%;
+    width: 100%;
     height: 180px;
   }
   .secondsection {
-    width: 96%;
+    width: 100%;
   }
 }
