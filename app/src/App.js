@@ -5,6 +5,10 @@ import './App.css';
 import { Main, SignUp, Post } from './pages/index';
 import { PATH } from './constants/path';
 import Login from './pages/Login';
+<<<<<<< HEAD
+import CreatePost from './pages/Upload';
+=======
+>>>>>>> 90d162a6bad55ca2549583c22fcc668cc0fba327
 
 /* prop 타입체크 */
 // import PropTypes from 'prop-types';
@@ -24,6 +28,7 @@ function App() {
         <Route path={PATH.SIGNUP} element={<SignUp></SignUp>}></Route>
         <Route path={PATH.LOGIN} element={<Login />}></Route>
         <Route path={PATH.POST} element={<Post></Post>}></Route>
+        <Route path={PATH.CREATE_POST} element={<CreatePost />}></Route>
       </Routes>
     </div>
   );
@@ -34,5 +39,4 @@ Index.propTypes = {
   prop이름: PropTypes.array,
 };
 */
-
 export default App;

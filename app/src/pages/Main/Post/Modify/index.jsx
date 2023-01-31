@@ -10,7 +10,6 @@ const Index = ({ item }) => {
   const [modifyPopUp, setModifyPopUp] = useState(); //아이템의 id값이 들어옴
   const modify = useRef();
   const close = usePopupClose(modify);
-
   /* 영역외 클릭시 팝업창 닫기 */
   useEffect(() => {
     setModifyPopUp(close);
