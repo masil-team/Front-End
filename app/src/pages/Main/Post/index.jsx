@@ -80,7 +80,7 @@ const Index = () => {
 
   return (
     <div className={styles.post_wrap}>
-      {data && (
+      {newData && (
         <ul>
           {newData &&
             newData.map((item, index) => {
