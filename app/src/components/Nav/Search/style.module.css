@@ -28,5 +28,8 @@
 }
 
 @media (max-width : 400px){
-    .form .search{width: 100px;}
+    .form{margin-left: -50px;}
+    .form .search{width: 110px; height: 35px;}
+    .form .search input{font-size: 12px; padding-left: 30px;}
+    .form .search .btn{font-size: 14px; left: 10px;}
 }
