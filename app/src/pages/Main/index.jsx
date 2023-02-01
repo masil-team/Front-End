@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styles from './style.module.css';
 import Nav from '../../components/Nav';
 import Location from './Location';
@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router';
 
 export const Main = () => {
   const nav = useNavigate();
+  const target = useRef(); //옵저버 타겟
   return (
     <>
       <Nav></Nav>
@@ -42,7 +43,10 @@ export const Main = () => {
               </button>
             </div>
           </div>
-          <Post></Post>
+          <Post target={target}></Post>
+          <button ref={target} className="ir_pm">
+            Load More
+          </button>
         </div>
       </section>
     </>
