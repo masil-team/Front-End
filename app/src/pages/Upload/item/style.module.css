@@ -1,17 +1,17 @@
 .gridBox {
   height: 359px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, 196px);
+  grid-template-columns: repeat(auto-fill, 198px);
   place-items: start;
   justify-content: center;
-  gap: 16px;
+  gap: 10px;
   margin-top: 13px;
   width: 100%;
   box-sizing: border-box;
 }
 .gridItem {
-  width: 200px;
-  height: 188px;
+  width: 198px;
+  height: 198px;
   background-color: skyblue;
   border-radius: 0.4rem;
   cursor: pointer;
@@ -35,19 +35,4 @@
   right: 4%;
   font-size: 36px;
   color: white;
-}
-
-@media screen and (max-width: 769px) {
-  .gridContainer {
-    cursor: grab;
-    overflow: hidden;
-  }
-  .gridBox {
-    display: flex;
-  }
-  .gridItem {
-    min-width: 100px;
-    min-height: 160px;
-    border-radius: 20px;
-  }
 }
