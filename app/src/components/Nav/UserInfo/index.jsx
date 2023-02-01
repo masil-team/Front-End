@@ -6,9 +6,12 @@ import { faHeart, faBell, faBars, faTimes } from '@fortawesome/free-solid-svg-ic
 import usePopupClose from '../../../hooks/usePopupClose';
 import { useRef } from 'react';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '../../../constants/path';
 
 const Index = () => {
-  const [login] = useState(true); //로그인 여부 확인
+  const navigate = useNavigate();
+  const [login] = useState(false); //로그인 여부 확인
   const [userActive, setUserActive] = useState(false); //로그인 완료시 1024미만으로 줄어들었을 경우 햄버거 아이콘 클릭시 유저 정보 active
   const target = useRef(null); //유저정보 팝업창
   const close = usePopupClose(target); //유저정보 팝업창 외 클릭시 팝업창 닫기
@@ -36,10 +39,22 @@ const Index = () => {
           <div className={styles.non_login}>
             <ul>
               <li>
-                <em>로그인</em>
+                <em
+                  onClick={() => {
+                    navigate(PATH.LOGIN);
+                  }}
+                >
+                  로그인
+                </em>
               </li>
               <li>
-                <em>로그아웃</em>
+                <em
+                  onClick={() => {
+                    navigate(PATH.SIGNUP);
+                  }}
+                >
+                  회원가입
+                </em>
               </li>
             </ul>
           </div>

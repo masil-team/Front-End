@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
+import Axios from 'axios';
 import styles from './style.module.css';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; //폰트어썸
@@ -7,6 +7,7 @@ import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'; //폰�
 import { useNavigate } from 'react-router-dom';
 import TermsService from './TermsService';
 import { PATH } from '../../../constants/path';
+import { USER_URL } from '../../../constants/api';
 
 const Index = () => {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ const Index = () => {
   //회원가입 버튼 클릭시 전송
   const sendJoinForm = async () => {
     try {
-      const res = await axios.post(`http://13.209.94.72:8080/auth/signup `, joinData);
+      const res = await Axios.post(`http://13.209.94.72:8080${USER_URL.SIGNUP} `, joinData);
       console.log(res);
       navigate(`${PATH.LOGIN}`);
     } catch (error) {

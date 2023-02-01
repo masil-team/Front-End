@@ -6,7 +6,7 @@ import Comment from './Comment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import Axios from 'axios';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import useTime from '../../hooks/useTime';
@@ -20,7 +20,7 @@ export const Post = () => {
   //게시글 단건 조회
   const postHandleData = async () => {
     try {
-      const res = await axios.get(`http://13.209.94.72:8080/boards/${1}/posts/${id}`);
+      const res = await Axios.get(`http://13.209.94.72:8080/posts/${id}`);
       setData(res.data);
       setDay([res.data.createDate]); //날짜 저장
     } catch (error) {
@@ -32,7 +32,7 @@ export const Post = () => {
   const [commentData, setCommentData] = useState(); //댓글 데이터 저장
   const commentHandleData = async () => {
     try {
-      const res = await axios.get(`http://13.209.94.72:8080/posts/${id}/comments`);
+      const res = await Axios.get(`http://13.209.94.72:8080/posts/${id}/comments`);
       setCommentData(res.data);
     } catch (error) {
       console.log(error);
