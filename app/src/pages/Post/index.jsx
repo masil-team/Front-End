@@ -3,19 +3,20 @@ import styles from './style.module.css';
 import Nav from '../../components/Nav';
 import PostImg from './PostImg';
 import Comment from './Comment';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { useParams } from 'react-router-dom';
 import Axios from 'axios';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import useTime from '../../hooks/useTime';
+import PostLike from './PostLike';
 
 export const Post = () => {
   const { id } = useParams();
   const [data, setData] = useState(); //게시글 데이터 저장
   const [day, setDay] = useState([]); //게시글 데이터의 날짜 저장
   const time = useTime(day); //커스텀훅 매개변수 배열로 전달 해야함
+
+  console.log(id);
 
   //게시글 단건 조회
   const postHandleData = async () => {
@@ -73,9 +74,7 @@ export const Post = () => {
                 <div className={styles.img}></div>
                 <em>{data.member.nickname}</em>
               </div>
-              <div className={styles.heart}>
-                <FontAwesomeIcon icon={faHeart} />
-              </div>
+              <PostLike data={data} postHandleData={postHandleData}></PostLike>
             </div>
             <PostImg></PostImg>
             <div className={styles.text}>

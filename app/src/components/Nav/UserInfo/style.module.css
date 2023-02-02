@@ -185,21 +185,12 @@
   }
 }
 
-@media (max-width: 767px) {
-  .non_login ul li {
-    margin-right: 10px;
-  }
-  .non_login ul li::before {
-    height: 8px;
-    right: -5px;
-  }
-  .non_login ul li em {
-    font-size: 14px;
-  }
+@media (max-width : 767px){
+  .non_login ul li{margin-right: 10px;}
+  .non_login ul li::before{ height: 8px; right: -5px; }
+  .non_login ul li em{font-size: 14px;}
 }
 
-@media (max-width: 450px) {
-  .non_login ul li em {
-    font-size: 12px;
-  }
+@media (max-width : 450px){
+  .non_login ul li em{font-size: 12px;}
 }
