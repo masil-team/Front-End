@@ -8,7 +8,6 @@ export default function usePostList(target) {
   const [pageNum, setPageNum] = useState(0); //페이지 번호
   const [, /*loading */ setLoading] = useState(false); //로딩
   const [lastPage, setLastPage] = useState(); //마지막 페이지 확인
-
   //데이터 호출 함수
   const handleData = async () => {
     setLoading(true); //로딩 시작
