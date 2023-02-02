@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import styles from './style.module.css';
 import Nav from '../../components/Nav';
 import Location from './Location';
@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router';
 export const Main = () => {
   const nav = useNavigate();
   const target = useRef(); //옵저버 타겟
+  const [newData, setNewData] = useState(); //게시글 삭제시 삭제된 게시글 제외 하고 나머지 게시글 목록 새로 저장
   return (
     <>
       <Nav></Nav>
@@ -43,7 +44,7 @@ export const Main = () => {
               </button>
             </div>
           </div>
-          <Post target={target}></Post>
+          <Post target={target} newData={newData} setNewData={setNewData}></Post>
           <button ref={target}>Load More</button>
         </div>
       </section>

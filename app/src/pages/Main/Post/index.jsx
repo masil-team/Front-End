@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styles from './style.module.css';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,12 +8,9 @@ import Modify from './Modify';
 import Like from './Like';
 import usePostList from '../../../hooks/usePostList';
 
-const Index = ({ target }) => {
+const Index = ({ target, newData, setNewData }) => {
   const navigate = useNavigate();
-  const data = usePostList(target); //게시글 목록 커스텀 훅
-  const [newData, setNewData] = useState();
-
-  console.log(newData);
+  const data = usePostList(target, newData); //게시글 목록 커스텀 훅
 
   useEffect(() => {
     setNewData(data);
@@ -93,6 +90,8 @@ const Index = ({ target }) => {
 
 Index.propTypes = {
   target: PropTypes.object,
+  newData: PropTypes.array,
+  setNewData: PropTypes.func,
 };
 
 export default Index;
