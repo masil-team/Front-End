@@ -25,7 +25,7 @@ const Form = ({ image, setImage, count, setCount }) => {
     const category = getValues('category');
     const text = getValues('text');
     try {
-      const response = await axios.post('http://13.209.94.72:8080/posts', { content: 'hello', boardId: 1 });
+      const response = await axios.post('http://13.209.94.72:8080/posts', { content: text, boardId: 1 });
       if (response.status === 201) {
         alert('게시물 업로드 완료');
         nav('/');

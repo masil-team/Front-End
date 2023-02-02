@@ -1,4 +1,4 @@
-.post_wrap {margin-top: 10px;}
+.post_wrap {margin-top: 10px; min-height: 100vh;}
 .post_wrap > ul {display: grid;grid-template-columns: repeat(4, minmax(335px, auto));grid-gap: 20px;}
 .post_wrap > ul > li {width: 100%;}
 

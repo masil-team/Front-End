@@ -44,9 +44,7 @@ export const Main = () => {
             </div>
           </div>
           <Post target={target}></Post>
-          <button ref={target} className="ir_pm">
-            Load More
-          </button>
+          <button ref={target}>Load More</button>
         </div>
       </section>
     </>
