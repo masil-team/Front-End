@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './style.module.css';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,14 +11,19 @@ import usePostList from '../../../hooks/usePostList';
 const Index = ({ target }) => {
   const navigate = useNavigate();
   const data = usePostList(target); //게시글 목록 커스텀 훅
-  console.log(data);
+  const [newData, setNewData] = useState(data);
+
+  console.log(newData);
+  useEffect(() => {
+    setNewData(data);
+  }, [data]);
 
   return (
     <div className={styles.post_wrap}>
-      {data && (
+      {newData && (
         <ul>
-          {data &&
-            data.map(item => {
+          {newData &&
+            newData.map(item => {
               return (
                 <li key={item.id}>
                   <div className={styles.post}>
@@ -42,7 +47,7 @@ const Index = ({ target }) => {
                           </div>
                         </div>
                       </div>
-                      <Modify item={item}></Modify>
+                      {item.isOwner == true && <Modify item={item} data={data} setNewData={setNewData}></Modify>}
                     </div>
                     <div
                       className={styles.text_wrap}
