@@ -11,9 +11,10 @@ import usePostList from '../../../hooks/usePostList';
 const Index = ({ target }) => {
   const navigate = useNavigate();
   const data = usePostList(target); //게시글 목록 커스텀 훅
-  const [newData, setNewData] = useState(data);
+  const [newData, setNewData] = useState();
 
   console.log(newData);
+
   useEffect(() => {
     setNewData(data);
   }, [data]);
