@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './style.module.css';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import Modify from './Modify';
 import Like from './Like';
 import usePostList from '../../../hooks/usePostList';
-import { useEffect } from 'react';
 
 const Index = ({ target }) => {
   const navigate = useNavigate();
