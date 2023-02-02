@@ -18,16 +18,17 @@ const Index = ({ item, data, setNewData }) => {
     setModifyPopUp(close);
   }, [close]);
 
+  //게시글 삭제 요청
   const onPostDelete = async () => {
     try {
-      const res = await axios.delete(`${BASE_URL}/posts/${item.id}`);
-      console.log(res);
+      await axios.delete(`${BASE_URL}/posts/${item.id}`);
       onFilter();
     } catch (error) {
       console.log(error);
     }
   };
 
+  //기존 목록과 삭제된 목록을 비교해서 새로운 배열에 담기
   const onFilter = () => {
     const copy = data && [...data];
     const newData = copy.filter(dataItem => {

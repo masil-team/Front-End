@@ -2,7 +2,7 @@ import axios from '../utils/token';
 import { useEffect, useState } from 'react';
 import useTime from './useTime';
 
-export default function usePostList(target) {
+export default function usePostList(target, deleteData) {
   const [data, setData] = useState([]); //API 데이터 저장
   const [newData, setNewData] = useState([]); //시간 포맷팅된 새로운 데이터 저장
   const [pageNum, setPageNum] = useState(0); //페이지 번호
@@ -17,6 +17,11 @@ export default function usePostList(target) {
     setLastPage(res.data.isLast);
     setLoading(false); //로딩 끝
   };
+
+  //게시글 삭제시 삭제된 데이터를 data에 저장
+  useEffect(() => {
+    setData(deleteData);
+  }, [deleteData]);
 
   //옵저버가 타겟을 식별하게 되면 현재 페이지에 +1
   const loadMore = () => setPageNum(prev => prev + 1);
