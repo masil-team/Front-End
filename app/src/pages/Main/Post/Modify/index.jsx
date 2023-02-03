@@ -7,8 +7,11 @@ import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import axios from '../../../../utils/token';
 import { BASE_URL } from '../../../../constants/api';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '../../../../constants/path';
 
-const Index = ({ item, data, setNewData }) => {
+const Index = ({ item, setData, setNewData }) => {
+  const navigate = useNavigate();
   const [modifyPopUp, setModifyPopUp] = useState(); //아이템의 id값이 들어옴
   const modify = useRef();
   const close = usePopupClose(modify);
@@ -30,11 +33,21 @@ const Index = ({ item, data, setNewData }) => {
 
   //기존 목록과 삭제된 목록을 비교해서 새로운 배열에 담기
   const onFilter = () => {
-    const copy = data && [...data];
-    const newData = copy.filter(dataItem => {
+    let getList = sessionStorage.getItem('postList');
+    getList = JSON.parse(getList);
+    const copy = getList && [...getList];
+    const filter = copy.filter(dataItem => {
       return dataItem.id !== item.id;
     });
-    setNewData(newData);
+    setData(filter);
+    setNewData(filter);
+    sessionStorage.setItem('postList', JSON.stringify(filter));
+  };
+
+  //수정 버튼 클릭시 실행 함수
+  const handlePostModify = () => {
+    sessionStorage.setItem('postModify', JSON.stringify(item)); //sessionStorage에 수정할 게시물 값 저장
+    navigate(PATH.CREATE_POST);
   };
 
   return (
@@ -49,7 +62,11 @@ const Index = ({ item, data, setNewData }) => {
       {modifyPopUp == item.id && (
         <div className={styles.modify_box}>
           <ul>
-            <li>
+            <li
+              onClick={() => {
+                handlePostModify();
+              }}
+            >
               <em>수정</em>
             </li>
             <li
@@ -69,6 +86,7 @@ const Index = ({ item, data, setNewData }) => {
 Index.propTypes = {
   item: PropTypes.object,
   data: PropTypes.array,
+  setData: PropTypes.func,
   setNewData: PropTypes.func,
 };
 

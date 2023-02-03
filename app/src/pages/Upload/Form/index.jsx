@@ -28,6 +28,8 @@ const Form = ({ image, setImage, count, setCount }) => {
       const response = await axios.post('http://13.209.94.72:8080/posts', { content: text, boardId: category });
       if (response.status === 201) {
         alert('게시물 업로드 완료');
+        sessionStorage.removeItem('postList');
+        sessionStorage.removeItem('pageNum');
         nav('/');
       }
     } catch (err) {

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from './style.module.css';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,28 +6,26 @@ import { faStreetView, faComment, faBookmark } from '@fortawesome/free-solid-svg
 import { useNavigate } from 'react-router-dom';
 import Modify from './Modify';
 import Like from './Like';
-import usePostList from '../../../hooks/usePostList';
 
-const Index = ({ target, newData, setNewData }) => {
+const Index = ({ data, setData, setNewData }) => {
   const navigate = useNavigate();
-  const data = usePostList(target, newData); //게시글 목록 커스텀 훅
-
-  useEffect(() => {
-    setNewData(data);
-  }, [data]);
+  let getList = sessionStorage.getItem('postList');
+  getList = JSON.parse(getList);
 
   return (
     <div className={styles.post_wrap}>
-      {newData && (
+      {getList && (
         <ul>
-          {newData &&
-            newData.map(item => {
+          {getList &&
+            getList.map(item => {
               return (
                 <li key={item.id}>
                   <div className={styles.post}>
                     <div className={styles.info}>
                       <div className={styles.user_info}>
-                        <div className={styles.user_img}></div>
+                        <div className={styles.user_img}>
+                          <img src={`${process.env.PUBLIC_URL}/images/test/user.jpg`} alt="" />
+                        </div>
                         <div className={styles.user}>
                           <div className={styles.user_name}>
                             <h4>{item.member.nickname}</h4>
@@ -45,7 +43,9 @@ const Index = ({ target, newData, setNewData }) => {
                           </div>
                         </div>
                       </div>
-                      {item.isOwner == true && <Modify item={item} data={data} setNewData={setNewData}></Modify>}
+                      {item.isOwner == true && (
+                        <Modify item={item} data={data} setData={setData} setNewData={setNewData}></Modify>
+                      )}
                     </div>
                     <div
                       className={styles.text_wrap}
@@ -53,7 +53,9 @@ const Index = ({ target, newData, setNewData }) => {
                         navigate(`/post/${item.id}`);
                       }}
                     >
-                      <div className={styles.img}></div>
+                      <div className={styles.img}>
+                        <img src={`${process.env.PUBLIC_URL}/images/test/background.jpg`} alt="" />
+                      </div>
                       <div className={styles.text}>
                         <p>{item.content}</p>
                       </div>
@@ -67,7 +69,7 @@ const Index = ({ target, newData, setNewData }) => {
                         </li>
                         <li>
                           <FontAwesomeIcon icon={faBookmark} className={styles.icon} />
-                          <em>1</em>
+                          <em>0</em>
                         </li>
                       </ul>
                     </div>
@@ -84,12 +86,18 @@ const Index = ({ target, newData, setNewData }) => {
             })}
         </ul>
       )}
+      {getList && getList.length == 0 && (
+        <div className={styles.non_post}>
+          <em>게시글이 없습니다</em>
+        </div>
+      )}
     </div>
   );
 };
 
 Index.propTypes = {
-  target: PropTypes.object,
+  data: PropTypes.array,
+  setData: PropTypes.func,
   newData: PropTypes.array,
   setNewData: PropTypes.func,
 };

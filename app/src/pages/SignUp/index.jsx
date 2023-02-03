@@ -1,11 +1,13 @@
 import React from 'react';
 import styles from './style.module.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Form from './Form';
 import { PATH } from '../../constants/path';
+import sessionReset from '../../utils/sessionReset';
 
 export const SignUp = () => {
   let navigate = useNavigate();
+  const urlAddress = useLocation();
 
   return (
     <div>
@@ -13,6 +15,7 @@ export const SignUp = () => {
         <em
           onClick={() => {
             navigate(PATH.MAIN);
+            sessionReset(urlAddress.pathname);
           }}
         >
           마실
