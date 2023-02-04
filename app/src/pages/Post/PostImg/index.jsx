@@ -26,10 +26,15 @@ const Index = () => {
   return (
     <div className={`${styles.post_img} ${imgClass}`}>
       <ul>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
+        <li>
+          <img src={`${process.env.PUBLIC_URL}/images/test/background.jpg`} alt="" />
+        </li>
+        <li>
+          <img src={`${process.env.PUBLIC_URL}/images/test/post1.jpg`} alt="" />
+        </li>
+        <li>
+          <img src={`${process.env.PUBLIC_URL}/images/test/post2.jpg`} alt="" />
+        </li>
       </ul>
     </div>
   );

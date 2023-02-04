@@ -16,8 +16,6 @@ export const Post = () => {
   const [day, setDay] = useState([]); //게시글 데이터의 날짜 저장
   const time = useTime(day); //커스텀훅 매개변수 배열로 전달 해야함
 
-  console.log(id);
-
   //게시글 단건 조회
   const postHandleData = async () => {
     try {
@@ -71,7 +69,9 @@ export const Post = () => {
             </div>
             <div className={styles.writer}>
               <div className={styles.user_info}>
-                <div className={styles.img}></div>
+                <div className={styles.img}>
+                  <img src={`${process.env.PUBLIC_URL}/images/test/user.jpg`} alt="" />
+                </div>
                 <em>{data.member.nickname}</em>
               </div>
               <PostLike data={data} postHandleData={postHandleData}></PostLike>
