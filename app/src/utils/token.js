@@ -33,8 +33,8 @@ axios.interceptors.response.use(
         let accessToken = getCookie('accessToken'); // 쿠키에 있는 accessToken 토큰을 가지고 오기
         let refreshToken = sessionStorage.getItem('refreshToken'); // 세션스토리지에 있는 refreshToken 토큰을 가지고 오기
         const data = await Axios({
-          url: `http://13.209.94.72:8080/api/auth/refresh`, //refreshToken 토큰 요청하는 API주소
-          method: 'GET',
+          url: `http://13.209.94.72:8080/auth/reissue`, //refreshToken 토큰 요청하는 API주소
+          method: 'POST',
           headers: {
             authorization: accessToken,
             refresh: refreshToken,
