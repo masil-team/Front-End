@@ -7,7 +7,7 @@ import { useState } from 'react';
 import Axios from 'axios';
 import { BASE_URL } from '../../../../constants/api';
 
-const Index = ({ setAddress, setPopUp, setLocation, setPageNum }) => {
+const Index = ({ setAddress, setPopUp, setLocation, setPageNum, setData, setCategory }) => {
   const [searchValue, setSearchVale] = useState('');
   const [searchData, setSearchData] = useState([]);
 
@@ -55,7 +55,9 @@ const Index = ({ setAddress, setPopUp, setLocation, setPageNum }) => {
                   <li
                     key={item.rcode}
                     onClick={() => {
+                      setData([]);
                       setPageNum(0);
+                      setCategory(1);
                       sessionStorage.setItem('pageNum', JSON.stringify(0));
                       setAddress(item);
                       sessionStorage.setItem('addressInfo', JSON.stringify(item));
@@ -84,6 +86,8 @@ Index.propTypes = {
   setPopUp: PropTypes.func,
   setLocation: PropTypes.func,
   setPageNum: PropTypes.func,
+  setData: PropTypes.func,
+  setCategory: PropTypes.func,
 };
 
 export default Index;

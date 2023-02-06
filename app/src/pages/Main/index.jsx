@@ -40,12 +40,12 @@ export const Main = () => {
   //카테고리 변경
   function handleCategory(categoryNum) {
     setCategory(categoryNum);
-    setData([]);
     setPageNum(0);
-    sessionStorage.setItem('pageNum', JSON.stringify(0));
+    setData([]);
     sessionStorage.removeItem('postList');
   }
 
+  //주소 변경시
   useEffect(() => {
     if (pageNum != null && address != null) {
       handleData();
@@ -179,7 +179,13 @@ export const Main = () => {
       <Nav></Nav>
       <section className={styles.section}>
         <div className={styles.container}>
-          <Location setAddress={setAddress} handleData={handleData} setPageNum={setPageNum}></Location>
+          <Location
+            setAddress={setAddress}
+            handleData={handleData}
+            setPageNum={setPageNum}
+            setData={setData}
+            setCategory={setCategory}
+          ></Location>
           <div className={styles.top_nav}>
             <div className={styles.category}>
               <ul>
