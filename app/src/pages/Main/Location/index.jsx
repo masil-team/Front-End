@@ -9,7 +9,7 @@ import { useRef } from 'react';
 import usePopupClose from '../../../hooks/usePopupClose';
 import { useEffect } from 'react';
 
-const Index = ({ setAddress }) => {
+const Index = ({ setAddress, setPageNum }) => {
   const [location, setLocation] = useState(false); //위치 설정 true,false 체크
   const [popUp, setPopUp] = useState(false); //팝업 true,false
   const target = useRef(); //팝업 타겟
@@ -42,7 +42,10 @@ const Index = ({ setAddress }) => {
             </li>
             <li>
               <em>
-                {(getAddressInfo && getAddressInfo.emdName) || getAddressInfo.sggName || getAddressInfo.sidoName} 이웃
+                {(getAddressInfo && getAddressInfo.emdName) ||
+                  (getAddressInfo && getAddressInfo.sggName) ||
+                  (getAddressInfo && getAddressInfo.sidoName)}{' '}
+                이웃
               </em>
             </li>
             <li>
@@ -67,13 +70,22 @@ const Index = ({ setAddress }) => {
           </ul>
         </div>
       )}
-      {popUp === true && <Address setAddress={setAddress} setPopUp={setPopUp} setLocation={setLocation}></Address>}
+      {popUp === true && (
+        <Address
+          setAddress={setAddress}
+          setPopUp={setPopUp}
+          setLocation={setLocation}
+          setPageNum={setPageNum}
+        ></Address>
+      )}
     </div>
   );
 };
 
 Index.propTypes = {
   setAddress: PropTypes.func,
+  handleData: PropTypes.func,
+  setPageNum: PropTypes.func,
 };
 
 export default Index;

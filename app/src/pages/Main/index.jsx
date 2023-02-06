@@ -32,60 +32,47 @@ export const Main = () => {
   const [pageNum, setPageNum] = useState(getPageNum); //페이지 번호
   const [lastPage, setLastPage] = useState(); //마지막 페이지 확인
 
-  //세션에 게시글 주소 설정
-  let getAddress = sessionStorage.getItem('address');
-  getAddress = JSON.parse(getAddress);
-  const [address, setAddress] = useState(getAddress); //게시글 주소 설정
-
-  //세션에 게시글 주서 정보 저장
+  //세션에 게시글 주소 정보 저장
   let getAddressInfo = sessionStorage.getItem('addressInfo');
   getAddressInfo = JSON.parse(getAddressInfo);
-
-  //게시글 주소 변경시
-  useEffect(() => {
-    setPageNum(0);
-    handleData();
-  }, [address]);
+  const [address, setAddress] = useState(getAddressInfo); //게시글 주소 설정
 
   //카테고리 변경
   function handleCategory(categoryNum) {
     setCategory(categoryNum);
     setData([]);
     setPageNum(0);
+    sessionStorage.setItem('pageNum', JSON.stringify(0));
     sessionStorage.removeItem('postList');
   }
 
   useEffect(() => {
-    //주소정보가 null이면 아래값 추가
-    if (getAddressInfo == null) {
-      sessionStorage.setItem(
-        'addressInfo',
-        JSON.stringify({ emdName: '옥인동', sggName: '종로구', sidoName: '서울특별시' }),
-      );
+    if (pageNum != null && address != null) {
+      handleData();
     }
-    if (getAddress == null) {
-      setAddress(11110111);
-    }
-    if (getPageNum == null || getCategory == null) {
-      setCategory(1);
-      setPageNum(0);
-    }
-  }, []);
+  }, [address]);
 
-  useEffect(() => {
-    if (getAddress == null || getAddress == undefined) {
-      sessionStorage.setItem('address', JSON.stringify(11110111));
+  //세션 초기값 세팅
+  function initValue() {
+    if (getAddressInfo == null || getAddressInfo == undefined) {
+      setAddress({ emdName: '옥인동', sggName: '종로구', sidoName: '서울특별시', rcode: 11110111 });
+      sessionStorage.setItem('addressInfo', JSON.stringify(address));
     }
     if (getList == null || getList == undefined) {
       sessionStorage.setItem('postList', JSON.stringify([]));
     }
     if (getCategory == null || getCategory == undefined) {
+      setCategory(1);
       sessionStorage.setItem('category', JSON.stringify(1));
     }
     if (getPageNum == null || getPageNum == undefined) {
+      setPageNum(0);
       sessionStorage.setItem('pageNum', JSON.stringify(0));
     }
+  }
 
+  useEffect(() => {
+    initValue();
     if (getList) {
       getList.push(...newData);
 
@@ -119,12 +106,16 @@ export const Main = () => {
 
   //데이터 호출 함수
   const handleData = async () => {
-    const res = await axios.get(
-      `http://13.209.94.72:8080/boards/${category}/posts?rCode=${address}&page=${pageNum}&size=8`,
-    );
-    setData(prev => [...prev, ...res.data.posts]); //기존의 data값과 새로운 data값을 복제해서 setData에 추가해줌
-    handleTimeFilter(res.data.posts);
-    setLastPage(res.data.isLast);
+    try {
+      const res = await axios.get(
+        `http://13.209.94.72:8080/boards/${category}/posts?rCode=${address.rcode}&page=${pageNum}&size=8`,
+      );
+      setData(prev => [...prev, ...res.data.posts]); //기존의 data값과 새로운 data값을 복제해서 setData에 추가해줌
+      handleTimeFilter(res.data.posts);
+      setLastPage(res.data.isLast);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   //옵저버가 타겟을 식별하게 되면 현재 페이지에 +1
@@ -134,7 +125,9 @@ export const Main = () => {
 
   //페이지 번호가 변경될때마다 데이터 호출 함수 실행
   useEffect(() => {
-    handleData();
+    if (pageNum != null && address != null) {
+      handleData();
+    }
   }, [pageNum, category]);
 
   //옵저버가 타겟을 식별하게 되면 loadMore 함수 실행
@@ -186,7 +179,7 @@ export const Main = () => {
       <Nav></Nav>
       <section className={styles.section}>
         <div className={styles.container}>
-          <Location setAddress={setAddress}></Location>
+          <Location setAddress={setAddress} handleData={handleData} setPageNum={setPageNum}></Location>
           <div className={styles.top_nav}>
             <div className={styles.category}>
               <ul>

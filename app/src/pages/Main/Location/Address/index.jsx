@@ -7,14 +7,13 @@ import { useState } from 'react';
 import Axios from 'axios';
 import { BASE_URL } from '../../../../constants/api';
 
-const Index = ({ setAddress, setPopUp, setLocation }) => {
+const Index = ({ setAddress, setPopUp, setLocation, setPageNum }) => {
   const [searchValue, setSearchVale] = useState('');
   const [searchData, setSearchData] = useState([]);
 
   const onSearch = async () => {
     try {
       const res = await Axios.get(`${BASE_URL}/addresses/search?keyword=${searchValue}`);
-
       setSearchData(res.data);
     } catch (error) {
       console.log(error);
@@ -56,8 +55,9 @@ const Index = ({ setAddress, setPopUp, setLocation }) => {
                   <li
                     key={item.rcode}
                     onClick={() => {
-                      setAddress(item.rcode);
-                      sessionStorage.setItem('address', JSON.stringify(item.rcode));
+                      setPageNum(0);
+                      sessionStorage.setItem('pageNum', JSON.stringify(0));
+                      setAddress(item);
                       sessionStorage.setItem('addressInfo', JSON.stringify(item));
                       setLocation(true);
                       setPopUp(false);
@@ -83,6 +83,7 @@ Index.propTypes = {
   setAddress: PropTypes.func,
   setPopUp: PropTypes.func,
   setLocation: PropTypes.func,
+  setPageNum: PropTypes.func,
 };
 
 export default Index;

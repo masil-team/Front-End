@@ -16,6 +16,8 @@ export const Post = () => {
   const [data, setData] = useState(); //게시글 데이터 저장
   const [day, setDay] = useState([]); //게시글 데이터의 날짜 저장
   const time = useTime(day); //커스텀훅 매개변수 배열로 전달 해야함
+  let getList = sessionStorage.getItem('postList');
+  getList = JSON.parse(getList);
 
   //게시글 단건 조회
   const postHandleData = async () => {
@@ -23,6 +25,22 @@ export const Post = () => {
       const res = await axios.get(`${BASE_URL}/posts/${id}`);
       setData(res.data);
       setDay([res.data]); //날짜 저장
+
+      let targetItem = getList.filter(item => {
+        return item.id == res.data.id;
+      });
+      targetItem[0].isLiked = res.data.isLiked;
+      targetItem[0].likeCount = res.data.likeCount;
+      const newArray = [...getList, ...targetItem];
+      const filteredArr = newArray.reduce((acc, current) => {
+        const x = acc.find(item => item.id === current.id);
+        if (!x) {
+          return acc.concat([current]);
+        } else {
+          return acc;
+        }
+      }, []);
+      sessionStorage.setItem('postList', JSON.stringify(filteredArr));
     } catch (error) {
       console.log(error);
     }
