@@ -8,6 +8,9 @@
   display: flex;
   justify-content: space-between;
 }
+.option {
+  background-color: white;
+}
 .select {
   width: 100px;
   height: 40px;

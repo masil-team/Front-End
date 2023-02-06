@@ -10,6 +10,12 @@ import { useNavigate } from 'react-router-dom';
 const Form = ({ image, setImage, count, setCount }) => {
   const { register, getValues } = useForm();
   const nav = useNavigate();
+  const categories = [
+    { text: '동네소식', val: 1 },
+    { text: '동네질문', val: 2 },
+    { text: '일상', val: 3 },
+    { text: '분실/실종', val: 4 },
+  ];
   const getImages = () => {
     if (count === 10) {
       alert('사진은 최대 10장입니다.');
@@ -43,9 +49,11 @@ const Form = ({ image, setImage, count, setCount }) => {
       <div className={styles.firstsection}>
         <div className={styles.categoryBox}>
           <select {...register('category')} className={styles.select}>
-            <option value="1">카테고리</option>
-            <option value="2">동네</option>
-            <option value="3">주변</option>
+            {categories.map(i => (
+              <option className={styles.option} key={i.val} value={i.val}>
+                {i.text}
+              </option>
+            ))}
           </select>
           <button onClick={uploadData} className={styles.btn}>
             올리기
