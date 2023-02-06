@@ -6,9 +6,27 @@ import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import axios from '../../../utils/token';
 import { useNavigate } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useState } from 'react';
+
+const sliding = {
+  initial: {
+    y: '-100%',
+    opacity: 0,
+  },
+  animate: {
+    y: 0,
+    opacity: 1,
+  },
+  exit: {
+    y: '-100%',
+    opacity: 0,
+  },
+};
 
 const Form = ({ image, setImage, count, setCount }) => {
   const { register, getValues } = useForm();
+  const [show, setShow] = useState(false);
   const nav = useNavigate();
   const categories = [
     { text: '동네소식', val: 1 },
@@ -44,17 +62,32 @@ const Form = ({ image, setImage, count, setCount }) => {
     console.log(category, text, image);
   };
 
+  console.log(show);
   return (
     <>
       <div className={styles.firstsection}>
         <div className={styles.categoryBox}>
-          <select {...register('category')} className={styles.select}>
-            {categories.map(i => (
-              <option className={styles.option} key={i.val} value={i.val}>
-                {i.text}
-              </option>
-            ))}
-          </select>
+          <ul onClick={() => setShow(prev => !prev)} className={styles.ul}>
+            <AnimatePresence>
+              {show && (
+                <motion.div
+                  variants={sliding}
+                  transition={{ duration: 0.3 }}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                >
+                  {categories.map(i => (
+                    <>
+                      <li key={i.val} className={styles.li}>
+                        <button>{i.text}</button>
+                      </li>
+                    </>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </ul>
           <button onClick={uploadData} className={styles.btn}>
             올리기
           </button>
