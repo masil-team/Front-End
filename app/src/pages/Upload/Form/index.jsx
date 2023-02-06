@@ -30,6 +30,7 @@ const Form = ({ image, setImage, count, setCount }) => {
         alert('게시물 업로드 완료');
         sessionStorage.removeItem('postList');
         sessionStorage.removeItem('pageNum');
+        sessionStorage.removeItem('category');
         nav('/');
       }
     } catch (err) {

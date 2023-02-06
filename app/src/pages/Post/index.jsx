@@ -4,11 +4,12 @@ import Nav from '../../components/Nav';
 import PostImg from './PostImg';
 import Comment from './Comment';
 import { useParams } from 'react-router-dom';
-import Axios from 'axios';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import useTime from '../../hooks/useTime';
 import PostLike from './PostLike';
+import { BASE_URL } from '../../constants/api';
+import axios from '../../utils/token';
 
 export const Post = () => {
   const { id } = useParams();
@@ -19,9 +20,9 @@ export const Post = () => {
   //게시글 단건 조회
   const postHandleData = async () => {
     try {
-      const res = await Axios.get(`http://13.209.94.72:8080/posts/${id}`);
+      const res = await axios.get(`${BASE_URL}/posts/${id}`);
       setData(res.data);
-      setDay([res.data.createDate]); //날짜 저장
+      setDay([res.data]); //날짜 저장
     } catch (error) {
       console.log(error);
     }
@@ -31,7 +32,7 @@ export const Post = () => {
   const [commentData, setCommentData] = useState(); //댓글 데이터 저장
   const commentHandleData = async () => {
     try {
-      const res = await Axios.get(`http://13.209.94.72:8080/posts/${id}/comments`);
+      const res = await axios.get(`${BASE_URL}/posts/${id}/comments`);
       setCommentData(res.data);
     } catch (error) {
       console.log(error);
