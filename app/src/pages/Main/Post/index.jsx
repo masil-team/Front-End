@@ -7,17 +7,17 @@ import { useNavigate } from 'react-router-dom';
 import Modify from './Modify';
 import Like from './Like';
 
-const Index = ({ data, setData, setNewData }) => {
+const Index = ({ data, setData, setNewData, postList }) => {
   const navigate = useNavigate();
   let getList = sessionStorage.getItem('postList');
   getList = JSON.parse(getList);
 
   return (
     <div className={styles.post_wrap}>
-      {getList && (
+      {postList && (
         <ul>
-          {getList &&
-            getList.map(item => {
+          {postList &&
+            postList.map(item => {
               return (
                 <li key={item.id}>
                   <div className={styles.post}>
@@ -62,7 +62,7 @@ const Index = ({ data, setData, setNewData }) => {
                     </div>
                     <div className={styles.sns}>
                       <ul>
-                        <Like item={item}></Like>
+                        <Like item={item} setData={setData}></Like>
                         <li>
                           <FontAwesomeIcon icon={faComment} className={styles.icon} />
                           <em>{item.commentCount}</em>
@@ -100,6 +100,7 @@ Index.propTypes = {
   setData: PropTypes.func,
   newData: PropTypes.array,
   setNewData: PropTypes.func,
+  postList: PropTypes.array,
 };
 
 export default Index;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './style.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStreetView, faSortDown } from '@fortawesome/free-solid-svg-icons';
@@ -8,11 +9,20 @@ import { useRef } from 'react';
 import usePopupClose from '../../../hooks/usePopupClose';
 import { useEffect } from 'react';
 
-const Index = () => {
-  const [location] = useState(false); //위치 설정 true,false 체크
+const Index = ({ setAddress, setPageNum, setData, setCategory }) => {
+  const [location, setLocation] = useState(false); //위치 설정 true,false 체크
   const [popUp, setPopUp] = useState(false); //팝업 true,false
   const target = useRef(); //팝업 타겟
   const close = usePopupClose(target); //팝업 커스텀 훅
+
+  let getAddressInfo = sessionStorage.getItem('addressInfo');
+  getAddressInfo = JSON.parse(getAddressInfo);
+
+  useEffect(() => {
+    if (getAddressInfo != null) {
+      setLocation(true);
+    }
+  }, [getAddressInfo]);
 
   useEffect(() => {
     setPopUp(close);
@@ -31,7 +41,12 @@ const Index = () => {
               <FontAwesomeIcon icon={faStreetView} className={styles.icon} />
             </li>
             <li>
-              <em>북구 이웃</em>
+              <em>
+                {(getAddressInfo && getAddressInfo.emdName) ||
+                  (getAddressInfo && getAddressInfo.sggName) ||
+                  (getAddressInfo && getAddressInfo.sidoName)}{' '}
+                이웃
+              </em>
             </li>
             <li>
               <FontAwesomeIcon icon={faSortDown} className={styles.icon} />
@@ -55,9 +70,26 @@ const Index = () => {
           </ul>
         </div>
       )}
-      {popUp === true && <Address setPopUp={setPopUp}></Address>}
+      {popUp === true && (
+        <Address
+          setAddress={setAddress}
+          setPopUp={setPopUp}
+          setLocation={setLocation}
+          setPageNum={setPageNum}
+          setData={setData}
+          setCategory={setCategory}
+        ></Address>
+      )}
     </div>
   );
+};
+
+Index.propTypes = {
+  setAddress: PropTypes.func,
+  handleData: PropTypes.func,
+  setPageNum: PropTypes.func,
+  setData: PropTypes.func,
+  setCategory: PropTypes.func,
 };
 
 export default Index;

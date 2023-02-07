@@ -12,51 +12,71 @@ import { PATH } from '../../constants/path';
 
 export const Main = () => {
   const navigate = useNavigate();
-
   const target = useRef(); //옵저버 타겟
   const [data, setData] = useState([]); //API 데이터 저장
   const [newData, setNewData] = useState([]); //시간 포맷팅된 새로운 데이터 저장
-  const [loading, setLoading] = useState(false); //로딩
 
+  //세션에 게시글 목록 저장
   let getList = sessionStorage.getItem('postList');
   getList = JSON.parse(getList);
+  const [postList, setPostList] = useState(getList);
 
+  //세션에 게시글 카테고리 저장
   let getCategory = sessionStorage.getItem('category');
   getCategory = JSON.parse(getCategory);
   const [category, setCategory] = useState(getCategory);
 
+  //세션에 게시글 페이지 넘버 저장
   let getPageNum = sessionStorage.getItem('pageNum');
   getPageNum = JSON.parse(getPageNum);
   const [pageNum, setPageNum] = useState(getPageNum); //페이지 번호
   const [lastPage, setLastPage] = useState(); //마지막 페이지 확인
 
+  //세션에 게시글 주소 정보 저장
+  let getAddressInfo = sessionStorage.getItem('addressInfo');
+  getAddressInfo = JSON.parse(getAddressInfo);
+  const [address, setAddress] = useState(getAddressInfo); //게시글 주소 설정
+
   //카테고리 변경
   function handleCategory(categoryNum) {
     setCategory(categoryNum);
-    setData([]);
     setPageNum(0);
+    setData([]);
     sessionStorage.removeItem('postList');
   }
 
+  //주소 변경시
   useEffect(() => {
-    if (getPageNum == null || getCategory == null) {
-      setCategory(1);
-      setPageNum(0);
+    if (pageNum != null && address != null) {
+      handleData();
     }
-  }, []);
+  }, [address]);
 
-  useEffect(() => {
+  //세션 초기값 세팅
+  function initValue() {
+    if (getAddressInfo == null || getAddressInfo == undefined) {
+      setAddress({ emdName: '옥인동', sggName: '종로구', sidoName: '서울특별시', rcode: 11110111 });
+      sessionStorage.setItem('addressInfo', JSON.stringify(address));
+    }
     if (getList == null || getList == undefined) {
       sessionStorage.setItem('postList', JSON.stringify([]));
     }
-    if (getCategory == null || getList == undefined) {
+    if (getCategory == null || getCategory == undefined) {
+      setCategory(1);
       sessionStorage.setItem('category', JSON.stringify(1));
     }
-    if (getPageNum == null || getList == undefined) {
+    if (getPageNum == null || getPageNum == undefined) {
+      setPageNum(0);
       sessionStorage.setItem('pageNum', JSON.stringify(0));
     }
+  }
+
+  useEffect(() => {
+    initValue();
     if (getList) {
       getList.push(...newData);
+
+      //중복값 필터
       const filteredArr = getList.reduce((acc, current) => {
         const x = acc.find(item => item.id === current.id);
         if (!x) {
@@ -65,8 +85,18 @@ export const Main = () => {
           return acc;
         }
       }, []);
-      sessionStorage.setItem('postList', JSON.stringify(filteredArr));
+
+      //세션에 있는 주소 정보와 filteredArr의 주소를 비교해서 해당하는 주소만 필터함
+      const newArray = filteredArr.filter(item => {
+        return (
+          item.address == getAddressInfo.emdName ||
+          item.address == getAddressInfo.sggName ||
+          item.address == getAddressInfo.sidoName
+        );
+      });
+      sessionStorage.setItem('postList', JSON.stringify(newArray));
       sessionStorage.setItem('category', JSON.stringify(category));
+      setPostList(newArray);
       if (lastPage == true) {
         return;
       }
@@ -76,14 +106,16 @@ export const Main = () => {
 
   //데이터 호출 함수
   const handleData = async () => {
-    setLoading(true); //로딩 시작 /boards/1/posts?rCode=11680&page=0&size=8
-    const res = await axios.get(
-      `http://13.209.94.72:8080/boards/${category}/posts?rCode=11110111&page=${pageNum}&size=8`,
-    );
-    setData(prev => [...prev, ...res.data.posts]); //기존의 data값과 새로운 data값을 복제해서 setData에 추가해줌
-    handleTimeFilter(res.data.posts); //시간 포맷팅 함수
-    setLastPage(res.data.isLast);
-    setLoading(false); //로딩 끝
+    try {
+      const res = await axios.get(
+        `http://13.209.94.72:8080/boards/${category}/posts?rCode=${address.rcode}&page=${pageNum}&size=8`,
+      );
+      setData(prev => [...prev, ...res.data.posts]); //기존의 data값과 새로운 data값을 복제해서 setData에 추가해줌
+      handleTimeFilter(res.data.posts);
+      setLastPage(res.data.isLast);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   //옵저버가 타겟을 식별하게 되면 현재 페이지에 +1
@@ -93,7 +125,9 @@ export const Main = () => {
 
   //페이지 번호가 변경될때마다 데이터 호출 함수 실행
   useEffect(() => {
-    handleData();
+    if (pageNum != null && address != null) {
+      handleData();
+    }
   }, [pageNum, category]);
 
   //옵저버가 타겟을 식별하게 되면 loadMore 함수 실행
@@ -118,35 +152,40 @@ export const Main = () => {
   const time = useTime(day); //커스텀훅 매개변수 배열로 전달 해야함
 
   const handleTimeFilter = data => {
-    const newData = [...data]; //데이터 값 복사
-
-    /* 복사한 데이터 map으로 시간 값만 추출 */
-    const timeData = newData.map(item => {
-      return item.createDate;
-    });
-    setDay([...day, ...timeData]); //기존의 state값과 시간 추출 값을 spread로 배열합치기
+    setDay([...day, ...data]);
   };
 
   /* time이 변경될때 마다 실행  */
   useEffect(() => {
-    const newData = data && [...data]; //기존 데이터 복사
-    /* 복사한 데이터의 시간 값을 포맷팅된 시간 값의로 변경후 배열로 저장 */
-    const newTime =
-      newData &&
-      newData.map((item, index) => {
-        item.newTime = time && time[index];
-        return item;
-      });
-    setData(newTime);
-    setNewData(newTime);
-  }, [time, loading]);
+    const dataCopy = [...data];
+
+    const filteredArr = dataCopy.reduce((acc, current) => {
+      const x = acc.find(item => item.id === current.id);
+      if (!x) {
+        return acc.concat([current]);
+      } else {
+        return acc;
+      }
+    }, []);
+    const newArray = filteredArr.filter((item, index) => {
+      const newItem = (item.newTime = time[index]);
+      return newItem;
+    });
+    setNewData(newArray);
+  }, [time]);
 
   return (
     <>
       <Nav></Nav>
       <section className={styles.section}>
         <div className={styles.container}>
-          <Location></Location>
+          <Location
+            setAddress={setAddress}
+            handleData={handleData}
+            setPageNum={setPageNum}
+            setData={setData}
+            setCategory={setCategory}
+          ></Location>
           <div className={styles.top_nav}>
             <div className={styles.category}>
               <ul>
@@ -199,7 +238,7 @@ export const Main = () => {
               </button>
             </div>
           </div>
-          <Post data={data} setData={setData} newData={newData} setNewData={setNewData}></Post>
+          <Post data={data} setData={setData} newData={newData} setNewData={setNewData} postList={postList}></Post>
           <button ref={target} className={`${styles.target_btn} ir_pm`}>
             Load More
           </button>

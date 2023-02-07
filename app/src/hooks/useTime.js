@@ -9,7 +9,7 @@ export default function useTime(targetTime) {
       value &&
       value.map(item => {
         const today = new Date();
-        const timeValue = new Date(item);
+        const timeValue = new Date(item.createDate);
         const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
         if (betweenTime < 1) return '방금전';
         if (betweenTime < 60) {

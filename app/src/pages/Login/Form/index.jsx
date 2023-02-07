@@ -25,8 +25,8 @@ const Form = () => {
     try {
       const response = await axios.post(`http://13.209.94.72:8080/auth/login`, loginRequest);
       if (response) {
-        sessionStorage.setItem('refreshToken', response.data.accessToken);
-        setCookie('accessToken', response.data.refreshToken);
+        sessionStorage.setItem('accessToken', response.data.accessToken);
+        setCookie('refreshToken', response.data.refreshToken);
         nav('/');
       }
     } catch (err) {

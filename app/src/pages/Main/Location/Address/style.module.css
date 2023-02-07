@@ -1,6 +1,5 @@
 .address_wrap{width: 640px;min-height: 300px; max-height: 500px; border-radius: 10px; overflow-y: auto; display: flex; flex-direction: column; padding: 20px; box-sizing: border-box; position: fixed; top: 90px; left: 50%; z-index: 9999; transform: translateX(-50%); background: #fff; box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;}
 
-
 .form{}
 .form .address_search{display: flex;align-items: center;}
 .form .address_search input{width: 570px;height: 30px; border: none; background: #eff2f4; border-radius: 20px; padding: 0 15px; box-sizing: border-box;}
@@ -14,6 +13,8 @@
 .address ul li em{font-size: 16px;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-orient: vertical;}
 
 
+.non_search{text-align: center;}
+.non_search em{}
 @media (max-width : 700px) {
     .address_wrap{width: 500px;}
 }
