@@ -47,7 +47,7 @@ const Index = ({ item, setData, setNewData }) => {
   //수정 버튼 클릭시 실행 함수
   const handlePostModify = () => {
     sessionStorage.setItem('postModify', JSON.stringify(item)); //sessionStorage에 수정할 게시물 값 저장
-    navigate(PATH.CREATE_POST);
+    navigate(PATH.EDIT_POST);
   };
 
   return (
