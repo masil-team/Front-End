@@ -113,7 +113,7 @@ export const Post = () => {
               </ul>
             </div>
             <span className={styles.line}></span>
-            <Comment commentData={commentData}></Comment>
+            <Comment commentData={commentData} id={id} commentHandleData={commentHandleData}></Comment>
           </div>
         </section>
       )}

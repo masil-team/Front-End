@@ -4,17 +4,42 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
+import { BASE_URL } from '../../../constants/api';
+import axios from '../../../utils/token';
 
-const Index = ({ commentData }) => {
+const Index = ({ commentData, id, commentHandleData }) => {
   const [twoComment, setTwoComment] = useState(); //대댓글이 몇번째 댓글에 달려야 하는지 위치 지정
-  console.log(commentData);
+  const [commentValue, setCommentValue] = useState(); //input 입력값 저장
+  console.log('댓글 조회', commentData);
+
+  const handleComment = async () => {
+    try {
+      const res = await axios.post(`${BASE_URL}/posts/${id}/comments`, { content: commentValue });
+      console.log('댓글 입력 성공', res);
+      commentHandleData();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className={styles.comment_wrap}>
-      <form className={styles.my_form}>
+      <form
+        className={styles.my_form}
+        onSubmit={e => {
+          e.preventDefault();
+          handleComment();
+        }}
+      >
         <div className={styles.comment_input}>
           <div className={styles.user_img}></div>
-          <input type="text" placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)" />
+          <input
+            type="text"
+            placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)"
+            onChange={e => {
+              setCommentValue(e.target.value);
+            }}
+          />
           <button className={styles.btn}>입력</button>
         </div>
       </form>
@@ -148,6 +173,8 @@ const Index = ({ commentData }) => {
 
 Index.propTypes = {
   commentData: PropTypes.array,
+  id: PropTypes.num,
+  commentHandleData: PropTypes.func,
 };
 
 export default Index;
