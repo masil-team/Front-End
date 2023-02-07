@@ -4,8 +4,8 @@ import styles from './style.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
-import Axios from 'axios';
 import { BASE_URL } from '../../../../constants/api';
+import axios from '../../../../utils/token';
 
 const Index = ({ setAddress, setPopUp, setLocation, setPageNum, setData, setCategory }) => {
   const [searchValue, setSearchVale] = useState('');
@@ -13,7 +13,7 @@ const Index = ({ setAddress, setPopUp, setLocation, setPageNum, setData, setCate
 
   const onSearch = async () => {
     try {
-      const res = await Axios.get(`${BASE_URL}/addresses/search?keyword=${searchValue}`);
+      const res = await axios.get(`${BASE_URL}/addresses/search?keyword=${searchValue}`);
       setSearchData(res.data);
     } catch (error) {
       console.log(error);
