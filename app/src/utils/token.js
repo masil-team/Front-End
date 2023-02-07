@@ -7,9 +7,9 @@ const axios = Axios.create({
 
 axios.interceptors.request.use(
   function (config) {
-    const accessToken = getCookie('accessToken'); // 쿠키에 있는 accessToken 토큰을 가지고 오기
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
+    const refreshToken = getCookie('refreshToken'); // 쿠키에 있는 refreshToken 토큰을 가지고 오기
+    if (refreshToken) {
+      config.headers.Authorization = `Bearer ${refreshToken}`;
     }
     return config;
   },
@@ -17,7 +17,6 @@ axios.interceptors.request.use(
     return Promise.reject(error);
   },
 );
-
 //AccessToken이 만료됐을때 처리
 axios.interceptors.response.use(
   function (response) {
@@ -30,25 +29,25 @@ axios.interceptors.response.use(
         if (err.response.data.message === 'accessToken이 지급되지 않았습니다') {
           throw Error('새로고침 필요');
         }
-        let accessToken = getCookie('accessToken'); // 쿠키에 있는 accessToken 토큰을 가지고 오기
-        let refreshToken = sessionStorage.getItem('refreshToken'); // 세션스토리지에 있는 refreshToken 토큰을 가지고 오기
+        let refreshToken = getCookie('refreshToken'); // 쿠키에 있는 refreshToken 토큰을 가지고 오기
+        let accessToken = sessionStorage.getItem('accessToken'); // 세션스토리지에 있는 accessToken 토큰을 가지고 오기
         const data = await Axios({
-          url: `http://13.209.94.72:8080/api/auth/refresh`, //refreshToken 토큰 요청하는 API주소
-          method: 'GET',
+          url: `http://13.209.94.72:8080/auth/reissue`, //refreshToken 토큰 요청하는 API주소
+          method: 'POST',
           headers: {
             authorization: accessToken,
             refresh: refreshToken,
           },
         });
         if (data) {
-          getCookie('accessToken', JSON.stringify(data.data.data.accessToken));
+          getCookie('refreshToken', JSON.stringify(data.data.data.refreshToken));
           return await axios.request(originalConfig);
         }
       } catch (err) {
         console.log('토큰 갱신 에러', err);
         localStorage.clear();
         sessionStorage.clear();
-        removeCookie('accessToken');
+        removeCookie('refreshToken');
         window.location.reload();
       }
       return Promise.reject(err);
