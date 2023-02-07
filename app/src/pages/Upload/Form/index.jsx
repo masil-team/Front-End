@@ -123,7 +123,7 @@ const Form = ({ image, setImage, count, setCount }) => {
                   animate="animate"
                   exit="exit"
                 >
-                  {categories.map(i => (
+                  {categories.slice(1, 5).map(i => (
                     <div key={i.val}>
                       <li key={i.val} className={styles.li}>
                         <button key={i.text} onClick={() => setCategory(i)}>
