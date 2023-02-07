@@ -109,7 +109,9 @@ const Form = ({ image, setImage, count, setCount }) => {
                   {categories.map(i => (
                     <>
                       <li key={i.val} className={styles.li}>
-                        <button onClick={() => setCategory(i)}>{i.text}</button>
+                        <button key={i.text} onClick={() => setCategory(i)}>
+                          {i.text}
+                        </button>
                       </li>
                     </>
                   ))}
