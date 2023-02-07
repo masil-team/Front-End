@@ -16,8 +16,7 @@ const Index = ({ commentData, id, commentHandleData }) => {
   //댓글 입력
   const handleComment = async () => {
     try {
-      const res = await axios.post(`${BASE_URL}/posts/${id}/comments`, { content: commentValue });
-      console.log('댓글 입력 성공', res);
+      await axios.post(`${BASE_URL}/posts/${id}/comments`, { content: commentValue });
       setCommentValue('');
       commentHandleData();
     } catch (error) {
@@ -27,8 +26,7 @@ const Index = ({ commentData, id, commentHandleData }) => {
 
   const handleComment2 = async commentId => {
     try {
-      const res = await axios.post(`${BASE_URL}/posts/${id}/reply/${commentId}`, { content: commentValue2 });
-      console.log('대댓글 입력 성공', res);
+      await axios.post(`${BASE_URL}/posts/${id}/reply/${commentId}`, { content: commentValue2 });
       setCommentValue2('');
       commentHandleData();
       setTwoComment(-1);
