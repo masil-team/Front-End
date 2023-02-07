@@ -24,7 +24,8 @@ axios.interceptors.response.use(
   },
   async function (err) {
     const originalConfig = err.config;
-    if (err.response.status === 401) {
+    console.log(err);
+    if (err.response.status === 400) {
       try {
         if (err.response.data.message === 'accessToken이 지급되지 않았습니다') {
           throw Error('새로고침 필요');

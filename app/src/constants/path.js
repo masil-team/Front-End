@@ -8,4 +8,5 @@ export const PATH = {
   SIGNUP: '/signup',
   POST: '/post/:id',
   CREATE_POST: '/createPost',
+  EDIT_POST: '/edit',
 };
