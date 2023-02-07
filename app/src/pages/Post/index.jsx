@@ -10,6 +10,7 @@ import useTime from '../../hooks/useTime';
 import PostLike from './PostLike';
 import { BASE_URL } from '../../constants/api';
 import axios from '../../utils/token';
+import filterArray from '../../utils/arrayFilter';
 
 export const Post = () => {
   const { id } = useParams();
@@ -32,14 +33,7 @@ export const Post = () => {
       targetItem[0].isLiked = res.data.isLiked;
       targetItem[0].likeCount = res.data.likeCount;
       const newArray = [...getList, ...targetItem];
-      const filteredArr = newArray.reduce((acc, current) => {
-        const x = acc.find(item => item.id === current.id);
-        if (!x) {
-          return acc.concat([current]);
-        } else {
-          return acc;
-        }
-      }, []);
+      const filteredArr = filterArray(newArray);
       sessionStorage.setItem('postList', JSON.stringify(filteredArr));
     } catch (error) {
       console.log(error);
@@ -50,12 +44,34 @@ export const Post = () => {
   const [commentData, setCommentData] = useState(); //댓글 데이터 저장
   const commentHandleData = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/posts/${id}/comments`);
+      const res = await axios.get(`${BASE_URL}/posts/${id}/comments?page=${0}`);
       setCommentData(res.data);
+      handleTimeFilter(res.data);
     } catch (error) {
       console.log(error);
     }
   };
+
+  // 댓글 날짜 포맷팅
+  const [day2, setDay2] = useState([]); //데이터의 날짜 저장
+  const time2 = useTime(day2); //커스텀훅 매개변수 배열로 전달 해야함
+
+  const handleTimeFilter = data => {
+    setDay2([...day2, ...data]);
+  };
+
+  /* time이 변경될때 마다 실행  */
+  useEffect(() => {
+    if (commentData) {
+      const dataCopy = [...commentData];
+      const filteredArr = filterArray(dataCopy);
+      const newArray = filteredArr.filter((item, index) => {
+        const newItem = (item.newTime = time2[index]);
+        return newItem;
+      });
+      setCommentData(newArray);
+    }
+  }, [time2]);
 
   useEffect(() => {
     postHandleData();
