@@ -26,6 +26,7 @@ function App() {
         <Route path={PATH.LOGIN} element={<Login />}></Route>
         <Route path={PATH.POST} element={<Post></Post>}></Route>
         <Route path={PATH.CREATE_POST} element={<CreatePost />}></Route>
+        <Route path={PATH.EDIT_POST} element={<CreatePost />}></Route>
       </Routes>
     </div>
   );

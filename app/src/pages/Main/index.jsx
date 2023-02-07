@@ -154,7 +154,10 @@ export const Main = () => {
   const handleTimeFilter = data => {
     setDay([...day, ...data]);
   };
-
+  const goCreatePost = () => {
+    sessionStorage.removeItem('postModify');
+    navigate(PATH.CREATE_POST);
+  };
   /* time이 변경될때 마다 실행  */
   useEffect(() => {
     const dataCopy = [...data];
@@ -231,7 +234,7 @@ export const Main = () => {
                 </li>
               </ul>
             </div>
-            <div className={styles.writing} onClick={() => navigate(PATH.CREATE_POST)}>
+            <div className={styles.writing} onClick={goCreatePost}>
               <button className={styles.btn}>
                 <FontAwesomeIcon icon={faPlus} className={styles.icon} />
                 <em>글쓰기</em>
