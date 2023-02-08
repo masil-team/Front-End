@@ -27,6 +27,7 @@
 .comment_info > ul > li em{}
 .comment_info > ul > li .icon{margin-right: 5px;}
 .comment_info > ul > li:nth-child(1){cursor: auto;}
+.comment_info > ul > li.active .icon{color: #eb2e3d;}
 
 /* 대댓글 */
 .two_depth_comment{margin: 10px 0 0 40px; }

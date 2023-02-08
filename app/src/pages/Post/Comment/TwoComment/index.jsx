@@ -1,60 +1,92 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from '../style.module.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import useTime from '../../../../hooks/useTime';
+import axios from '../../../../utils/token';
+import { BASE_URL } from '../../../../constants/api';
+import CommentUI from './commentUi';
 
-const Index = ({ item2 }) => {
-  // 댓글 날짜 포맷팅
-  const [day] = useState([item2]); //데이터의 날짜 저장
-  const time = useTime(day); //커스텀훅 매개변수 배열로 전달 해야함
+const Index = ({
+  item,
+  commentHandleData,
+  id,
+  tabTwoComment,
+  setTabTwoComment,
+  handleCommentRemove,
+  handleCommentLike,
+}) => {
+  const [commentValue2, setCommentValue2] = useState(); //대댓글 input 입력값 저장
+  const [commentPut, setCommentPut] = useState(0); //댓글 생성,댓글 수정 확인
+  const [commentPutTarget, setCommentPutTarget] = useState(); //댓글 수정 ID 담기
+
+  //대댓글 입력
+  const handleComment2 = async commentId => {
+    try {
+      if (commentPut == 0) {
+        await axios.post(`${BASE_URL}/posts/${id}/reply/${commentId}`, { content: commentValue2 });
+      } else {
+        await axios.patch(`${BASE_URL}/posts/${id}/comments/${commentPutTarget}`, { content: commentValue2 });
+        setCommentPut(0);
+      }
+      setCommentValue2('');
+      commentHandleData();
+      setTabTwoComment(-1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
-    <li>
-      <div className={styles.two_depth_comment}>
-        <div className={styles.two_depth_comment_wrap}>
-          <div className={styles.user_img}></div>
-          <div className={styles.comment}>
-            <h4>{item2.member.nickname}</h4>
-            <p>{item2.content}</p>
-            <div className={styles.comment_info}>
-              <ul>
-                <li>
-                  <em>{time}</em>
-                </li>
-                {item2.owner == false && (
-                  <li>
-                    <FontAwesomeIcon icon={faHeart} className={styles.icon} />
-                    <em>좋아요</em>
-                  </li>
-                )}
-                {item2.owner == false && (
-                  <li>
-                    <em>신고</em>
-                  </li>
-                )}
-                {item2.owner == true && (
-                  <li>
-                    <em>수정</em>
-                  </li>
-                )}
-                {item2.owner == true && (
-                  <li>
-                    <em>삭제</em>
-                  </li>
-                )}
-              </ul>
-            </div>
+    <div className={styles.two_comment}>
+      <ul>
+        {item.replies.map(target => {
+          return (
+            <CommentUI
+              key={target.id}
+              item={item}
+              target={target}
+              handleCommentRemove={handleCommentRemove}
+              setCommentPut={setCommentPut}
+              setCommentPutTarget={setCommentPutTarget}
+              setTabTwoComment={setTabTwoComment}
+              setCommentValue2={setCommentValue2}
+              handleCommentLike={handleCommentLike}
+            ></CommentUI>
+          );
+        })}
+      </ul>
+      {tabTwoComment == item.id && (
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+            handleComment2(item.id);
+          }}
+        >
+          <div className={styles.comment_input}>
+            <div className={styles.user_img}></div>
+            <input
+              type="text"
+              placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)"
+              value={commentValue2 || ''}
+              onChange={e => {
+                setCommentValue2(e.target.value);
+              }}
+            />
+            <button className={styles.btn}>입력</button>
           </div>
-        </div>
-      </div>
-    </li>
+        </form>
+      )}
+    </div>
   );
 };
 
 Index.propTypes = {
-  item2: PropTypes.object,
+  item: PropTypes.object,
+  commentHandleData: PropTypes.func,
+  id: PropTypes.string,
+  tabTwoComment: PropTypes.number,
+  setTabTwoComment: PropTypes.func,
+  handleCommentRemove: PropTypes.func,
+  handleCommentLike: PropTypes.func,
 };
 
 export default Index;
