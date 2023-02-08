@@ -23,13 +23,27 @@ const Index = ({ item2 }) => {
                 <li>
                   <em>{time}</em>
                 </li>
-                <li>
-                  <FontAwesomeIcon icon={faHeart} className={styles.icon} />
-                  <em>좋아요</em>
-                </li>
-                <li>
-                  <em>신고</em>
-                </li>
+                {item2.owner == false && (
+                  <li>
+                    <FontAwesomeIcon icon={faHeart} className={styles.icon} />
+                    <em>좋아요</em>
+                  </li>
+                )}
+                {item2.owner == false && (
+                  <li>
+                    <em>신고</em>
+                  </li>
+                )}
+                {item2.owner == true && (
+                  <li>
+                    <em>수정</em>
+                  </li>
+                )}
+                {item2.owner == true && (
+                  <li>
+                    <em>삭제</em>
+                  </li>
+                )}
               </ul>
             </div>
           </div>
