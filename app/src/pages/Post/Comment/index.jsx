@@ -9,28 +9,23 @@ import axios from '../../../utils/token';
 import TwoComment from './TwoComment';
 
 const Index = ({ commentData, id, commentHandleData }) => {
-  const [twoComment, setTwoComment] = useState(); //대댓글이 몇번째 댓글에 달려야 하는지 위치 지정
+  const [tabTwoComment, setTabTwoComment] = useState(); //대댓글이 몇번째 댓글에 달려야 하는지 위치 지정
   const [commentValue, setCommentValue] = useState(); //input 입력값 저장
-  const [commentValue2, setCommentValue2] = useState(); //대댓글 input 입력값 저장
+  const [commentPut, setCommentPut] = useState(0); //댓글 생성,댓글 수정 확인
+  const [commentPutTarget, setCommentPutTarget] = useState(); //댓글 수정 ID 담기
 
   //댓글 입력
   const handleComment = async () => {
     try {
-      await axios.post(`${BASE_URL}/posts/${id}/comments`, { content: commentValue });
+      if (commentPut == 0) {
+        await axios.post(`${BASE_URL}/posts/${id}/comments`, { content: commentValue });
+      } else {
+        await axios.patch(`${BASE_URL}/posts/${id}/comments/${commentPutTarget}`, { content: commentValue });
+        setCommentPut(0);
+      }
+
       setCommentValue('');
       commentHandleData();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  //대댓글 입력
-  const handleComment2 = async commentId => {
-    try {
-      await axios.post(`${BASE_URL}/posts/${id}/reply/${commentId}`, { content: commentValue2 });
-      setCommentValue2('');
-      commentHandleData();
-      setTwoComment(-1);
     } catch (error) {
       console.log(error);
     }
@@ -40,6 +35,16 @@ const Index = ({ commentData, id, commentHandleData }) => {
   const handleCommentRemove = async commentId => {
     try {
       await axios.delete(`${BASE_URL}/posts/${id}/comments/${commentId}`);
+      commentHandleData();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //댓글 좋아요
+  const handleCommentLike = async commentId => {
+    try {
+      await axios.put(`${BASE_URL}/comments/${commentId}/addLike`);
       commentHandleData();
     } catch (error) {
       console.log(error);
@@ -86,14 +91,19 @@ const Index = ({ commentData, id, commentHandleData }) => {
                           </li>
                           <li
                             onClick={() => {
-                              setTwoComment(item.id);
+                              setTabTwoComment(item.id);
                               setCommentValue('');
                             }}
                           >
                             <em>답글 달기</em>
                           </li>
                           {item.owner == false && (
-                            <li>
+                            <li
+                              onClick={() => {
+                                handleCommentLike(item.id);
+                              }}
+                              className={`${item.liked == true && styles.active}`}
+                            >
                               <FontAwesomeIcon icon={faHeart} className={styles.icon} />
                               <em>좋아요</em>
                             </li>
@@ -106,7 +116,9 @@ const Index = ({ commentData, id, commentHandleData }) => {
                           {item.owner == true && (
                             <li
                               onClick={() => {
-                                setTwoComment(item.id);
+                                setCommentPut(1);
+                                setCommentValue(item.content);
+                                setCommentPutTarget(item.id);
                               }}
                             >
                               <em>수정</em>
@@ -125,33 +137,15 @@ const Index = ({ commentData, id, commentHandleData }) => {
                       </div>
                     </div>
                   </div>
-                  <div className={styles.two_comment}>
-                    <ul>
-                      {item.replies.map(item2 => {
-                        return <TwoComment key={item2.id} item2={item2}></TwoComment>;
-                      })}
-                    </ul>
-                    {twoComment == item.id && (
-                      <form
-                        onSubmit={e => {
-                          e.preventDefault();
-                          handleComment2(item.id);
-                        }}
-                      >
-                        <div className={styles.comment_input}>
-                          <div className={styles.user_img}></div>
-                          <input
-                            type="text"
-                            placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)"
-                            onChange={e => {
-                              setCommentValue2(e.target.value);
-                            }}
-                          />
-                          <button className={styles.btn}>입력</button>
-                        </div>
-                      </form>
-                    )}
-                  </div>
+                  <TwoComment
+                    item={item}
+                    commentHandleData={commentHandleData}
+                    id={id}
+                    tabTwoComment={tabTwoComment}
+                    setTabTwoComment={setTabTwoComment}
+                    handleCommentRemove={handleCommentRemove}
+                    handleCommentLike={handleCommentLike}
+                  ></TwoComment>
                 </li>
               );
             })}
