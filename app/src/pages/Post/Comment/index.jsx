@@ -24,12 +24,23 @@ const Index = ({ commentData, id, commentHandleData }) => {
     }
   };
 
+  //대댓글 입력
   const handleComment2 = async commentId => {
     try {
       await axios.post(`${BASE_URL}/posts/${id}/reply/${commentId}`, { content: commentValue2 });
       setCommentValue2('');
       commentHandleData();
       setTwoComment(-1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //댓글 삭제
+  const handleCommentRemove = async commentId => {
+    try {
+      await axios.delete(`${BASE_URL}/posts/${id}/comments/${commentId}`);
+      commentHandleData();
     } catch (error) {
       console.log(error);
     }
@@ -73,10 +84,6 @@ const Index = ({ commentData, id, commentHandleData }) => {
                           <li>
                             <em>{item.newTime}</em>
                           </li>
-                          <li>
-                            <FontAwesomeIcon icon={faHeart} className={styles.icon} />
-                            <em>좋아요</em>
-                          </li>
                           <li
                             onClick={() => {
                               setTwoComment(item.id);
@@ -85,9 +92,35 @@ const Index = ({ commentData, id, commentHandleData }) => {
                           >
                             <em>답글 달기</em>
                           </li>
-                          <li>
-                            <em>신고</em>
-                          </li>
+                          {item.owner == false && (
+                            <li>
+                              <FontAwesomeIcon icon={faHeart} className={styles.icon} />
+                              <em>좋아요</em>
+                            </li>
+                          )}
+                          {item.owner == false && (
+                            <li>
+                              <em>신고</em>
+                            </li>
+                          )}
+                          {item.owner == true && (
+                            <li
+                              onClick={() => {
+                                setTwoComment(item.id);
+                              }}
+                            >
+                              <em>수정</em>
+                            </li>
+                          )}
+                          {item.owner == true && (
+                            <li
+                              onClick={() => {
+                                handleCommentRemove(item.id);
+                              }}
+                            >
+                              <em>삭제</em>
+                            </li>
+                          )}
                         </ul>
                       </div>
                     </div>

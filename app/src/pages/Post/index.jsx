@@ -45,6 +45,7 @@ export const Post = () => {
   const commentHandleData = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/posts/${id}/comments?page=${0}`);
+      console.log(res);
       setCommentData(res.data);
       handleTimeFilter(res.data);
     } catch (error) {
