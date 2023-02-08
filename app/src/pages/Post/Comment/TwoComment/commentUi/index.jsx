@@ -11,7 +11,7 @@ const Index = ({
   handleCommentRemove,
   setCommentPutTarget,
   setTabTwoComment,
-  setCommentPut,
+  setCommentPut2,
   setCommentValue2,
   handleCommentLike,
 }) => {
@@ -53,7 +53,7 @@ const Index = ({
                     onClick={() => {
                       setCommentPutTarget(target.id);
                       setTabTwoComment(item.id);
-                      setCommentPut(1);
+                      setCommentPut2(1);
                       setCommentValue2(target.content);
                     }}
                   >
@@ -84,7 +84,7 @@ Index.propTypes = {
   handleCommentRemove: PropTypes.func,
   setCommentPutTarget: PropTypes.func,
   setTabTwoComment: PropTypes.func,
-  setCommentPut: PropTypes.func,
+  setCommentPut2: PropTypes.func,
   setCommentValue2: PropTypes.func,
   handleCommentLike: PropTypes.func,
 };

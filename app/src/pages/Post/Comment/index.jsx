@@ -13,6 +13,8 @@ const Index = ({ commentData, id, commentHandleData }) => {
   const [commentValue, setCommentValue] = useState(); //input 입력값 저장
   const [commentPut, setCommentPut] = useState(0); //댓글 생성,댓글 수정 확인
   const [commentPutTarget, setCommentPutTarget] = useState(); //댓글 수정 ID 담기
+  const [commentValue2, setCommentValue2] = useState(); //대댓글 input 입력값 저장
+  const [commentPut2, setCommentPut2] = useState(0); //대댓글 생성,댓글 수정 확인
 
   //댓글 입력
   const handleComment = async () => {
@@ -61,16 +63,30 @@ const Index = ({ commentData, id, commentHandleData }) => {
         }}
       >
         <div className={styles.comment_input}>
-          <div className={styles.user_img}></div>
-          <input
-            type="text"
-            placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)"
-            value={commentValue || ''}
-            onChange={e => {
-              setCommentValue(e.target.value);
-            }}
-          />
-          <button className={styles.btn}>입력</button>
+          <div className={styles.input_box}>
+            <div className={styles.user_img}></div>
+            <input
+              type="text"
+              placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)"
+              value={commentValue || ''}
+              onChange={e => {
+                setCommentValue(e.target.value);
+              }}
+            />
+            <button className={styles.btn}>입력</button>
+          </div>
+          {commentPut == 1 && (
+            <div className={styles.cancel}>
+              <em
+                onClick={() => {
+                  setCommentPut(0);
+                  setCommentValue('');
+                }}
+              >
+                수정 취소
+              </em>
+            </div>
+          )}
         </div>
       </form>
       <div className={styles.comment_list}>
@@ -93,6 +109,8 @@ const Index = ({ commentData, id, commentHandleData }) => {
                             onClick={() => {
                               setTabTwoComment(item.id);
                               setCommentValue('');
+                              setCommentValue2('');
+                              setCommentPut2(0);
                             }}
                           >
                             <em>답글 달기</em>
@@ -119,6 +137,7 @@ const Index = ({ commentData, id, commentHandleData }) => {
                                 setCommentPut(1);
                                 setCommentValue(item.content);
                                 setCommentPutTarget(item.id);
+                                setTabTwoComment(-1);
                               }}
                             >
                               <em>수정</em>
@@ -145,6 +164,10 @@ const Index = ({ commentData, id, commentHandleData }) => {
                     setTabTwoComment={setTabTwoComment}
                     handleCommentRemove={handleCommentRemove}
                     handleCommentLike={handleCommentLike}
+                    commentValue2={commentValue2}
+                    setCommentValue2={setCommentValue2}
+                    commentPut2={commentPut2}
+                    setCommentPut2={setCommentPut2}
                   ></TwoComment>
                 </li>
               );
