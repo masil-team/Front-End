@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import { getCookie, removeCookie } from './cookie';
-
+import { PATH } from '../constants/path';
 const axios = Axios.create({
   baseURL: 'http://13.209.94.72:8080', //API기본 주소
 });
@@ -43,13 +43,8 @@ axios.interceptors.response.use(
           },
           withCredentials: true,
         });
-        console.log(JSON.stringify(res));
-        let a = JSON.stringify(res);
-        a = JSON.parse(a);
-        console.log(a);
 
         if (res.status === 200) {
-          console.log(`reissue 이후 ${res.data.accessToken}`);
           sessionStorage.setItem('accessToken', res.data.accessToken);
           return await axios.request(originalConfig);
         }
@@ -58,6 +53,7 @@ axios.interceptors.response.use(
         localStorage.clear();
         sessionStorage.clear();
         removeCookie('refreshToken');
+        history.pushState(null, null, `${location.origin}${PATH.LOGIN}`);
       }
       return Promise.reject(err);
     }
