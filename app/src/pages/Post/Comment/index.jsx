@@ -39,8 +39,7 @@ const Index = ({ commentData, id, commentHandleData }) => {
   //댓글 삭제
   const handleCommentRemove = async commentId => {
     try {
-      const res = await axios.delete(`${BASE_URL}/posts/${id}/comments/${commentId}`);
-      console.log(res);
+      await axios.delete(`${BASE_URL}/posts/${id}/comments/${commentId}`);
       commentHandleData();
     } catch (error) {
       console.log(error);
@@ -85,10 +84,6 @@ const Index = ({ commentData, id, commentHandleData }) => {
                           <li>
                             <em>{item.newTime}</em>
                           </li>
-                          <li>
-                            <FontAwesomeIcon icon={faHeart} className={styles.icon} />
-                            <em>좋아요</em>
-                          </li>
                           <li
                             onClick={() => {
                               setTwoComment(item.id);
@@ -109,14 +104,18 @@ const Index = ({ commentData, id, commentHandleData }) => {
                             </li>
                           )}
                           {item.owner == true && (
-                            <li>
+                            <li
+                              onClick={() => {
+                                setTwoComment(item.id);
+                              }}
+                            >
                               <em>수정</em>
                             </li>
                           )}
                           {item.owner == true && (
                             <li
                               onClick={() => {
-                                handleCommentRemove(item);
+                                handleCommentRemove(item.id);
                               }}
                             >
                               <em>삭제</em>

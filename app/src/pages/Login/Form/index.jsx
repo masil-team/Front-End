@@ -24,6 +24,7 @@ const Form = () => {
     };
     try {
       const response = await axios.post(`http://13.209.94.72:8080/auth/login`, loginRequest);
+      console.log(response);
       if (response) {
         sessionStorage.setItem('accessToken', response.data.accessToken);
         setCookie('refreshToken', response.data.refreshToken);
