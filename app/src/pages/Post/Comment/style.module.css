@@ -3,11 +3,16 @@
 /* 댓글 입력 폼 */
 .my_form{}
 
-.comment_input{display: flex; align-items: center; position: relative;}
+.comment_input{}
+.input_box {display: flex; align-items: center; position: relative;}
 .user_img{min-width: 30px;min-height: 30px; max-width: 30px; max-height: 30px; background: #555; border-radius: 50%;}
-.comment_input .user_img img{width: 100%;height: 100%;object-fit: cover; border-radius: 50%;}
-.comment_input input{width: 100%;height: 40px; padding: 0 50px 0 15px; margin-left: 10px; font-size: 16px;font-weight: 300; box-sizing: border-box; background: #fff; border: 1px solid #aaaa; border-radius: 5px;}
-.comment_input .btn{ box-sizing: border-box; position: absolute; top: 50%; right: 15px; transform: translateY(-50%); color: #2d8efe; background: none; cursor: pointer;}
+.comment_input .input_box .user_img img{width: 100%;height: 100%;object-fit: cover; border-radius: 50%;}
+.comment_input .input_box input{width: 100%;height: 40px; padding: 0 50px 0 15px; margin-left: 10px; font-size: 16px;font-weight: 300; box-sizing: border-box; background: #fff; border: 1px solid #aaaa; border-radius: 5px;}
+.comment_input .input_box .btn{ box-sizing: border-box; position: absolute; top: 50%; right: 15px; transform: translateY(-50%); color: #2d8efe; background: none; cursor: pointer;}
+
+.cancel{text-align: right; margin-top: 10px;}
+.cancel em{cursor: pointer; font-size: 12px; padding: 3px 5px; background: #65adff; border-radius: 3px; color: #fff;}
+
 
 /* 댓글 리스트 */
 .comment_list{margin-top: 30px;}
@@ -27,6 +32,7 @@
 .comment_info > ul > li em{}
 .comment_info > ul > li .icon{margin-right: 5px;}
 .comment_info > ul > li:nth-child(1){cursor: auto;}
+.comment_info > ul > li.active .icon{color: #eb2e3d;}
 
 /* 대댓글 */
 .two_depth_comment{margin: 10px 0 0 40px; }
