@@ -8,7 +8,7 @@ import { BASE_URL } from '../../../constants/api';
 import axios from '../../../utils/token';
 import TwoComment from './TwoComment';
 
-const Index = ({ commentData, id, commentHandleData }) => {
+const Index = ({ newComment, id, commentHandleData }) => {
   const [tabTwoComment, setTabTwoComment] = useState(); //대댓글이 몇번째 댓글에 달려야 하는지 위치 지정
   const [commentValue, setCommentValue] = useState(); //input 입력값 저장
   const [commentPut, setCommentPut] = useState(0); //댓글 생성,댓글 수정 확인
@@ -90,9 +90,9 @@ const Index = ({ commentData, id, commentHandleData }) => {
         </div>
       </form>
       <div className={styles.comment_list}>
-        {commentData && (
+        {newComment && (
           <ul>
-            {commentData.map(item => {
+            {newComment.map(item => {
               return (
                 <li key={item.id}>
                   <div className={styles.one_depth_comment}>
@@ -180,7 +180,7 @@ const Index = ({ commentData, id, commentHandleData }) => {
 };
 
 Index.propTypes = {
-  commentData: PropTypes.array,
+  newComment: PropTypes.array,
   id: PropTypes.string,
   commentHandleData: PropTypes.func,
 };
