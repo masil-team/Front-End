@@ -43,17 +43,17 @@ axios.interceptors.response.use(
           },
           withCredentials: true,
         });
-
         if (res.status === 200) {
           sessionStorage.setItem('accessToken', res.data.accessToken);
           return await axios.request(originalConfig);
         }
       } catch (err) {
-        console.log('토큰 갱신 에러', err);
-        localStorage.clear();
-        sessionStorage.clear();
-        removeCookie('refreshToken');
-        history.pushState(null, null, `${location.origin}${PATH.LOGIN}`);
+        if (err.response.data.code === 6003 || err.response.data.code === 6005) {
+          sessionStorage.removeItem('accessToken');
+          removeCookie('refreshToken');
+          history.pushState(null, null, location.origin + PATH.LOGIN);
+          window.location.reload();
+        }
       }
       return Promise.reject(err);
     }
