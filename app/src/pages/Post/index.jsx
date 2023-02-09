@@ -42,6 +42,7 @@ export const Post = () => {
 
   //해당 게시글 댓글 조회
   const [commentData, setCommentData] = useState(); //댓글 데이터 저장
+  const [newComment, setNewComment] = useState(); //댓글 데이터 저장
   const commentHandleData = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/posts/${id}/comments?page=${0}`);
@@ -69,7 +70,7 @@ export const Post = () => {
         const newItem = (item.newTime = time2[index]);
         return newItem;
       });
-      setCommentData(newArray);
+      setNewComment(newArray);
     }
   }, [time2]);
 
@@ -129,7 +130,7 @@ export const Post = () => {
               </ul>
             </div>
             <span className={styles.line}></span>
-            <Comment commentData={commentData} id={id} commentHandleData={commentHandleData}></Comment>
+            <Comment newComment={newComment} id={id} commentHandleData={commentHandleData}></Comment>
           </div>
         </section>
       )}
