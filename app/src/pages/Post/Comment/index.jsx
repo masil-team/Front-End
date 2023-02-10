@@ -7,14 +7,41 @@ import { useState } from 'react';
 import { BASE_URL } from '../../../constants/api';
 import axios from '../../../utils/token';
 import TwoComment from './TwoComment';
+import { useEffect } from 'react';
 
-const Index = ({ newComment, id, commentHandleData }) => {
+const Index = ({ newComment, id, commentHandleData, commentPage }) => {
   const [tabTwoComment, setTabTwoComment] = useState(); //대댓글이 몇번째 댓글에 달려야 하는지 위치 지정
   const [commentValue, setCommentValue] = useState(); //input 입력값 저장
   const [commentPut, setCommentPut] = useState(0); //댓글 생성,댓글 수정 확인
   const [commentPutTarget, setCommentPutTarget] = useState(); //댓글 수정 ID 담기
   const [commentValue2, setCommentValue2] = useState(); //대댓글 input 입력값 저장
   const [commentPut2, setCommentPut2] = useState(0); //대댓글 생성,댓글 수정 확인
+
+  const [currentPageGroup, setCurrentPageGroup] = useState(1); //현재 페이지 그룹
+  const [page, setPage] = useState();
+
+  //첫번째 페이지 그룹 보이게 하기
+  useEffect(() => {
+    let commentPageCopy = [...commentPage];
+    commentPageCopy = commentPageCopy.slice(0, 5);
+    setPage(commentPageCopy);
+  }, [commentPage]);
+
+  function pagePlus() {
+    setCurrentPageGroup(prev => prev + 1);
+    let commentPageCopy = [...commentPage];
+    commentPageCopy = commentPageCopy.slice(currentPageGroup * 5, (currentPageGroup + 1) * 5);
+    setPage(commentPageCopy);
+  }
+
+  function pageMinus() {
+    setCurrentPageGroup(currentPageGroup - 1);
+    let commentPageCopy = [...commentPage];
+    commentPageCopy = commentPageCopy.slice(currentPageGroup * 5, (currentPageGroup + 1) * 5);
+    setPage(commentPageCopy);
+  }
+
+  console.log(page);
 
   //댓글 입력
   const handleComment = async () => {
@@ -174,6 +201,39 @@ const Index = ({ newComment, id, commentHandleData }) => {
             })}
           </ul>
         )}
+        <div className={styles.page_number}>
+          <ul>
+            <li
+              onClick={() => {
+                pageMinus();
+              }}
+            >
+              <em>이전</em>
+            </li>
+            <li>
+              <em>1</em>
+            </li>
+            <li>
+              <em>2</em>
+            </li>
+            <li>
+              <em>3</em>
+            </li>
+            <li>
+              <em>4</em>
+            </li>
+            <li>
+              <em>5</em>
+            </li>
+            <li
+              onClick={() => {
+                pagePlus();
+              }}
+            >
+              <em>다음</em>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );
@@ -183,6 +243,7 @@ Index.propTypes = {
   newComment: PropTypes.array,
   id: PropTypes.string,
   commentHandleData: PropTypes.func,
+  commentPage: PropTypes.array,
 };
 
 export default Index;

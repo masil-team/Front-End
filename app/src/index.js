@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <CookiesProvider>
     <Provider store={store}>
-      <BrowserRouter>
+      <BrowserRouter basename="/masil">
         <ScrollToTop />
         <App />
       </BrowserRouter>

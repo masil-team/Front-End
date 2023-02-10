@@ -43,15 +43,25 @@ export const Post = () => {
   //해당 게시글 댓글 조회
   const [commentData, setCommentData] = useState(); //댓글 데이터 저장
   const [newComment, setNewComment] = useState(); //댓글 데이터 저장
+  const [commentPage, setCommentPage] = useState([]); //댓글 페이지 저장
   const commentHandleData = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/posts/${id}/comments?page=${0}`);
       setCommentData(res.data);
       handleTimeFilter(res.data);
+      pagiNation(25);
     } catch (error) {
       console.log(error);
     }
   };
+
+  function pagiNation(totalPage) {
+    let pageArray = [];
+    for (let i = 1; i <= totalPage; i++) {
+      pageArray.push(i);
+    }
+    setCommentPage(pageArray);
+  }
 
   // 댓글 날짜 포맷팅
   const [day2, setDay2] = useState([]); //데이터의 날짜 저장
@@ -130,7 +140,12 @@ export const Post = () => {
               </ul>
             </div>
             <span className={styles.line}></span>
-            <Comment newComment={newComment} id={id} commentHandleData={commentHandleData}></Comment>
+            <Comment
+              newComment={newComment}
+              id={id}
+              commentHandleData={commentHandleData}
+              commentPage={commentPage}
+            ></Comment>
           </div>
         </section>
       )}
