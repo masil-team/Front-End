@@ -15,7 +15,6 @@
     "axios": "^1.1.3",
     "framer-motion": "^8.5.0",
     "gh-pages": "^5.0.0",
-    "netlify-cli": "^12.11.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-cookie": "^4.1.1",
@@ -58,6 +57,5 @@
     "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "2.7.1"
-  },
-  "homepage": "https://develop--grand-peony-2901e8.netlify.app/"
+  }
 }
