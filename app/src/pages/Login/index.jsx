@@ -3,9 +3,13 @@ import Form from './Form';
 import styles from './style.module.css';
 import Social from './Social';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const Login = () => {
   const nav = useNavigate();
+  useEffect(() => {
+    sessionStorage.removeItem('postList');
+  }, []);
   return (
     <div className={styles.container}>
       <div className={styles.loginContainer}>

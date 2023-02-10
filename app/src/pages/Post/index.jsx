@@ -43,15 +43,33 @@ export const Post = () => {
   //해당 게시글 댓글 조회
   const [commentData, setCommentData] = useState(); //댓글 데이터 저장
   const [newComment, setNewComment] = useState(); //댓글 데이터 저장
+  const [commentPage, setCommentPage] = useState([]); //댓글 페이지 저장
+  const [totalPage, setTotalPage] = useState(); //댓글 총 페이지 수 저장
+  const [currentPage, setCurrentPage] = useState(0); //현재 활성화된 페이지 번호 저장
+
   const commentHandleData = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/posts/${id}/comments?page=${0}`);
+      const res = await axios.get(`${BASE_URL}/posts/${id}/comments?page=${currentPage}`);
       setCommentData(res.data);
       handleTimeFilter(res.data);
+      setTotalPage(27); //토탈페이지 수가 들어가면 됨
+      pagiNation(27); //토탈페이지 수가 들어가면 됨
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    commentHandleData();
+  }, [currentPage]);
+
+  function pagiNation(totalPage) {
+    let pageArray = [];
+    for (let i = 1; i <= totalPage; i++) {
+      pageArray.push(i);
+    }
+    setCommentPage(pageArray);
+  }
 
   // 댓글 날짜 포맷팅
   const [day2, setDay2] = useState([]); //데이터의 날짜 저장
@@ -130,7 +148,14 @@ export const Post = () => {
               </ul>
             </div>
             <span className={styles.line}></span>
-            <Comment newComment={newComment} id={id} commentHandleData={commentHandleData}></Comment>
+            <Comment
+              newComment={newComment}
+              id={id}
+              commentHandleData={commentHandleData}
+              commentPage={commentPage}
+              totalPage={totalPage}
+              setCurrentPage={setCurrentPage}
+            ></Comment>
           </div>
         </section>
       )}
