@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/masil/static/css/main.b36f9df1.css",
+    "main.js": "/masil/static/js/main.57bbbc8c.js",
+    "static/js/787.05671433.chunk.js": "/masil/static/js/787.05671433.chunk.js",
+    "index.html": "/masil/index.html",
+    "main.b36f9df1.css.map": "/masil/static/css/main.b36f9df1.css.map",
+    "main.57bbbc8c.js.map": "/masil/static/js/main.57bbbc8c.js.map",
+    "787.05671433.chunk.js.map": "/masil/static/js/787.05671433.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b36f9df1.css",
+    "static/js/main.57bbbc8c.js"
+  ]
+}
