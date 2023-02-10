@@ -44,6 +44,7 @@
 .page_number ul{display: flex; justify-content: center;}
 .page_number ul li{margin: 0 10px; padding: 5px; cursor: pointer;}
 .page_number ul li em{}
+.page_number ul li.active{pointer-events: none;}
 
 
 

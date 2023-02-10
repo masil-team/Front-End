@@ -44,16 +44,24 @@ export const Post = () => {
   const [commentData, setCommentData] = useState(); //댓글 데이터 저장
   const [newComment, setNewComment] = useState(); //댓글 데이터 저장
   const [commentPage, setCommentPage] = useState([]); //댓글 페이지 저장
+  const [totalPage, setTotalPage] = useState(); //댓글 총 페이지 수 저장
+  const [currentPage, setCurrentPage] = useState(0); //현재 활성화된 페이지 번호 저장
+
   const commentHandleData = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/posts/${id}/comments?page=${0}`);
+      const res = await axios.get(`${BASE_URL}/posts/${id}/comments?page=${currentPage}`);
       setCommentData(res.data);
       handleTimeFilter(res.data);
-      pagiNation(25);
+      setTotalPage(27); //토탈페이지 수가 들어가면 됨
+      pagiNation(27); //토탈페이지 수가 들어가면 됨
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    commentHandleData();
+  }, [currentPage]);
 
   function pagiNation(totalPage) {
     let pageArray = [];
@@ -145,6 +153,8 @@ export const Post = () => {
               id={id}
               commentHandleData={commentHandleData}
               commentPage={commentPage}
+              totalPage={totalPage}
+              setCurrentPage={setCurrentPage}
             ></Comment>
           </div>
         </section>
