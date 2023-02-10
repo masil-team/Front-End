@@ -1,2 +1,35 @@
-body{font-family: 'Noto Sans KR', sans-serif;}
-/* font-family: 'Roboto', sans-serif; */
+body{font-family: 'Noto Sans KR', sans-serif; color: #555;}
+/* font-family: 'Raleway', sans-serif; */
+.en{ font-family: 'Raleway', sans-serif;}
+
+/* 
+Noto Sans KR
+Thin 100
+Light 300
+Regular 400
+Medium 500
+Bold 700
+Black 900
+*/
+
+/*
+Raleway
+Thin 100
+Thin 100 Italic
+ExtraLight 200
+ExtraLight 200 Italic
+Light 300
+Light 300 Italic
+Regular 400
+Regular 400 Italic
+Medium 500
+Medium 500 Italic
+SemiBold 600
+SemiBold 600 Italic
+Bold 700
+Bold 700 Italic
+ExtraBold 800
+ExtraBold 800 Italic
+Black 900
+Black 900 Italic
+*/

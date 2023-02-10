@@ -2,7 +2,11 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './reset.css';
 import './App.css';
-import { Main } from './pages/index';
+import { Main, SignUp, Post } from './pages/index';
+import { PATH } from './constants/path';
+import Login from './pages/Login';
+import CreatePost from './pages/Upload';
+import { BrowserRouter } from 'react-router-dom';
 
 /* prop 타입체크 */
 // import PropTypes from 'prop-types';
@@ -17,9 +21,16 @@ import { Main } from './pages/index';
 function App() {
   return (
     <div className="App">
-      <Routes>
-        <Route path="/" element={<Main></Main>}></Route>
-      </Routes>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <Routes>
+          <Route path={PATH.MAIN} element={<Main></Main>}></Route>
+          <Route path={PATH.SIGNUP} element={<SignUp></SignUp>}></Route>
+          <Route path={PATH.LOGIN} element={<Login />}></Route>
+          <Route path={PATH.POST} element={<Post></Post>}></Route>
+          <Route path={PATH.CREATE_POST} element={<CreatePost />}></Route>
+          <Route path={PATH.EDIT_POST} element={<CreatePost />}></Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
@@ -29,5 +40,4 @@ Index.propTypes = {
   prop이름: PropTypes.array,
 };
 */
-
 export default App;

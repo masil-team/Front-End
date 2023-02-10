@@ -1,0 +1,33 @@
+/* 게시글 이미지 */
+.post_img{}
+.post_img ul{}
+.post_img ul li{width: 100%; height: 385px; background: #555; border-radius: 5px;}
+.post_img ul li img{width: 100%;height: 100%;object-fit: cover;}
+
+/* 이미지 1개 */
+
+/* 이미지 2개 */
+.post_img.two ul{display: grid; grid-template-columns: repeat(2,minmax(auto,385px)); grid-template-rows: 385px; grid-gap: 0 10px;}
+.post_img.two ul li{height: 100%;}
+
+/* 이미지 3개 */
+.post_img.three ul{display: grid; grid-template-columns: repeat(2,1fr); grid-template-rows: 187.5px 187.5px; grid-gap: 10px;}
+.post_img.three ul li{width: 100%; height: 100%;}
+.post_img.three ul li:nth-child(1){grid-row: 1/3;}
+
+/* 이미지 3개 이상 */
+.post_img.four ul{display: grid; grid-template-columns: repeat(2,1fr); grid-template-rows: 187.5px 187.5px; grid-gap: 10px;}
+.post_img.four ul li{width: 100%; height: 100%; position: relative;}
+.post_img.four ul li img{width: 100%;height: 100%;object-fit: cover;}
+.post_img.four ul li:nth-child(1){grid-row: 1/3;}
+.post_img.four ul li:nth-child(3)::before{content: '+5'; width: 100%;height: 100%;background: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center; color: #fff; font-size: 42px; cursor: pointer; position: absolute; top: 0;left: 0; border-radius: 5px;}
+
+@media (max-width: 500px){
+    .post_img.two ul{grid-template-rows: 200px;}
+}
+
+@media (max-width: 400px){
+    .post_img ul li{height: 200px;}
+    .post_img.three ul,
+    .post_img.four ul{ grid-template-rows: 150px 150px;}
+}

@@ -1,0 +1,38 @@
+.gridBox {
+  height: 359px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 198px);
+  place-items: start;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 13px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.gridItem {
+  width: 198px;
+  height: 198px;
+  background-color: skyblue;
+  border-radius: 0.4rem;
+  cursor: pointer;
+}
+
+.overView {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background-color: rgba(0, 0, 0, 0.6);
+  transition: 0.8s ease-in-out;
+  position: relative;
+  display: none;
+}
+.gridItem:hover .overView {
+  display: block;
+}
+.icon {
+  position: absolute;
+  bottom: 5%;
+  right: 4%;
+  font-size: 36px;
+  color: white;
+}

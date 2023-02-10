@@ -1,0 +1,5 @@
+.modify{width: 30px;height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 20px; cursor: pointer; }
+.modify_box{width: 50px;height: 100%;background: #fff; position: absolute; top: 0; right: 0; z-index: 9999; border-radius: 5px; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;}
+.modify_box ul{display: flex; flex-direction: column; justify-content: center; align-items: center;}
+.modify_box ul li{}
+.modify_box ul li em{font-size: 14px;}

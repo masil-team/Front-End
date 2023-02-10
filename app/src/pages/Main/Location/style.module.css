@@ -1,0 +1,13 @@
+.wrap {display: inline-block;}
+
+.location {width: 100%;height: 40px; border-radius: 20px;background: #eff2f4;cursor: pointer;}
+.location ul {height: 100%;display: flex;justify-content: space-between;align-items: center;padding: 0 20px;box-sizing: border-box;}
+.location ul li {font-size: 16px; margin: 0 5px;}
+.location ul li em {}
+.location ul li .icon {}
+
+.add_location {width: 100%; height: 40px;  border-radius: 20px;background: #eff2f4;cursor: pointer;}
+.add_location ul {height: 100%;display: flex;justify-content: center;align-items: center; padding: 0 20px; box-sizing: border-box;}
+.add_location ul li {font-size: 16px; margin: 0 5px;}
+.add_location ul li em {}
+.add_location ul li .icon {margin-right: 5px;}

@@ -1,0 +1,22 @@
+.container {
+  width: 100%;
+  height: fit-content;
+}
+.innerContainer {
+  /* width: 1031px; */
+  width: 54.5%;
+
+  margin: 101px auto;
+  overflow: hidden;
+}
+
+.thirdsection {
+  width: 100%;
+  height: 402px;
+}
+@media screen and (max-width: 769px) {
+  .innerContainer {
+    width: 98%;
+    margin: 101px auto;
+  }
+}

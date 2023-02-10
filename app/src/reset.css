@@ -3,10 +3,10 @@
 body, div, ul, li, dl, dd, dt, ol, h1, h2, h3, h4, h5, h6, input, fieldset, legend, p, select, table, th, td, tr, textarea, button, form, figure, figcaption {margin:0; padding:0;}
 
 /* a 링크 초기화 */
-a {color: #222; text-decoration: none;}
+a {color: #555; text-decoration: none;}
 
 /* 폰트 초기화 */
-body, input, textarea, select, button, table {font-family: 'Nanum Gothic', AppleSDGothicNeo-Regular,'Malgun Gothic','맑은 고딕',dotum,'돋움',sans-serif; color: #222; font-size: 13px;}
+body, input, textarea, select, button, table {color: #555; font-size: 14px;}
 
 /* 폰트 스타일 초기화 */
 em, address {font-style: normal;}
@@ -19,6 +19,9 @@ h1, h2, h3, h4, h5, h6 {font-size: 14px; font-weight: normal;}
 
 /* 버튼 초기화 */
 button { border: 0;}
+
+/* input */
+input{outline: none;}
 
 /* 반응형 이미지 */
 /* img,video {width: 100%;} */
