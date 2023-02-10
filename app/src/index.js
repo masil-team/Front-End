@@ -7,14 +7,17 @@ import { Provider } from 'react-redux';
 import store from './store';
 import { CookiesProvider } from 'react-cookie';
 import ScrollToTop from './components/ScrollTop';
+import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <CookiesProvider>
-    <Provider store={store}>
-      <ScrollToTop />
-      <App />
-    </Provider>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <Provider store={store}>
+        <ScrollToTop />
+        <App />
+      </Provider>
+    </BrowserRouter>
   </CookiesProvider>,
 );
 
