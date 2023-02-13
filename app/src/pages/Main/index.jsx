@@ -108,7 +108,7 @@ export const Main = () => {
   const handleData = async () => {
     try {
       const res = await axios.get(
-        `http://13.209.94.72:8080/boards/${category}/posts?rCode=${address.rcode}&page=${pageNum}&size=8`,
+        `https://road.masil.site/boards/${category}/posts?rCode=${address.rcode}&page=${pageNum}&size=8`,
       );
       setData(prev => [...prev, ...res.data.posts]); //기존의 data값과 새로운 data값을 복제해서 setData에 추가해줌
       handleTimeFilter(res.data.posts);
