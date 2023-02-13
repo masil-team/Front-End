@@ -1,6 +1,6 @@
 /* Router의 path 관리 */
 
-export const BASE_PATH = 'https://road.masil.site';
+export const BASE_PATH = '';
 
 export const PATH = {
   MAIN: '/',

@@ -6,9 +6,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; //폰트어썸
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'; //폰트어썸
 import { useNavigate } from 'react-router-dom';
 import TermsService from './TermsService';
-import { BASE_PATH, PATH } from '../../../constants/path';
+import { PATH } from '../../../constants/path';
 import { USER_URL } from '../../../constants/api';
-
+import { BASE_URL } from '../../../constants/api';
 const Index = () => {
   const navigate = useNavigate();
   const [serviceCheck, setServiceCheck] = useState(false);
@@ -37,7 +37,7 @@ const Index = () => {
   //회원가입 버튼 클릭시 전송
   const sendJoinForm = async () => {
     try {
-      const res = await Axios.post(`${BASE_PATH}${USER_URL.SIGNUP} `, joinData);
+      const res = await Axios.post(`${BASE_URL}${USER_URL.SIGNUP} `, joinData);
       console.log(res);
       navigate(`${PATH.LOGIN}`);
     } catch (error) {
