@@ -7,6 +7,7 @@ import axios from '../../../utils/token';
 import { useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
+import { BASE_PATH } from '../../../constants/path';
 const subMenuAnimate = {
   initial: {
     opacity: 0,
@@ -67,7 +68,7 @@ const Form = ({ image, setImage, count, setCount }) => {
   };
   const editData = async () => {
     try {
-      const response = await axios.patch(`http://13.209.94.72:8080/posts/${modify.id}`, {
+      const response = await axios.patch(`${BASE_PATH}/posts/${modify.id}`, {
         content: text,
         boardId: category.val,
       });
@@ -88,7 +89,7 @@ const Form = ({ image, setImage, count, setCount }) => {
       alert('카테고리를 선택해주세요.');
     } else {
       try {
-        const response = await axios.post('http://13.209.94.72:8080/posts', { content: text, boardId });
+        const response = await axios.post(`${BASE_PATH}/posts`, { content: text, boardId });
         if (response.status === 201) {
           alert('게시물 업로드 완료');
           sessionStorage.removeItem('postList');
