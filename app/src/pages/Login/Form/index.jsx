@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import styles from './style.module.css';
 import { setCookie } from '../../../utils/cookie';
 import { useNavigate } from 'react-router-dom';
-import { BASE_PATH } from '../../../constants/path';
+import { BASE_URL } from '../../../constants/api';
 
 const Form = () => {
   const { register, handleSubmit, getValues, formState } = useForm();
@@ -24,7 +24,7 @@ const Form = () => {
       password,
     };
     try {
-      const response = await axios.post(`${BASE_PATH}/auth/login`, loginRequest);
+      const response = await axios.post(`${BASE_URL}/auth/login`, loginRequest);
       if (response) {
         sessionStorage.setItem('accessToken', response.data.accessToken);
         setCookie('refreshToken', response.data.refreshToken);

@@ -1,6 +1,6 @@
 /* API의 주소 관리 */
 
-export const BASE_URL = 'http://13.209.94.72:8080';
+export const BASE_URL = 'https://road.masil.site';
 
 export const USER_URL = {
   LOGIN: '/login',

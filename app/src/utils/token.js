@@ -1,8 +1,9 @@
 import Axios from 'axios';
 import { getCookie, removeCookie } from './cookie';
-import { BASE_PATH, PATH } from '../constants/path';
+import { PATH } from '../constants/path';
+import { BASE_URL } from '../constants/api';
 const axios = Axios.create({
-  baseURL: BASE_PATH, //API기본 주소
+  baseURL: BASE_URL, //API기본 주소
 });
 
 axios.interceptors.request.use(
@@ -32,7 +33,7 @@ axios.interceptors.response.use(
         let refreshToken = getCookie('refreshToken'); // 쿠키에 있는 refreshToken 토큰을 가지고 오기
         let accessToken = sessionStorage.getItem('accessToken'); // 세션스토리지에 있는 accessToken 토큰을 가지고 오기
         const res = await Axios({
-          url: `${BASE_PATH}/auth/reissue`, //refreshToken 토큰 요청하는 API주소
+          url: `${BASE_URL}/auth/reissue`, //refreshToken 토큰 요청하는 API주소
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

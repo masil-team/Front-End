@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router';
 import axios from '../../utils/token';
 import useTime from '../../hooks/useTime';
 import { PATH } from '../../constants/path';
+import { BASE_URL } from '../../constants/api';
 
 export const Main = () => {
   const navigate = useNavigate();
@@ -107,9 +108,7 @@ export const Main = () => {
   //데이터 호출 함수
   const handleData = async () => {
     try {
-      const res = await axios.get(
-        `https://road.masil.site/boards/${category}/posts?rCode=${address.rcode}&page=${pageNum}&size=8`,
-      );
+      const res = await axios.get(`${BASE_URL}/boards/${category}/posts?rCode=${address.rcode}&page=${pageNum}&size=8`);
       setData(prev => [...prev, ...res.data.posts]); //기존의 data값과 새로운 data값을 복제해서 setData에 추가해줌
       handleTimeFilter(res.data.posts);
       setLastPage(res.data.isLast);
