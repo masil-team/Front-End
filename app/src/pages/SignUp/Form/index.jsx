@@ -137,13 +137,13 @@ const Index = () => {
             handleInput(e);
           }}
         />
-        {userEmailCheck != true ? (
+        {userEmailCheck == false ? (
           <div className={styles.warning}>
             <FontAwesomeIcon icon={faExclamationCircle} />
             <p>이메일을 입력해주세요</p>
           </div>
         ) : null}
-        {EmailLengthCheck != true ? (
+        {EmailLengthCheck == false ? (
           <div className={styles.warning}>
             <FontAwesomeIcon icon={faExclamationCircle} />
             <p>5글자 이상 입력해주세요</p>
@@ -167,13 +167,13 @@ const Index = () => {
             handleInput(e);
           }}
         />
-        {userPasswordCheck != true ? (
+        {userPasswordCheck == false ? (
           <div className={styles.warning}>
             <FontAwesomeIcon icon={faExclamationCircle} />
             <p>8자 이상,특수문자 + 영문,숫자를 입력해주세요</p>
           </div>
         ) : null}
-        {PasswordCheck != true ? (
+        {PasswordCheck == false ? (
           <div className={styles.warning}>
             <FontAwesomeIcon icon={faExclamationCircle} />
             <p>비밀번호를 확인해주세요</p>
@@ -189,7 +189,7 @@ const Index = () => {
             handleInput(e);
           }}
         />
-        {userNameCheck != true ? (
+        {userNameCheck == false ? (
           <div className={styles.warning}>
             <FontAwesomeIcon icon={faExclamationCircle} />
             <p>닉네임을 입력해주세요</p>
