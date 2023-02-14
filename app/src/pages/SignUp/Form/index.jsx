@@ -19,11 +19,11 @@ const Index = () => {
     userEmail: '',
     userName: '',
   });
-  const [userEmailCheck, setUserEmailCheck] = useState(false); //이메일 확인 체크
-  const [EmailLengthCheck, setEmailLengthCheck] = useState(false); //이메일 글자수 체크
-  const [userPasswordCheck, setUserPasswordCheck] = useState(false); //비밀번호 체크
-  const [PasswordCheck, setPasswordCheck] = useState(false); //비밀번호 확인 체크
-  const [userNameCheck, setUserNameCheck] = useState(false); //이름 체크
+  const [userEmailCheck, setUserEmailCheck] = useState(0); //이메일 확인 체크
+  const [EmailLengthCheck, setEmailLengthCheck] = useState(0); //이메일 글자수 체크
+  const [userPasswordCheck, setUserPasswordCheck] = useState(0); //비밀번호 체크
+  const [PasswordCheck, setPasswordCheck] = useState(0); //비밀번호 확인 체크
+  const [userNameCheck, setUserNameCheck] = useState(0); //이름 체크
   const [allCheck, setAllCheck] = useState(false); //모든 유효성검사 완료 체크
 
   //회원가입 API 데이터
@@ -137,13 +137,13 @@ const Index = () => {
             handleInput(e);
           }}
         />
-        {userEmailCheck == false ? (
+        {userEmailCheck != true ? (
           <div className={styles.warning}>
             <FontAwesomeIcon icon={faExclamationCircle} />
             <p>이메일을 입력해주세요</p>
           </div>
         ) : null}
-        {EmailLengthCheck == false ? (
+        {EmailLengthCheck != true ? (
           <div className={styles.warning}>
             <FontAwesomeIcon icon={faExclamationCircle} />
             <p>5글자 이상 입력해주세요</p>
@@ -167,13 +167,13 @@ const Index = () => {
             handleInput(e);
           }}
         />
-        {userPasswordCheck == false ? (
+        {userPasswordCheck != true ? (
           <div className={styles.warning}>
             <FontAwesomeIcon icon={faExclamationCircle} />
             <p>8자 이상,특수문자 + 영문,숫자를 입력해주세요</p>
           </div>
         ) : null}
-        {PasswordCheck == false ? (
+        {PasswordCheck != true ? (
           <div className={styles.warning}>
             <FontAwesomeIcon icon={faExclamationCircle} />
             <p>비밀번호를 확인해주세요</p>
@@ -189,7 +189,7 @@ const Index = () => {
             handleInput(e);
           }}
         />
-        {userNameCheck == false ? (
+        {userNameCheck != true ? (
           <div className={styles.warning}>
             <FontAwesomeIcon icon={faExclamationCircle} />
             <p>닉네임을 입력해주세요</p>
