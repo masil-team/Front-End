@@ -6,7 +6,10 @@ import { Main, SignUp, Post } from './pages/index';
 import { PATH } from './constants/path';
 import Login from './pages/Login';
 import CreatePost from './pages/Upload';
-
+import MyPage from './pages/myPage';
+import Profile from './pages/myPage/Profile';
+import Like from './pages/myPage/Like';
+import BookMark from './pages/myPage/Bookmark';
 /* prop 타입체크 */
 // import PropTypes from 'prop-types';
 
@@ -27,6 +30,11 @@ function App() {
         <Route path={PATH.POST} element={<Post></Post>}></Route>
         <Route path={PATH.CREATE_POST} element={<CreatePost />}></Route>
         <Route path={PATH.EDIT_POST} element={<CreatePost />}></Route>
+        <Route path={PATH.MY_PAGE} element={<MyPage />}>
+          <Route path={PATH.PROFILE} element={<Profile></Profile>}></Route>
+          <Route path={PATH.LIKE} element={<Like></Like>}></Route>
+          <Route path={PATH.BOOKMARK} element={<BookMark></BookMark>}></Route>
+        </Route>
       </Routes>
     </div>
   );
