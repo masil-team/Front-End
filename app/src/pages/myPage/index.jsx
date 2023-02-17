@@ -1,45 +1,50 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './style.module.css';
 import Nav from '../../components/Nav';
-import { Outlet, useMatch, useNavigate } from 'react-router-dom';
-import { faThumbsUp, faBookmark, faUser } from '@fortawesome/free-solid-svg-icons';
+import { Outlet } from 'react-router-dom';
+import Category from './Category';
+import { AnimatePresence } from 'framer-motion';
 import { motion } from 'framer-motion';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+const overlayEf = {
+  initial: {
+    opacity: 0,
+  },
+  animate: {
+    opacity: 0.6,
+    tranisition: { duration: 0.6, delay: 2 },
+  },
+  exit: {
+    opacity: 0,
+  },
+};
 
 const MyPage = () => {
-  const nav = useNavigate();
-  const bookMatch = useMatch('/mypage/bookmark');
-  const profileMatch = useMatch('/mypage/profile');
-  const likeMatch = useMatch('/mypage/like');
+  const [width, setWidth] = useState(window.innerWidth);
+  const [show, setShow] = useState(false);
+  console.log(show);
+  useEffect(() => {
+    window.onresize = () => {
+      setWidth(window.innerWidth);
+    };
+  }, [window.innerWidth]);
   return (
     <>
       <Nav />
       <div className={styles.container}>
         <div className={styles.innerContainer}>
-          <div className={styles.categoryContainer}>
-            <div onClick={() => nav('/mypage/bookmark')} className={styles.categoryitem}>
-              <div>
-                <FontAwesomeIcon icon={faBookmark} />
-                <span className={styles.categoryspan}>북마크</span>
-              </div>
-              {bookMatch && <motion.div className={styles.circle} layoutId="1" />}
-            </div>
-            <div onClick={() => nav('/mypage/like')} className={styles.categoryitem}>
-              <div>
-                <FontAwesomeIcon icon={faThumbsUp} />
-                <span className={styles.categoryspan}>좋아요</span>
-              </div>
-              {likeMatch && <motion.div className={styles.circle} layoutId="1" />}
-            </div>
-            <div onClick={() => nav('/mypage/profile')} className={styles.categoryitem}>
-              <div>
-                <FontAwesomeIcon icon={faUser} />
-                <span className={styles.categoryspan}>회원정보변경</span>
-              </div>
-              {profileMatch && <motion.div className={styles.circle} layoutId="1" />}
-            </div>
-          </div>
+          <Category width={width} show={show} setShow={setShow} />
           <div className={styles.outletContainer}>
+            <AnimatePresence>
+              {show && (
+                <motion.div
+                  variants={overlayEf}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  className={styles.OverLay}
+                />
+              )}
+            </AnimatePresence>
             <Outlet />
           </div>
         </div>

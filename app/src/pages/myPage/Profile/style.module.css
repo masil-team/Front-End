@@ -7,17 +7,49 @@
   font-size: 26px;
   margin-bottom: 52px;
 }
-
+.imageControl {
+}
+.first {
+  display: flex;
+}
+.emailLocation {
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 24px;
+}
+.input {
+  width: 330px;
+  height: 42px;
+  margin-top: 10px;
+  border-radius: 0.3rem;
+  border: 1px solid #cccccc;
+  padding: 0px 10px;
+}
 .image {
   width: 350px;
   height: 250px;
   background-color: #555555;
-  border-radius: 1rem;
+  border-radius: 0.6rem;
   margin-bottom: 10px;
+  font-size: 24px;
+  position: relative;
+}
+.image > div {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  background-color: white;
+  width: 30px;
+  height: 30px;
+  font-size: 19px;
+  text-align: center;
+  border-radius: 0.2rem;
 }
 
 .imageBtn {
-  width: 105px;
+  width: fit-content;
+  padding: 0px 16px;
   height: 42px;
   font-size: 16px;
   background-color: #636c73;
@@ -28,4 +60,37 @@
   justify-content: center;
   cursor: pointer;
   margin-bottom: 30px;
+}
+.second {
+  display: flex;
+}
+.nickname {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  margin-left: 24px;
+}
+.password {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+}
+@media screen and (max-width: 769px) {
+  .h1 {
+    font-size: 20px;
+    margin-top: 40px;
+    margin-bottom: 30px;
+  }
+  .first {
+    flex-direction: column;
+  }
+  .emailLocation {
+    margin: 0;
+  }
+  .second {
+    flex-direction: column;
+  }
+  .nickname {
+    margin: 0;
+  }
 }
