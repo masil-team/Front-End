@@ -5,26 +5,26 @@ import UserInfo from './UserInfo';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { PATH } from '../../constants/path';
 import sessionReset from '../../utils/sessionReset';
-// import axios from '../../utils/token';
-// import { BASE_URL } from '../../constants/api';
-// import { useEffect } from 'react';
+import axios from '../../utils/token';
+import { BASE_URL } from '../../constants/api';
+import { useEffect } from 'react';
 
 const Index = () => {
   const navigate = useNavigate();
   const urlAddress = useLocation();
 
-  // const handleUserIfo = async () => {
-  //   try {
-  //     const res = await axios.get(`${BASE_URL}/members/login-user`);
-  //     console.log(res);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const handleUserIfo = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL}/members/login-user`);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  // useEffect(() => {
-  //   handleUserIfo();
-  // }, []);
+  useEffect(() => {
+    handleUserIfo();
+  }, []);
 
   return (
     <nav className={styles.nav}>
