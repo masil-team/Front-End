@@ -28,7 +28,6 @@ export const Post = () => {
       const res = await axios.get(`${BASE_URL}/posts/${id}`);
       setData(res.data);
       setDay([res.data]); //날짜 저장
-
       let targetItem = getList.filter(item => {
         return item.id == res.data.id;
       });
@@ -66,15 +65,24 @@ export const Post = () => {
   const [commentPage, setCommentPage] = useState([]); //댓글 페이지 저장
   const [totalPage, setTotalPage] = useState(); //댓글 총 페이지 수 저장
   const [currentPage, setCurrentPage] = useState(0); //현재 활성화된 페이지 번호 저장
+  const [commentCount, setCommentCount] = useState(); //댓글 총 갯수 저장
 
   //댓글 페이지 조회
   const commentHandleData = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/posts/${id}/comments?page=${currentPage}`);
-      setCommentData(res.data);
-      handleTimeFilter(res.data);
-      setTotalPage(27); //토탈페이지 수가 들어가면 됨
-      pagiNation(27); //토탈페이지 수가 들어가면 됨
+      setCommentData(res.data.comments);
+      handleTimeFilter(res.data.comments);
+      setTotalPage(res.data.totalPage); //토탈페이지 수가 들어가면 됨
+      pagiNation(res.data.totalPage); //토탈페이지 수가 들어가면 됨
+      setCommentCount(res.data.totalCommentCount);
+      let targetItem = await getList.filter(item => {
+        return item.id == id;
+      });
+      targetItem[0].commentCount = res.data.totalCommentCount;
+      const newArray = [...getList, ...targetItem];
+      const filteredArr = filterArray(newArray);
+      sessionStorage.setItem('postList', JSON.stringify(filteredArr));
     } catch (error) {
       console.log(error);
     }
@@ -190,7 +198,7 @@ export const Post = () => {
                   <em>좋아요 {data.likeCount}</em>
                 </li>
                 <li>
-                  <em>댓글 4</em>
+                  <em>댓글 {commentCount}</em>
                 </li>
               </ul>
             </div>
