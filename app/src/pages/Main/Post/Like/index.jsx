@@ -62,7 +62,7 @@ const Index = ({ item }) => {
     <li>
       <FontAwesomeIcon
         icon={faHeart}
-        className={`${styles.icon} ${likeColor == true && styles.active}`}
+        className={`${styles.icon} ${likeColor == true && styles.active} ${item.isOwner == true && styles.visible}`}
         onClick={() => {
           onDataLike();
         }}
