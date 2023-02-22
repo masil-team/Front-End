@@ -1,5 +1,5 @@
 .container {
-  width: 100vw;
+  width: 100%;
   height: fit-content;
 }
 .innerContainer {
@@ -8,9 +8,16 @@
   display: flex;
   position: relative;
 }
-
-.outletContainer {
+.outletWrap {
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.outletContainer {
+  width: fit-content;
+  background-color: blue;
+  margin-left: 200px;
 }
 .OverLay {
   top: 0;

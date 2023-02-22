@@ -33,19 +33,21 @@ const MyPage = () => {
       <div className={styles.container}>
         <div className={styles.innerContainer}>
           <Category width={width} show={show} setShow={setShow} />
-          <div className={styles.outletContainer}>
-            <AnimatePresence>
-              {show && (
-                <motion.div
-                  variants={overlayEf}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                  className={styles.OverLay}
-                />
-              )}
-            </AnimatePresence>
-            <Outlet />
+          <div className={styles.outletWrap}>
+            <div className={styles.outletContainer}>
+              <AnimatePresence>
+                {show && (
+                  <motion.div
+                    variants={overlayEf}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                    className={styles.OverLay}
+                  />
+                )}
+              </AnimatePresence>
+              <Outlet />
+            </div>
           </div>
         </div>
       </div>

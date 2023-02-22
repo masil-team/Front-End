@@ -214,7 +214,7 @@
   }
 }
 
-@media (max-width: 740px) {
+@media (max-width: 769px) {
   .post_wrap > ul {
     grid-template-columns: repeat(1, minmax(340px, auto));
   }
