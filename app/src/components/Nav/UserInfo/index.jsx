@@ -36,6 +36,7 @@ const Index = () => {
   const logout = () => {
     setLogin(false);
     sessionStorage.clear();
+    navigate('/');
     window.location.reload();
   };
 
