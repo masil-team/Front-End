@@ -56,7 +56,7 @@ export const Main = () => {
   //세션 초기값 세팅
   function initValue() {
     if (getAddressInfo == null || getAddressInfo == undefined) {
-      setAddress({ emdName: '옥인동', sggName: '종로구', sidoName: '서울특별시', rcode: 11110111 });
+      setAddress({ emdName: '옥인동', sggName: '종로구', sidoName: '서울특별시', emdId: 11110111 });
       sessionStorage.setItem('addressInfo', JSON.stringify(address));
     }
     if (getList == null || getList == undefined) {
@@ -90,9 +90,9 @@ export const Main = () => {
       //세션에 있는 주소 정보와 filteredArr의 주소를 비교해서 해당하는 주소만 필터함
       const newArray = filteredArr.filter(item => {
         return (
-          item.address == getAddressInfo.emdName ||
-          item.address == getAddressInfo.sggName ||
-          item.address == getAddressInfo.sidoName
+          item.address == getAddressInfo?.emdName ||
+          item.address == getAddressInfo?.sggName ||
+          item.address == getAddressInfo?.sidoName
         );
       });
       sessionStorage.setItem('postList', JSON.stringify(newArray));
@@ -108,7 +108,7 @@ export const Main = () => {
   //데이터 호출 함수
   const handleData = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/boards/${category}/posts?rCode=${address.rcode}&page=${pageNum}&size=8`);
+      const res = await axios.get(`${BASE_URL}/boards/${category}/posts?rCode=${address.emdId}&page=${pageNum}&size=8`);
       setData(prev => [...prev, ...res.data.posts]); //기존의 data값과 새로운 data값을 복제해서 setData에 추가해줌
       handleTimeFilter(res.data.posts);
       setLastPage(res.data.isLast);
