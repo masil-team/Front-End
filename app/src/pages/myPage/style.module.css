@@ -10,10 +10,7 @@
 }
 
 .outletContainer {
-  margin: 80px auto;
-  width: fit-content;
-  height: 100%;
-  font-size: 3rem;
+  width: 100%;
 }
 .OverLay {
   top: 0;
@@ -26,7 +23,7 @@
 
 @media screen and (max-width: 769px) {
   .outletContainer {
-    margin: 80px auto;
-    width: fit-content;
+    margin: 80px 0;
+    width: 100%;
   }
 }

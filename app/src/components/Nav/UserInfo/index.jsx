@@ -100,7 +100,7 @@ const Index = () => {
                   </ul>
                 </div>
               </li>
-              <li>
+              <li onClick={() => navigate('/mypage/bookmark')}>
                 <em>마이페이지</em>
               </li>
               <li>

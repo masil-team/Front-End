@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 
 const Profile = () => {
+  const userInfo = JSON.parse(sessionStorage.getItem('user'));
   return (
     <div className={styles.container}>
       <h1 className={styles.h1}>회원정보 변경</h1>
@@ -18,9 +19,9 @@ const Profile = () => {
         </div>
         <div className={styles.emailLocation}>
           <span>이메일 정보</span>
-          <input style={{ marginBottom: '35px' }} placeholder="이메일" className={styles.input}></input>
+          <input style={{ marginBottom: '35px' }} placeholder={userInfo.email} className={styles.input}></input>
           <span>주소 정보</span>
-          <input style={{ marginBottom: '10px' }} placeholder="주소 정보" className={styles.input} />
+          <input style={{ marginBottom: '10px' }} placeholder={userInfo.address.emdName} className={styles.input} />
           <button className={styles.imageBtn}>주소 등록</button>
         </div>
       </div>
@@ -34,7 +35,7 @@ const Profile = () => {
         </div>
         <div className={styles.nickname}>
           <span>닉네임 변경</span>
-          <input style={{ marginBottom: '10px' }} placeholder="닉네임" className={styles.input} />
+          <input style={{ marginBottom: '10px' }} placeholder={userInfo.nickname} className={styles.input} />
           <button className={styles.imageBtn}>닉네임 변경</button>
         </div>
       </div>
