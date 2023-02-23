@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './style.module.css';
 import Search from './Search';
 import UserInfo from './UserInfo';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { PATH } from '../../constants/path';
 import sessionReset from '../../utils/sessionReset';
-//import { BASE_URL } from '../../constants/api';
+import { BASE_URL } from '../../constants/api';
+import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
 
 const Index = () => {
   const navigate = useNavigate();
   const urlAddress = useLocation();
-  /*
+
   let accessToken = sessionStorage.getItem('accessToken');
+  const EventSource = EventSourcePolyfill || NativeEventSource;
 
   //sse 단방향 통신
   useEffect(() => {
@@ -21,7 +23,7 @@ const Index = () => {
         try {
           eventSource = new EventSource(`${BASE_URL}/sse`, {
             headers: {
-              Authorization: sessionStorage.getItem('accessToken'),
+              Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
             },
             withCredentials: true,
           });
@@ -30,7 +32,7 @@ const Index = () => {
             console.log('받은 정보', res);
           };
           eventSource.onerror = async event => {
-            console.log('see에러', event);
+            console.log('sse에러', event);
             eventSource.close();
           };
         } catch (error) {
@@ -41,7 +43,6 @@ const Index = () => {
       return () => eventSource.close();
     }
   });
-  */
 
   return (
     <nav className={styles.nav}>
