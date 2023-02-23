@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import useTime from '../../../../../hooks/useTime';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '../../../../../constants/path';
 
 const Index = ({
   item,
@@ -18,6 +20,11 @@ const Index = ({
   // 댓글 날짜 포맷팅
   const [day] = useState([target]); //데이터의 날짜 저장
   const time = useTime(day); //커스텀훅 매개변수 배열로 전달 해야함
+  const navigate = useNavigate();
+
+  //로그인 여부 체크
+  let user = sessionStorage.getItem('user');
+  user = JSON.parse(user);
 
   return (
     <li>
@@ -28,27 +35,34 @@ const Index = ({
             <h4>{target.member.nickname}</h4>
             <p>{target.content}</p>
             <div className={styles.comment_info}>
-              <ul>
+              <ul
+                onClick={() => {
+                  if (user == null || undefined) {
+                    user == null && navigate(PATH.LOGIN);
+                    return;
+                  }
+                }}
+              >
                 <li>
                   <em>{time}</em>
                 </li>
-                {target.owner == false && (
+                {target.isOwner == false && (
                   <li
                     onClick={() => {
                       handleCommentLike(target.id);
                     }}
-                    className={`${target.liked == true && styles.active}`}
+                    className={`${target.isLiked == true && styles.active}`}
                   >
                     <FontAwesomeIcon icon={faHeart} className={styles.icon} />
                     <em>좋아요</em>
                   </li>
                 )}
-                {target.owner == false && (
+                {target.isOwner == false && (
                   <li>
                     <em>신고</em>
                   </li>
                 )}
-                {target.owner == true && (
+                {target.isOwner == true && (
                   <li
                     onClick={() => {
                       setCommentPutTarget(target.id);
@@ -60,7 +74,7 @@ const Index = ({
                     <em>수정</em>
                   </li>
                 )}
-                {target.owner == true && (
+                {target.isOwner == true && (
                   <li
                     onClick={() => {
                       handleCommentRemove(target.id);

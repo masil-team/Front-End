@@ -12,6 +12,7 @@ import { BASE_URL } from '../../constants/api';
 import axios from '../../utils/token';
 import filterArray from '../../utils/arrayFilter';
 import { PATH } from '../../constants/path';
+import BookMark from './BookMark';
 
 export const Post = () => {
   const { id } = useParams();
@@ -159,7 +160,12 @@ export const Post = () => {
                 </div>
                 <em>{data.member.nickname}</em>
               </div>
-              {data.isOwner == false && <PostLike data={data} postHandleData={postHandleData}></PostLike>}
+              <div className={styles.post_icon}>
+                <ul>
+                  <li>{data.isOwner == false && <PostLike data={data} postHandleData={postHandleData}></PostLike>}</li>
+                  {data.isOwner == false && <BookMark item={data}></BookMark>}
+                </ul>
+              </div>
               {data.isOwner == true && (
                 <div className={styles.post_modify}>
                   <ul>
