@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import styles from './style.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell, faBars, faTimes, faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faTimes, faBookmark } from '@fortawesome/free-solid-svg-icons';
 import usePopupClose from '../../../hooks/usePopupClose';
 import { useRef } from 'react';
 import { useEffect } from 'react';
@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { PATH } from '../../../constants/path';
 import axios from '../../../utils/token';
 import { BASE_URL } from '../../../constants/api';
+import Alarm from './Alarm';
 
 const Index = () => {
   const navigate = useNavigate();
@@ -51,7 +52,8 @@ const Index = () => {
       {login === true && (
         <div
           className={styles.mobile}
-          onClick={() => {
+          onClick={e => {
+            e.stopPropagation();
             setUserActive(!userActive);
           }}
         >
@@ -94,9 +96,7 @@ const Index = () => {
                     <li>
                       <FontAwesomeIcon icon={faBookmark} className={styles.icon} />
                     </li>
-                    <li>
-                      <FontAwesomeIcon icon={faBell} className={styles.icon} />
-                    </li>
+                    <Alarm></Alarm>
                   </ul>
                 </div>
               </li>
