@@ -7,6 +7,7 @@ import { PATH } from '../../constants/path';
 import sessionReset from '../../utils/sessionReset';
 import { BASE_URL } from '../../constants/api';
 import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
+import { useState } from 'react';
 
 const Index = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const Index = () => {
 
   let accessToken = sessionStorage.getItem('accessToken');
   const EventSource = EventSourcePolyfill || NativeEventSource;
+  const [alert] = useState(true); //실시간 알림 표시
 
   //sse 단방향 통신
   useEffect(() => {
@@ -57,7 +59,7 @@ const Index = () => {
           <img src={`${process.env.PUBLIC_URL}/images/logo.png`} alt="" />
         </div>
         <Search></Search>
-        <UserInfo></UserInfo>
+        <UserInfo alert={alert}></UserInfo>
       </div>
     </nav>
   );

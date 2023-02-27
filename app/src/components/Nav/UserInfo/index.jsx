@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import styles from './style.module.css';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes, faBookmark } from '@fortawesome/free-solid-svg-icons';
 import usePopupClose from '../../../hooks/usePopupClose';
@@ -12,7 +13,7 @@ import axios from '../../../utils/token';
 import { BASE_URL } from '../../../constants/api';
 import Alarm from './Alarm';
 
-const Index = () => {
+const Index = ({ alert }) => {
   const navigate = useNavigate();
   const [login, setLogin] = useState(false); //로그인 여부 확인
   const [userActive, setUserActive] = useState(false); //로그인 완료시 1024미만으로 줄어들었을 경우 햄버거 아이콘 클릭시 유저 정보 active
@@ -96,7 +97,7 @@ const Index = () => {
                     <li>
                       <FontAwesomeIcon icon={faBookmark} className={styles.icon} />
                     </li>
-                    <Alarm></Alarm>
+                    <Alarm alert={alert}></Alarm>
                   </ul>
                 </div>
               </li>
@@ -124,6 +125,10 @@ const Index = () => {
       </div>
     </div>
   );
+};
+
+Index.propTypes = {
+  alert: PropTypes.bool,
 };
 
 export default Index;

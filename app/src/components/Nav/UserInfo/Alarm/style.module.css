@@ -22,7 +22,10 @@
 .alarm ul li:hover .alarm_content p{color: rgb(150, 150, 250);}
 
 /* 알림 아으콘 */
+.icon_box{position: relative; }
+.icon_box.active::before{content: '';width: 4px;height: 4px;background: red; position: absolute; top: 1px;right: -3px; border-radius: 50%;}
 .icon{cursor: pointer;}
+
 
 @media (max-width:1023px){
     .alarm{width: 250px; position: fixed; top: 350px;left: calc(100% - 250px);}

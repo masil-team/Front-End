@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from './style.module.css';
+import PropTypes from 'prop-types';
 import { useRef } from 'react';
 import usePopupClose from '../../../../hooks/usePopupClose';
 import { useEffect } from 'react';
@@ -10,7 +11,7 @@ import { BASE_URL } from '../../../../constants/api';
 import Time from './Time';
 import { useNavigate } from 'react-router-dom';
 
-const Index = () => {
+const Index = ({ alert }) => {
   const navigate = useNavigate();
 
   //알림 팝업창
@@ -47,7 +48,10 @@ const Index = () => {
 
   return (
     <li ref={target}>
-      <FontAwesomeIcon icon={faBell} className={styles.icon} />
+      <div className={`${styles.icon_box} ${alert == true && styles.active}`}>
+        <FontAwesomeIcon icon={faBell} className={styles.icon} />
+      </div>
+
       {alarm == true && (
         <div className={styles.alarm}>
           {data && (
@@ -80,6 +84,10 @@ const Index = () => {
       )}
     </li>
   );
+};
+
+Index.propTypes = {
+  alert: PropTypes.bool,
 };
 
 export default Index;
