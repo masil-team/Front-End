@@ -1,13 +1,11 @@
 import React from 'react';
-import Card from './Card';
+import Infinite from '../../../components/Infinite';
 import styles from './style.module.css';
 const Like = () => {
-  const postList = JSON.parse(sessionStorage.getItem('postList'));
-  console.log(postList);
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        <Card postList={postList} />
+        <Infinite />
       </div>
     </section>
   );

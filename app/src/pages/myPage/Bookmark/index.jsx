@@ -1,13 +1,13 @@
-import React from 'react';
-import Card from './Card';
+import React, { useEffect } from 'react';
 import styles from './style.module.css';
+import Infinite from '../../../components/Infinite';
+
 const BookMark = () => {
-  const postList = JSON.parse(sessionStorage.getItem('postList'));
-  console.log(postList);
+  useEffect(() => {}, []);
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        <Card postList={postList} />
+        <Infinite />
       </div>
     </section>
   );
