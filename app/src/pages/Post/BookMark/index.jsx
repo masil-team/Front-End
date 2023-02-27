@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../style.module.css';
-import axios from '../../../../utils/token';
+
 import PropTypes from 'prop-types';
-import filterArray from '../../../../utils/arrayFilter';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
-import { BASE_URL } from '../../../../constants/api';
-import userCheck from '../../../../utils/userCheck';
+import axios from '../../../utils/token';
+import { BASE_URL } from '../../../constants/api';
+import filterArray from '../../../utils/arrayFilter';
 import { useNavigate } from 'react-router-dom';
-import { PATH } from '../../../../constants/path';
+import { PATH } from '../../../constants/path';
+import userCheck from '../../../utils/userCheck';
 
 const Index = ({ item }) => {
   const [bookColor, setBookColor] = useState();
   let getList = sessionStorage.getItem('postList');
   getList = JSON.parse(getList);
+
   //유저 여부 확인
   const user = userCheck();
   const navigate = useNavigate();
@@ -51,7 +53,7 @@ const Index = ({ item }) => {
     <li>
       <FontAwesomeIcon
         icon={faBookmark}
-        className={`${styles.icon} ${bookColor == true && styles.book_active}`}
+        className={`${styles.book_mark} ${bookColor == true && styles.book_active}`}
         onClick={() => {
           if (user == false) {
             navigate(PATH.LOGIN);

@@ -1,0 +1,44 @@
+.alarm{width: 360px;max-height: 500px; overflow-y: auto; background: #fff; padding: 20px; box-sizing: border-box; position: absolute; top: calc(100% + 20px);left: -100px;z-index: 9999; border-radius: 10px; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;}
+.alarm ul{display: flex; flex-direction: column;}
+.alarm ul li{width: 100%; border-bottom: 1px solid #ddd; margin-bottom: 10px; cursor: pointer;}
+.alarm ul li:last-child{border-bottom: none; margin-bottom: 0px;}
+.alarm ul li .alarm_info{display: flex; justify-content: space-between; align-items: center;}
+.alarm ul li::before{display: none;}
+
+/* 회원 정보 */
+.alarm ul li .alarm_info .user{display: flex;align-items: center;}
+.alarm ul li .alarm_info .user .user_img{width: 30px;height: 30px;background: #555; border-radius: 50%;}
+.alarm ul li .alarm_info .user em{ margin-left: 5px; font-size: 14px;}
+
+/* 시간 */
+.alarm ul li .alarm_info .time{}
+.alarm ul li .alarm_info .time em{font-size: 14px;}
+
+/* 내용 */
+.alarm ul li .alarm_content{margin-top: 5px; padding-bottom: 10px;}
+.alarm ul li .alarm_content p{transition: all 0.2s;}
+.alarm ul li .alarm_content.active p{color: #ccc; pointer-events: none;}
+.alarm ul li:last-child .alarm_content{padding-bottom: 0px;}
+.alarm ul li:hover .alarm_content p{color: rgb(150, 150, 250);}
+
+/* 알림 아으콘 */
+.icon_box{position: relative; }
+.icon_box.active::before{content: '';width: 4px;height: 4px;background: red; position: absolute; top: 1px;right: -3px; border-radius: 50%;}
+.icon{cursor: pointer;}
+
+
+@media (max-width:1023px){
+    .alarm{width: 250px; position: fixed; top: 350px;left: calc(100% - 250px);}
+    .alarm ul{display: flex;flex-direction: column; justify-content: start;}
+    .icon{font-size: 24px;}
+}
+
+/* 스크롤바 설정*/
+.alarm::-webkit-scrollbar {width: 6px;}
+
+/* 스크롤바 막대 설정*/
+.alarm::-webkit-scrollbar-thumb {background: linear-gradient(#0066ff, #6253E1);border-radius: 25px;}
+
+/* 스크롤바 뒷 배경 설정*/
+.alarm::-webkit-scrollbar-track {background-color: #ccc;}
+
