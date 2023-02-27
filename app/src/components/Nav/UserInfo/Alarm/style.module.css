@@ -17,6 +17,7 @@
 /* 내용 */
 .alarm ul li .alarm_content{margin-top: 5px; padding-bottom: 10px;}
 .alarm ul li .alarm_content p{transition: all 0.2s;}
+.alarm ul li .alarm_content.active p{color: #ccc; pointer-events: none;}
 .alarm ul li:last-child .alarm_content{padding-bottom: 0px;}
 .alarm ul li:hover .alarm_content p{color: rgb(150, 150, 250);}
 
