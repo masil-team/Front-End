@@ -8,9 +8,12 @@ import { faBell } from '@fortawesome/free-solid-svg-icons';
 import axios from '../../../../utils/token';
 import { BASE_URL } from '../../../../constants/api';
 import Time from './Time';
+import { useNavigate } from 'react-router-dom';
 
 const Index = () => {
-  /* 알림 팝업창 */
+  const navigate = useNavigate();
+
+  //알림 팝업창
   const [alarm, setAlarm] = useState(false);
   const target = useRef(null);
   const targetValue = usePopupClose(target);
@@ -18,7 +21,7 @@ const Index = () => {
     setAlarm(targetValue);
   }, [targetValue]);
 
-  /* 알림 데이터 */
+  //알림 데이터
   const [data, setData] = useState([]);
   const handleAlarm = async () => {
     try {
@@ -29,12 +32,10 @@ const Index = () => {
     }
   };
 
-  console.log(alarm);
-
+  // 알림 읽음
   const readAlarm = async id => {
     try {
-      const res = await axios.patch(`${BASE_URL}/notifications/${id}`);
-      console.log(res);
+      await axios.patch(`${BASE_URL}/notifications/${id}`);
     } catch (error) {
       console.log(error);
     }
@@ -65,9 +66,10 @@ const Index = () => {
                       className={`${styles.alarm_content} ${item.isRead == true && styles.active}`}
                       onClick={() => {
                         readAlarm(item.id);
+                        navigate(item.url);
                       }}
                     >
-                      <p>테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트</p>
+                      <p>{item.content}</p>
                     </div>
                   </li>
                 );
