@@ -38,7 +38,6 @@ function Infinite() {
   useEffect(() => {
     initialValue();
     if (myPageList) {
-      console.log(myPageList);
       myPageList.push(...newData);
       const filteredArr = myPageList.reduce((acc, current) => {
         const x = acc.find(item => item.id === current.id);
