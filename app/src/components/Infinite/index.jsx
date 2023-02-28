@@ -3,42 +3,61 @@ import { useMatch } from 'react-router-dom';
 import { BASE_URL } from '../../constants/api';
 import Card from '../../pages/myPage/Bookmark/Card';
 import axios from '../../utils/token';
+import useTime from '../../hooks/useTime';
 
 function Infinite() {
   const bookMark = useMatch('/mypage/bookmark');
   const like = useMatch('/mypage/like');
-  const [items, setItems] = useState([]);
-  // const [setHasMore] = useState(true);
   const [page, setPage] = useState(0);
-  const bookMarkList = sessionStorage.getItem('bookMarkList');
-  const likeList = sessionStorage.getItem('likeList');
-  const getBookData = async () => {
-    const res = await axios.get(`${BASE_URL}/boards/1/posts?rCode=11110111&page=${page}&size=8`);
-    setItems([...items, ...res.data.posts]);
-    sessionStorage.setItem('bookMarkList', JSON.stringify([...JSON.parse(bookMarkList), ...res.data.posts]));
-  };
-  const getLikeData = async () => {
-    const res = await axios.get(`${BASE_URL}/boards/1/posts?rCode=11110111&page=${page}&size=8`);
-    setItems([...items, ...res.data.posts]);
-  };
-  function initialValue() {
-    if (bookMarkList === null || bookMarkList === undefined) {
-      sessionStorage.setItem('bookMarkList', []);
-    }
-    if (likeList === null || likeList === undefined) {
-      sessionStorage.setItem('likeList', []);
-    }
-  }
-  console.log(items, bookMarkList);
-  //session stroage 에 저장이 바로안됨..
+  const [last, setLast] = useState(false);
+  let myPageList = sessionStorage.getItem('myPageList');
+  myPageList = JSON.parse(myPageList);
+  // let likeList = sessionStorage.getItem('likeList');
+  const [data, setData] = useState([]);
+  const [newData, setNewData] = useState([]);
+  const [postList, setPostList] = useState(myPageList);
 
+  const getBookData = async () => {
+    const res = bookMark
+      ? await axios.get(`${BASE_URL}/boards/1/posts?rCode=11110111&page=${page}&size=8`)
+      : await axios.get(`${BASE_URL}/boards/1/posts?rCode=11110111&page=${page}&size=8`);
+
+    setData(prev => [...prev, ...res.data.posts]);
+    handleTimeFilter(res.data.posts);
+    setLast(res.data.isLast);
+  };
+
+  function initialValue() {
+    if (myPageList === null || myPageList === undefined) {
+      sessionStorage.setItem('myPageList', JSON.stringify([]));
+    }
+    // if (likeList === null || likeList === undefined) {
+    //   sessionStorage.setItem('likeList', JSON.stringify([]));
+    // }
+  }
   useEffect(() => {
     initialValue();
-    if (bookMark) {
-      getBookData();
-    } else if (like) {
-      getLikeData();
+    if (myPageList) {
+      console.log(myPageList);
+      myPageList.push(...newData);
+      const filteredArr = myPageList.reduce((acc, current) => {
+        const x = acc.find(item => item.id === current.id);
+        if (!x) {
+          return acc.concat([current]);
+        } else {
+          return acc;
+        }
+      }, []);
+      sessionStorage.setItem('myPageList', JSON.stringify(filteredArr));
+      setPostList(filteredArr);
+      if (last == true) {
+        return;
+      }
     }
+  }, [newData]);
+
+  useEffect(() => {
+    getBookData();
   }, [page, bookMark, like]);
 
   const onScroll = () => {
@@ -47,41 +66,41 @@ function Infinite() {
     const clientHeight = document.documentElement.clientHeight;
     if (scrollTop + clientHeight >= scrollHeight) {
       setPage(page + 1);
-      sessionStorage.setItem('bookMarkPage', page + 1);
+      sessionStorage.setItem('myPageNumber', page);
     }
   };
+
+  const [day, setDay] = useState([]); //데이터의 날짜 저장
+  const time = useTime(day); //커스텀훅 매개변수 배열로 전달 해야함
+
+  const handleTimeFilter = data => {
+    setDay([...day, ...data]);
+  };
+
+  /* time이 변경될때 마다 실행  */
+  useEffect(() => {
+    const dataCopy = [...data];
+
+    const filteredArr = dataCopy.reduce((acc, current) => {
+      const x = acc.find(item => item.id === current.id);
+      if (!x) {
+        return acc.concat([current]);
+      } else {
+        return acc;
+      }
+    }, []);
+    const newArray = filteredArr.filter((item, index) => {
+      const newItem = (item.newTime = time[index]);
+      return newItem;
+    });
+    setNewData(newArray);
+  }, [time]);
+
   useEffect(() => {
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
-  }, [items]);
-  return <Card postList={items} />;
+  }, [data]);
+  return <Card postList={postList} />;
 }
+
 export default Infinite;
-
-// let getPageNum = sessionStorage.getItem('pageNum');
-// getPageNum = JSON.parse(getPageNum);
-// const [pageNum, setPageNum] = useState(getPageNum); //페이지 번호
-// const [lastPage, setLastPage] = useState(); //마지막 페이지 확인
-
-// //세션에 게시글 목록 저장
-// let getList = sessionStorage.getItem('postList');
-// getList = JSON.parse(getList);
-// const [postList, setPostList] = useState(getList);
-
-// function initValue() {
-//   if (getAddressInfo == null || getAddressInfo == undefined) {
-//     setAddress({ emdName: '옥인동', sggName: '종로구', sidoName: '서울특별시', emdId: 11110111 });
-//     sessionStorage.setItem('addressInfo', JSON.stringify(address));
-//   }
-//   if (getList == null || getList == undefined) {
-//     sessionStorage.setItem('postList', JSON.stringify([]));
-//   }
-//   if (getCategory == null || getCategory == undefined) {
-//     setCategory(1);
-//     sessionStorage.setItem('category', JSON.stringify(1));
-//   }
-//   if (getPageNum == null || getPageNum == undefined) {
-//     setPageNum(0);
-//     sessionStorage.setItem('pageNum', JSON.stringify(0));
-//   }
-// }

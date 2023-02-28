@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const Card = ({ postList }) => {
   const nav = useNavigate();
   // const postList = JSON.parse(sessionStorage.getItem('bookMarkList'));
+
   return (
     <>
       <div className={styles.post_wrap}>

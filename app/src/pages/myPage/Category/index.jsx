@@ -27,21 +27,39 @@ const Category = ({ width, show, setShow }) => {
     <>
       {width > 780 ? (
         <div className={styles.categoryContainer}>
-          <div onClick={() => nav('/mypage/bookmark')} className={styles.categoryitem}>
+          <div
+            onClick={() => {
+              nav('/mypage/bookmark');
+              sessionStorage.removeItem('myPageList');
+            }}
+            className={styles.categoryitem}
+          >
             <div>
               <FontAwesomeIcon icon={faBookmark} />
               <span className={styles.categoryspan}>북마크</span>
             </div>
             {bookMatch && <motion.div className={styles.circle} layoutId="1" />}
           </div>
-          <div onClick={() => nav('/mypage/like')} className={styles.categoryitem}>
+          <div
+            onClick={() => {
+              nav('/mypage/like');
+              sessionStorage.removeItem('myPageList');
+            }}
+            className={styles.categoryitem}
+          >
             <div>
               <FontAwesomeIcon icon={faThumbsUp} />
               <span className={styles.categoryspan}>좋아요</span>
             </div>
             {likeMatch && <motion.div className={styles.circle} layoutId="1" />}
           </div>
-          <div onClick={() => nav('/mypage/profile')} className={styles.categoryitem}>
+          <div
+            onClick={() => {
+              nav('/mypage/profile');
+              sessionStorage.removeItem('myPageList');
+            }}
+            className={styles.categoryitem}
+          >
             <div>
               <FontAwesomeIcon icon={faUser} />
               <span className={styles.categoryspan}>회원정보변경</span>

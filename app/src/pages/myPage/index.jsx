@@ -21,7 +21,6 @@ const overlayEf = {
 const MyPage = () => {
   const [width, setWidth] = useState(window.innerWidth);
   const [show, setShow] = useState(false);
-  console.log(show);
   useEffect(() => {
     window.onresize = () => {
       setWidth(window.innerWidth);
