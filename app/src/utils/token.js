@@ -44,12 +44,14 @@ axios.interceptors.response.use(
           },
           withCredentials: true,
         });
+        console.log(res);
         if (res.status === 200) {
           sessionStorage.setItem('accessToken', res.data.accessToken);
           return await axios.request(originalConfig);
         }
       } catch (err) {
         if (err.response.data.code === 6003 || err.response.data.code === 6005) {
+          console.log(err.response);
           sessionStorage.removeItem('accessToken');
           removeCookie('refreshToken');
           history.pushState(null, null, location.origin + PATH.LOGIN);

@@ -9,4 +9,8 @@ export const PATH = {
   POST: '/post/:id',
   CREATE_POST: '/createPost',
   EDIT_POST: '/edit',
+  MY_PAGE: '/mypage/*',
+  LIKE: 'like',
+  BOOKMARK: 'bookmark',
+  PROFILE: 'profile',
 };

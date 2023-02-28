@@ -38,6 +38,7 @@ const Index = ({ alert }) => {
   const logout = () => {
     setLogin(false);
     sessionStorage.clear();
+    navigate('/');
     window.location.reload();
   };
 
@@ -101,7 +102,7 @@ const Index = ({ alert }) => {
                   </ul>
                 </div>
               </li>
-              <li>
+              <li onClick={() => navigate('/mypage/bookmark')}>
                 <em>마이페이지</em>
               </li>
               <li>

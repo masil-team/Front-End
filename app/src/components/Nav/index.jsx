@@ -17,7 +17,7 @@ const Index = () => {
   const EventSource = EventSourcePolyfill || NativeEventSource;
   const [alert] = useState(true); //실시간 알림 표시
 
-  //sse 단방향 통신
+  // sse 단방향 통신
   useEffect(() => {
     if (accessToken) {
       let eventSource;
@@ -44,7 +44,7 @@ const Index = () => {
       fetchSse();
       return () => eventSource.close();
     }
-  });
+  }, []);
 
   return (
     <nav className={styles.nav}>
