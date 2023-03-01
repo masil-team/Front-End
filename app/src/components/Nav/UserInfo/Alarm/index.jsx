@@ -54,6 +54,7 @@ const Index = ({ alert }) => {
 
       {alarm == true && (
         <div className={styles.alarm}>
+          {data.length == 0 && <em>알림이 없습니다</em>}
           {data && (
             <ul>
               {data.map(item => {
