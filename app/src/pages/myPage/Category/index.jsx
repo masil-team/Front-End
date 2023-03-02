@@ -130,6 +130,19 @@ const Category = ({ width, show, setShow }) => {
               </div>
               {profileMatch && <motion.div className={styles.mobileCircle} layoutId="1" />}
             </div>
+            <div
+              onClick={() => {
+                nav('/mypage/news');
+                sessionStorage.removeItem('myPageList');
+              }}
+              className={styles.categoryitem}
+            >
+              <div>
+                <FontAwesomeIcon icon={faBell} />
+                <span className={styles.categoryspan}>내 소식</span>
+              </div>
+              {newsMatch && <motion.div className={styles.circle} layoutId="1" />}
+            </div>
           </div>
           <div className={styles.mobileMenuIcon}>
             <FontAwesomeIcon icon={show ? faClose : faBars} onClick={() => setShow(prev => !prev)} />

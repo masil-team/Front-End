@@ -158,6 +158,7 @@ const Form = ({ image, setImage, count, setCount }) => {
             올리기
           </button>
         </div>
+
         <input
           type="file"
           id="profile_upload"
@@ -165,12 +166,13 @@ const Form = ({ image, setImage, count, setCount }) => {
           onChange={e => {
             onChangeImg(e);
           }}
+          style={{ display: 'none' }}
         />
-        <div onClick={getImages} className={styles.photoupload}>
+        <label onClick={getImages} htmlFor="profile_upload" className={styles.photoupload}>
           <FontAwesomeIcon style={{ fontSize: '32px' }} icon={faCamera} />
           <span style={{ fontSize: '16px' }}>사진올리기</span>
           <span style={{ fontSize: '12px' }}>(최대 10장)</span>
-        </div>
+        </label>
       </div>
       <div className={styles.secondsection}>
         <textarea

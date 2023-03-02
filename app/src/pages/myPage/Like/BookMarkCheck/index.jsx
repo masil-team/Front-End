@@ -12,7 +12,7 @@ import { PATH } from '../../../../constants/path';
 
 const Index = ({ item }) => {
   const [bookColor, setBookColor] = useState();
-  let getList = sessionStorage.getItem('postList');
+  let getList = sessionStorage.getItem('myPageList');
   getList = JSON.parse(getList);
   //유저 여부 확인
   const user = userCheck();
@@ -33,7 +33,7 @@ const Index = ({ item }) => {
       targetItem[0].isScrap = res.data.isScrap;
       const newArray = [...getList, ...targetItem];
       const filteredArr = filterArray(newArray);
-      sessionStorage.setItem('postList', JSON.stringify(filteredArr));
+      sessionStorage.setItem('myPageList', JSON.stringify(filteredArr));
       setBookColor(res.data.isScrap);
     } catch (error) {
       console.log(error);

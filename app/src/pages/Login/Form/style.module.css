@@ -74,6 +74,13 @@
   font-size: 14px;
   color: rgba(255, 0, 0, 0.7);
 }
+
+@media screen and (min-width: 770px) and (max-width: 1500px) {
+  .form {
+    height: 400px;
+    width: fit-content;
+  }
+}
 @media screen and (max-width: 769px) {
   .span {
     font-size: 14px;

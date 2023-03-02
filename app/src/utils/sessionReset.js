@@ -3,5 +3,7 @@ export default function reset(url) {
     sessionStorage.removeItem('pageNum');
     sessionStorage.setItem('category', 1);
     sessionStorage.removeItem('postList');
+    sessionStorage.removeItem('myPageList');
+    sessionStorage.removeItem('myPageNum');
   }
 }

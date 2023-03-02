@@ -4,9 +4,8 @@ import { BASE_URL } from '../../constants/api';
 import Card from '../../pages/myPage/Bookmark/Card';
 import axios from '../../utils/token';
 import useTime from '../../hooks/useTime';
-import PropTypes from 'prop-types';
 
-function Infinite({ postList, setPostList }) {
+function Infinite() {
   const bookMark = useMatch('/mypage/bookmark');
   const like = useMatch('/mypage/like');
 
@@ -22,11 +21,12 @@ function Infinite({ postList, setPostList }) {
   const [data, setData] = useState([]);
   const [newData, setNewData] = useState([]);
   /////
+  const [postList, setPostList] = useState(myPageList);
   const getBookData = async () => {
     try {
       const res = bookMark
         ? await axios.get(`${BASE_URL}/bookmarks?page=${pageNum}&size=8`)
-        : await axios.get(`${BASE_URL}/boards/1/posts?rCode=11110111&page=${pageNum}&size=8`);
+        : await axios.get(`${BASE_URL}/bookmarks?page=${pageNum}&size=8`);
       console.log(res.data.isLast, console.log(res.data));
       setData(prev => [...prev, ...res.data.posts]);
       handleTimeFilter(res.data.posts);
@@ -44,9 +44,6 @@ function Infinite({ postList, setPostList }) {
       setPageNum(0);
       sessionStorage.setItem('myPageNum', JSON.stringify(0));
     }
-    // if (likeList === null || likeList === undefined) {
-    //   sessionStorage.setItem('likeList', JSON.stringify([]));
-    // }
   }
 
   useEffect(() => {
@@ -71,6 +68,8 @@ function Infinite({ postList, setPostList }) {
   }, [newData, pageNum]);
 
   useEffect(() => {
+    if (bookMark || like) sessionStorage.removeItem('myPageList');
+    sessionStorage.removeItem('myPageNum');
     getBookData();
   }, [pageNum, bookMark, like]);
 
@@ -117,12 +116,8 @@ function Infinite({ postList, setPostList }) {
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, [data]);
-  return <Card setPostList={setPostList} postList={postList} setData={setData} setNewData={setNewData} />;
+  return <Card postList={postList} setData={setData} setNewData={setNewData} />;
 }
-Infinite.propTypes = {
-  postList: PropTypes.array,
-  setPostList: PropTypes.func,
-};
 
 export default Infinite;
 //App code
