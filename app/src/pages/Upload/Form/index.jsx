@@ -56,6 +56,7 @@ const Form = ({ image, setImage, count, setCount }) => {
     text: modify ? categories[modify.boardId - 1].text : '카테고리',
     val: modify ? categories[modify.boardId - 1].val : 0,
   });
+  const [inputValue, setFileData] = useState();
   const getImages = () => {
     if (count === 10) {
       alert('사진은 최대 10장입니다.');
@@ -102,6 +103,21 @@ const Form = ({ image, setImage, count, setCount }) => {
       console.log(boardId, text, image);
     }
   };
+  console.log(inputValue);
+  const onChangeImg = e => {
+    const uploadFile = e.target.files[0];
+    const formData = new FormData();
+    formData.append('image', uploadFile);
+
+    axios
+      .post(`${BASE_URL}`, formData)
+      .then(res => {
+        setFileData(res.data.src);
+      })
+      .catch(error => {
+        console.log('이미지 업로드실패', error);
+      });
+  };
   return (
     <>
       <div className={styles.firstsection}>
@@ -142,7 +158,14 @@ const Form = ({ image, setImage, count, setCount }) => {
             올리기
           </button>
         </div>
-
+        <input
+          type="file"
+          id="profile_upload"
+          accept="image/*"
+          onChange={e => {
+            onChangeImg(e);
+          }}
+        />
         <div onClick={getImages} className={styles.photoupload}>
           <FontAwesomeIcon style={{ fontSize: '32px' }} icon={faCamera} />
           <span style={{ fontSize: '16px' }}>사진올리기</span>

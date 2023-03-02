@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Modify from '../Modify';
 import BookMarkCheck from '../BookMarkCheck';
 import LikeCheck from '../LikeCheck';
-const Card = ({ data, setData, setNewData, postList }) => {
+const Card = ({ data, postList, setPostList, setData, setNewData }) => {
   const navigate = useNavigate();
   // const postList = JSON.parse(sessionStorage.getItem('bookMarkList'));
 
@@ -67,7 +67,13 @@ const Card = ({ data, setData, setNewData, postList }) => {
                             <FontAwesomeIcon icon={faComment} className={styles.icon} />
                             <em>{item.commentCount}</em>
                           </li>
-                          <BookMarkCheck item={item}></BookMarkCheck>
+                          <BookMarkCheck
+                            setData={setData}
+                            setNewData={setNewData}
+                            postList={postList}
+                            setPostList={setPostList}
+                            item={item}
+                          ></BookMarkCheck>
                         </ul>
                       </div>
                       <div className={styles.category}>
@@ -95,9 +101,10 @@ const Card = ({ data, setData, setNewData, postList }) => {
 
 Card.propTypes = {
   data: PropTypes.array,
-  setData: PropTypes.func,
   newData: PropTypes.array,
-  setNewData: PropTypes.func,
   postList: PropTypes.array,
+  setPostList: PropTypes.func,
+  setData: PropTypes.func,
+  setNewData: PropTypes.func,
 };
 export default Card;

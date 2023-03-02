@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from '../Card/style.module.css';
 import axios from '../../../../utils/token';
 import PropTypes from 'prop-types';
+import filterArray from '../../../../utils/arrayFilter';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 import { BASE_URL } from '../../../../constants/api';
@@ -9,13 +10,14 @@ import userCheck from '../../../../utils/userCheck';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '../../../../constants/path';
 
-const Index = ({ item, setData, setNewData }) => {
+const Index = ({ item }) => {
   const [bookColor, setBookColor] = useState();
-  let getList = sessionStorage.getItem('myPageList');
+  let getList = sessionStorage.getItem('postList');
   getList = JSON.parse(getList);
   //유저 여부 확인
   const user = userCheck();
   const navigate = useNavigate();
+
   //북마크 추가,삭제
   const onBookMark = async id => {
     try {
@@ -25,12 +27,13 @@ const Index = ({ item, setData, setNewData }) => {
       } else {
         res = await axios.delete(`${BASE_URL}/posts/${id}/bookmark`);
       }
-      let newFillteredArr = getList.filter(list => {
-        return list.id !== item.id;
+      let targetItem = getList.filter(list => {
+        return list.id == item.id;
       });
-      sessionStorage.setItem('myPageList', JSON.stringify(newFillteredArr));
-      setNewData(newFillteredArr);
-      setData(newFillteredArr);
+      targetItem[0].isScrap = res.data.isScrap;
+      const newArray = [...getList, ...targetItem];
+      const filteredArr = filterArray(newArray);
+      sessionStorage.setItem('postList', JSON.stringify(filteredArr));
       setBookColor(res.data.isScrap);
     } catch (error) {
       console.log(error);
@@ -63,8 +66,6 @@ const Index = ({ item, setData, setNewData }) => {
 
 Index.propTypes = {
   item: PropTypes.object,
-  setData: PropTypes.func,
-  setNewData: PropTypes.func,
 };
 
 export default Index;
