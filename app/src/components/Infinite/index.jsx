@@ -26,7 +26,7 @@ function Infinite() {
     try {
       const res = bookMark
         ? await axios.get(`${BASE_URL}/bookmarks?page=${pageNum}&size=8`)
-        : await axios.get(`${BASE_URL}/bookmarks?page=${pageNum}&size=8`);
+        : await axios.get(`${BASE_URL}/boards/1/posts?rCode=11110111&page=${pageNum}&size=8`);
       console.log(res.data.isLast, console.log(res.data));
       setData(prev => [...prev, ...res.data.posts]);
       handleTimeFilter(res.data.posts);

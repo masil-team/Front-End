@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Modify from '../Modify';
 import BookMarkCheck from '../BookMarkCheck';
 import LikeCheck from '../LikeCheck';
-const Card = ({ data, postList, setPostList, setData, setNewData }) => {
+const Card = ({ data, postList, setData, setNewData }) => {
   const navigate = useNavigate();
   // const postList = JSON.parse(sessionStorage.getItem('bookMarkList'));
 
@@ -71,7 +71,6 @@ const Card = ({ data, postList, setPostList, setData, setNewData }) => {
                             setData={setData}
                             setNewData={setNewData}
                             postList={postList}
-                            setPostList={setPostList}
                             item={item}
                           ></BookMarkCheck>
                         </ul>
@@ -103,7 +102,6 @@ Card.propTypes = {
   data: PropTypes.array,
   newData: PropTypes.array,
   postList: PropTypes.array,
-  setPostList: PropTypes.func,
   setData: PropTypes.func,
   setNewData: PropTypes.func,
 };

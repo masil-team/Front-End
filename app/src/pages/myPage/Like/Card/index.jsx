@@ -10,7 +10,6 @@ import LikeCheck from '../LikeCheck';
 const Card = ({ data, setData, setNewData, postList }) => {
   const navigate = useNavigate();
   // const postList = JSON.parse(sessionStorage.getItem('bookMarkList'));
-
   return (
     <>
       <div className={styles.post_wrap}>
@@ -67,7 +66,7 @@ const Card = ({ data, setData, setNewData, postList }) => {
                             <FontAwesomeIcon icon={faComment} className={styles.icon} />
                             <em>{item.commentCount}</em>
                           </li>
-                          <BookMarkCheck item={item}></BookMarkCheck>
+                          <BookMarkCheck item={item} setData={setData} setNewData={setNewData}></BookMarkCheck>
                         </ul>
                       </div>
                       <div className={styles.category}>
