@@ -1,0 +1,42 @@
+.section {padding-top: 60px; min-height: 100vh;box-sizing: border-box;background: #f8f9fa;}
+.container {max-width: 1440px;margin: 0 auto;padding: 30px 20px;box-sizing: border-box;}
+
+/* 상단 네비,글쓰기 */
+.top_nav {margin-top: 30px;display: flex;justify-content: space-between;}
+
+/* 글쓰기 */
+.writing {}
+.writing .btn {width: 100px;height: 40px;border-radius: 20px;background: linear-gradient(90deg, #6e8efb, #6253e1);color: #fff;cursor: pointer;}
+.writing .btn em {font-weight: 600;font-size: 16px;}
+.writing .btn .icon {margin-right: 5px;font-size: 16px;}
+.section {padding-top: 60px;min-height: 100vh;box-sizing: border-box;background: #f8f9fa;}
+.container {max-width: 1440px;margin: 0 auto;padding: 30px 20px;box-sizing: border-box;}
+
+/* 카테고리 */
+.category {}
+.category ul {display: flex;flex-wrap: wrap;}
+.category ul li {height: 40px;padding: 0 20px;margin: 0 10px 10px 0;line-height: 40px;box-sizing: border-box;background: #e5edfe;cursor: pointer;border-radius: 30px;}
+.category ul li:last-child {margin-right: 0;}
+.category ul li em {color: #2d8efe;}
+.category ul li.active{background: #2d8efe; transition: all 0.4s; pointer-events: none;}
+.category ul li.active em{color: #e5edfe; transition: all 0.4s}
+
+/* 인피니티 스크롤 타겟 버튼 */
+.target_btn{margin-top: 100px;}
+
+@media (max-width: 767px) {
+  .container {padding: 30px 10px;}
+  .top_nav {flex-direction: column;}
+  .writing {margin-top: 10px;align-self: flex-end;}
+}
+
+@media (max-width: 530px) {
+  .category ul {grid-gap: 0 5px;}
+  .category ul li {padding: 0 10px;border-radius: 5px;}
+}
+
+@media (max-width: 410px) {
+  .category ul li {padding: 0 5px;}
+  .category ul li em{font-size: 13px;}
+
+}

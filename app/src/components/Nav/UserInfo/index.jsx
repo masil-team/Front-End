@@ -37,7 +37,12 @@ const Index = ({ alert }) => {
 
   const logout = () => {
     setLogin(false);
-    sessionStorage.clear();
+    sessionStorage.removeItem('accessToken');
+    sessionStorage.removeItem('addressInfo');
+    sessionStorage.removeItem('postList');
+    sessionStorage.removeItem('category');
+    sessionStorage.removeItem('pageNum');
+    sessionStorage.removeItem('user');
     navigate('/');
     window.location.reload();
   };

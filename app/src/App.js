@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './reset.css';
 import './App.css';
-import { Main, SignUp, Post } from './pages/index';
+import { Main, SignUp, Post, Search } from './pages/index';
 import { PATH } from './constants/path';
 import Login from './pages/Login';
 import CreatePost from './pages/Upload';
@@ -35,6 +35,7 @@ function App() {
           <Route path={PATH.LIKE} element={<Like></Like>}></Route>
           <Route path={PATH.BOOKMARK} element={<BookMark></BookMark>}></Route>
         </Route>
+        <Route path={PATH.SEARCH} element={<Search />}></Route>
       </Routes>
     </div>
   );
