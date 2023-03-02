@@ -1,0 +1,14 @@
+.container {
+  width: 80vh;
+  height: 100%;
+  margin: 120px auto;
+}
+.h1 {
+  font-size: 32px;
+}
+.NameBox {
+  width: 80%;
+  min-width: fit-content;
+  padding: 20px 0px;
+  background-color: red;
+}

@@ -8,8 +8,12 @@ import { BASE_URL } from '../../../constants/api';
 import axios from '../../../utils/token';
 import TwoComment from './TwoComment';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '../../../constants/path';
+import userCheck from '../../../utils/userCheck';
 
 const Index = ({ newComment, id, commentHandleData, commentPage, totalPage, setCurrentPage }) => {
+  const navigate = useNavigate();
   const [tabTwoComment, setTabTwoComment] = useState(); //대댓글이 몇번째 댓글에 달려야 하는지 위치 지정
   const [commentValue, setCommentValue] = useState(); //input 입력값 저장
   const [commentPut, setCommentPut] = useState(0); //댓글 생성,댓글 수정 확인
@@ -19,6 +23,9 @@ const Index = ({ newComment, id, commentHandleData, commentPage, totalPage, setC
 
   const [currentPageGroup, setCurrentPageGroup] = useState(0); //현재 페이지 그룹
   const [page, setPage] = useState(); //현재 페이지 그룹의 페이지 번호 저장
+
+  //로그인 여부 체크
+  const user = userCheck();
 
   //변경된 페이지 그룹으로 페이지 번호가 변경됨
   function changePage() {
@@ -78,40 +85,42 @@ const Index = ({ newComment, id, commentHandleData, commentPage, totalPage, setC
 
   return (
     <div className={styles.comment_wrap}>
-      <form
-        className={styles.my_form}
-        onSubmit={e => {
-          e.preventDefault();
-          handleComment();
-        }}
-      >
-        <div className={styles.comment_input}>
-          <div className={styles.input_box}>
-            <div className={styles.user_img}></div>
-            <input
-              type="text"
-              placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)"
-              value={commentValue || ''}
-              onChange={e => {
-                setCommentValue(e.target.value);
-              }}
-            />
-            <button className={styles.btn}>입력</button>
-          </div>
-          {commentPut == 1 && (
-            <div className={styles.cancel}>
-              <em
-                onClick={() => {
-                  setCommentPut(0);
-                  setCommentValue('');
+      {user && (
+        <form
+          className={styles.my_form}
+          onSubmit={e => {
+            e.preventDefault();
+            handleComment();
+          }}
+        >
+          <div className={styles.comment_input}>
+            <div className={styles.input_box}>
+              <div className={styles.user_img}></div>
+              <input
+                type="text"
+                placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)"
+                value={commentValue || ''}
+                onChange={e => {
+                  setCommentValue(e.target.value);
                 }}
-              >
-                수정 취소
-              </em>
+              />
+              <button className={styles.btn}>입력</button>
             </div>
-          )}
-        </div>
-      </form>
+            {commentPut == 1 && (
+              <div className={styles.cancel}>
+                <em
+                  onClick={() => {
+                    setCommentPut(0);
+                    setCommentValue('');
+                  }}
+                >
+                  수정 취소
+                </em>
+              </div>
+            )}
+          </div>
+        </form>
+      )}
       <div className={styles.comment_list}>
         {newComment && (
           <ul>
@@ -122,61 +131,70 @@ const Index = ({ newComment, id, commentHandleData, commentPage, totalPage, setC
                     <div className={styles.user_img}></div>
                     <div className={styles.comment}>
                       <h4>{item.member.nickname}</h4>
-                      <p>{item.content} </p>
-                      <div className={styles.comment_info}>
-                        <ul>
-                          <li>
-                            <em>{item.newTime}</em>
-                          </li>
-                          <li
+                      {item.isDeleted == false ? <p>{item.content} </p> : <p>삭제된 댓글 입니다.</p>}
+                      {item.isDeleted == false && (
+                        <div className={styles.comment_info}>
+                          <ul
                             onClick={() => {
-                              setTabTwoComment(item.id);
-                              setCommentValue('');
-                              setCommentValue2('');
-                              setCommentPut2(0);
+                              if (user == false) {
+                                navigate(PATH.LOGIN);
+                                return;
+                              }
                             }}
                           >
-                            <em>답글 달기</em>
-                          </li>
-                          {item.owner == false && (
-                            <li
-                              onClick={() => {
-                                handleCommentLike(item.id);
-                              }}
-                              className={`${item.liked == true && styles.active}`}
-                            >
-                              <FontAwesomeIcon icon={faHeart} className={styles.icon} />
-                              <em>좋아요</em>
-                            </li>
-                          )}
-                          {item.owner == false && (
                             <li>
-                              <em>신고</em>
+                              <em>{item.newTime}</em>
                             </li>
-                          )}
-                          {item.owner == true && (
                             <li
                               onClick={() => {
-                                setCommentPut(1);
-                                setCommentValue(item.content);
-                                setCommentPutTarget(item.id);
-                                setTabTwoComment(-1);
+                                setTabTwoComment(item.id);
+                                setCommentValue('');
+                                setCommentValue2('');
+                                setCommentPut2(0);
                               }}
                             >
-                              <em>수정</em>
+                              <em>답글 달기</em>
                             </li>
-                          )}
-                          {item.owner == true && (
-                            <li
-                              onClick={() => {
-                                handleCommentRemove(item.id);
-                              }}
-                            >
-                              <em>삭제</em>
-                            </li>
-                          )}
-                        </ul>
-                      </div>
+                            {item.isOwner == false && (
+                              <li
+                                onClick={() => {
+                                  handleCommentLike(item.id);
+                                }}
+                                className={`${item.isLiked == true && styles.active}`}
+                              >
+                                <FontAwesomeIcon icon={faHeart} className={styles.icon} />
+                                <em>좋아요</em>
+                              </li>
+                            )}
+                            {item.isOwner == false && (
+                              <li>
+                                <em>신고</em>
+                              </li>
+                            )}
+                            {item.isOwner == true && (
+                              <li
+                                onClick={() => {
+                                  setCommentPut(1);
+                                  setCommentValue(item.content);
+                                  setCommentPutTarget(item.id);
+                                  setTabTwoComment(-1);
+                                }}
+                              >
+                                <em>수정</em>
+                              </li>
+                            )}
+                            {item.isOwner == true && (
+                              <li
+                                onClick={() => {
+                                  handleCommentRemove(item.id);
+                                }}
+                              >
+                                <em>삭제</em>
+                              </li>
+                            )}
+                          </ul>
+                        </div>
+                      )}
                     </div>
                   </div>
                   <TwoComment

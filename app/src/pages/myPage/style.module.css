@@ -1,5 +1,5 @@
 .container {
-  width: 100vw;
+  width: 100%;
   height: fit-content;
 }
 .innerContainer {
@@ -8,12 +8,15 @@
   display: flex;
   position: relative;
 }
-
+.outletWrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .outletContainer {
-  margin: 80px auto;
   width: fit-content;
-  height: 100%;
-  font-size: 3rem;
+  margin-left: 200px !important;
 }
 .OverLay {
   top: 0;
@@ -26,7 +29,7 @@
 
 @media screen and (max-width: 769px) {
   .outletContainer {
-    margin: 80px auto;
-    width: fit-content;
+    margin: 80px 0 !important;
+    width: 100%;
   }
 }

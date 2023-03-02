@@ -1,5 +1,5 @@
 import React from 'react';
-import { faThumbsUp, faBookmark, faUser, faBars, faClose } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp, faBookmark, faUser, faBars, faClose, faBell } from '@fortawesome/free-solid-svg-icons';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './style.module.css';
@@ -23,30 +23,62 @@ const Category = ({ width, show, setShow }) => {
   const bookMatch = useMatch('/mypage/bookmark');
   const profileMatch = useMatch('/mypage/profile');
   const likeMatch = useMatch('/mypage/like');
+  const newsMatch = useMatch('/mypage/news');
   return (
     <>
       {width > 780 ? (
         <div className={styles.categoryContainer}>
-          <div onClick={() => nav('/mypage/bookmark')} className={styles.categoryitem}>
+          <div
+            onClick={() => {
+              nav('/mypage/bookmark');
+              sessionStorage.removeItem('myPageList');
+            }}
+            className={styles.categoryitem}
+          >
             <div>
               <FontAwesomeIcon icon={faBookmark} />
               <span className={styles.categoryspan}>북마크</span>
             </div>
             {bookMatch && <motion.div className={styles.circle} layoutId="1" />}
           </div>
-          <div onClick={() => nav('/mypage/like')} className={styles.categoryitem}>
+          <div
+            onClick={() => {
+              nav('/mypage/like');
+              sessionStorage.removeItem('myPageList');
+            }}
+            className={styles.categoryitem}
+          >
             <div>
               <FontAwesomeIcon icon={faThumbsUp} />
               <span className={styles.categoryspan}>좋아요</span>
             </div>
             {likeMatch && <motion.div className={styles.circle} layoutId="1" />}
           </div>
-          <div onClick={() => nav('/mypage/profile')} className={styles.categoryitem}>
+          <div
+            onClick={() => {
+              nav('/mypage/profile');
+              sessionStorage.removeItem('myPageList');
+            }}
+            className={styles.categoryitem}
+          >
             <div>
               <FontAwesomeIcon icon={faUser} />
               <span className={styles.categoryspan}>회원정보변경</span>
             </div>
             {profileMatch && <motion.div className={styles.circle} layoutId="1" />}
+          </div>
+          <div
+            onClick={() => {
+              nav('/mypage/news');
+              sessionStorage.removeItem('myPageList');
+            }}
+            className={styles.categoryitem}
+          >
+            <div>
+              <FontAwesomeIcon icon={faBell} />
+              <span className={styles.categoryspan}>내 소식</span>
+            </div>
+            {newsMatch && <motion.div className={styles.circle} layoutId="1" />}
           </div>
         </div>
       ) : (

@@ -21,7 +21,6 @@ const overlayEf = {
 const MyPage = () => {
   const [width, setWidth] = useState(window.innerWidth);
   const [show, setShow] = useState(false);
-  console.log(show);
   useEffect(() => {
     window.onresize = () => {
       setWidth(window.innerWidth);
@@ -33,19 +32,21 @@ const MyPage = () => {
       <div className={styles.container}>
         <div className={styles.innerContainer}>
           <Category width={width} show={show} setShow={setShow} />
-          <div className={styles.outletContainer}>
-            <AnimatePresence>
-              {show && (
-                <motion.div
-                  variants={overlayEf}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                  className={styles.OverLay}
-                />
-              )}
-            </AnimatePresence>
-            <Outlet />
+          <div className={styles.outletWrap}>
+            <div className={styles.outletContainer}>
+              <AnimatePresence>
+                {show && (
+                  <motion.div
+                    variants={overlayEf}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                    className={styles.OverLay}
+                  />
+                )}
+              </AnimatePresence>
+              <Outlet />
+            </div>
           </div>
         </div>
       </div>

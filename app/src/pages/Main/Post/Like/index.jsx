@@ -7,8 +7,14 @@ import axios from '../../../../utils/token';
 import { BASE_URL } from '../../../../constants/api';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '../../../../constants/path';
+import userCheck from '../../../../utils/userCheck';
 
 const Index = ({ item }) => {
+  //유저 여부 확인
+  const user = userCheck();
+  const navigate = useNavigate();
   const [like, setLike] = useState(item.likeCount); //좋아요 저장
   const [likeColor, setLikeColor] = useState();
   let getList = sessionStorage.getItem('postList');
@@ -62,8 +68,12 @@ const Index = ({ item }) => {
     <li>
       <FontAwesomeIcon
         icon={faHeart}
-        className={`${styles.icon} ${likeColor == true && styles.active}`}
+        className={`${styles.icon} ${likeColor == true && styles.active} ${item.isOwner == true && styles.visible}`}
         onClick={() => {
+          if (user == false) {
+            navigate(PATH.LOGIN);
+            return;
+          }
           onDataLike();
         }}
       />

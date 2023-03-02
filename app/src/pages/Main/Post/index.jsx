@@ -2,10 +2,11 @@ import React from 'react';
 import styles from './style.module.css';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStreetView, faComment, faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { faStreetView, faComment } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import Modify from './Modify';
 import Like from './Like';
+import BookMark from './BookMark';
 
 const Index = ({ data, setData, setNewData, postList }) => {
   const navigate = useNavigate();
@@ -67,10 +68,7 @@ const Index = ({ data, setData, setNewData, postList }) => {
                           <FontAwesomeIcon icon={faComment} className={styles.icon} />
                           <em>{item.commentCount}</em>
                         </li>
-                        <li>
-                          <FontAwesomeIcon icon={faBookmark} className={styles.icon} />
-                          <em>0</em>
-                        </li>
+                        <BookMark item={item}></BookMark>
                       </ul>
                     </div>
                     <div className={styles.category}>

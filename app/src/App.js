@@ -10,6 +10,8 @@ import MyPage from './pages/myPage';
 import Profile from './pages/myPage/Profile';
 import Like from './pages/myPage/Like';
 import BookMark from './pages/myPage/Bookmark';
+import News from './pages/myPage/News';
+import { useState } from 'react';
 /* prop 타입체크 */
 // import PropTypes from 'prop-types';
 
@@ -21,6 +23,10 @@ import BookMark from './pages/myPage/Bookmark';
 // src={`${process.env.PUBLIC_URL}/나머지 폴더 주소`}
 
 function App() {
+  let myPageList = sessionStorage.getItem('myPageList');
+  myPageList = JSON.parse(myPageList);
+  const [postList, setPostList] = useState(myPageList);
+
   return (
     <div className="App">
       <Routes>
@@ -33,7 +39,11 @@ function App() {
         <Route path={PATH.MY_PAGE} element={<MyPage />}>
           <Route path={PATH.PROFILE} element={<Profile></Profile>}></Route>
           <Route path={PATH.LIKE} element={<Like></Like>}></Route>
-          <Route path={PATH.BOOKMARK} element={<BookMark></BookMark>}></Route>
+          <Route
+            path={PATH.BOOKMARK}
+            element={<BookMark postList={postList} setPostList={setPostList}></BookMark>}
+          ></Route>
+          <Route path={PATH.NEWS} element={<News />} />
         </Route>
       </Routes>
     </div>
