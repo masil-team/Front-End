@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import TermsService from './TermsService';
 import { PATH } from '../../../constants/path';
 import { USER_URL } from '../../../constants/api';
-
+import { BASE_URL } from '../../../constants/api';
 const Index = () => {
   const navigate = useNavigate();
   const [serviceCheck, setServiceCheck] = useState(false);
@@ -19,11 +19,11 @@ const Index = () => {
     userEmail: '',
     userName: '',
   });
-  const [userEmailCheck, setUserEmailCheck] = useState(false); //이메일 확인 체크
-  const [EmailLengthCheck, setEmailLengthCheck] = useState(false); //이메일 글자수 체크
-  const [userPasswordCheck, setUserPasswordCheck] = useState(false); //비밀번호 체크
-  const [PasswordCheck, setPasswordCheck] = useState(false); //비밀번호 확인 체크
-  const [userNameCheck, setUserNameCheck] = useState(false); //이름 체크
+  const [userEmailCheck, setUserEmailCheck] = useState(0); //이메일 확인 체크
+  const [EmailLengthCheck, setEmailLengthCheck] = useState(0); //이메일 글자수 체크
+  const [userPasswordCheck, setUserPasswordCheck] = useState(0); //비밀번호 체크
+  const [PasswordCheck, setPasswordCheck] = useState(0); //비밀번호 확인 체크
+  const [userNameCheck, setUserNameCheck] = useState(0); //이름 체크
   const [allCheck, setAllCheck] = useState(false); //모든 유효성검사 완료 체크
 
   //회원가입 API 데이터
@@ -37,7 +37,7 @@ const Index = () => {
   //회원가입 버튼 클릭시 전송
   const sendJoinForm = async () => {
     try {
-      const res = await Axios.post(`http://13.209.94.72:8080${USER_URL.SIGNUP} `, joinData);
+      const res = await Axios.post(`${BASE_URL}${USER_URL.SIGNUP} `, joinData);
       console.log(res);
       navigate(`${PATH.LOGIN}`);
     } catch (error) {

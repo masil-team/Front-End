@@ -25,6 +25,15 @@
 .writer .heart{font-size: 28px; cursor: pointer; transition: all 0.2s;}
 .writer .heart.active{color: #eb2e3d;}
 
+/* 게시글 수정 삭제 */
+.post_modify{}
+.post_modify ul{display: flex;}
+.post_modify ul li{margin-right: 10px; position: relative;}
+.post_modify ul li:last-child{margin-right: 0;}
+.post_modify ul li::after{content: "";width: 1px;height: 8px;background: #555; position: absolute; top: 50%; right: -5px; transform: translateY(-50%);}
+.post_modify ul li:last-child:after{display: none;}
+.post_modify ul li em{cursor: pointer;}
+
 /* 게시글 텍스트 */
 .text{margin: 10px 0 30px;}
 .text p{font-size: 16px;font-weight: 300;color: #222; line-height: 24px; word-break:break-all;}

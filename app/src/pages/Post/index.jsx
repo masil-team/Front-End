@@ -3,7 +3,7 @@ import styles from './style.module.css';
 import Nav from '../../components/Nav';
 import PostImg from './PostImg';
 import Comment from './Comment';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import useTime from '../../hooks/useTime';
@@ -11,9 +11,11 @@ import PostLike from './PostLike';
 import { BASE_URL } from '../../constants/api';
 import axios from '../../utils/token';
 import filterArray from '../../utils/arrayFilter';
+import { PATH } from '../../constants/path';
 
 export const Post = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [data, setData] = useState(); //게시글 데이터 저장
   const [day, setDay] = useState([]); //게시글 데이터의 날짜 저장
   const time = useTime(day); //커스텀훅 매개변수 배열로 전달 해야함
@@ -26,7 +28,6 @@ export const Post = () => {
       const res = await axios.get(`${BASE_URL}/posts/${id}`);
       setData(res.data);
       setDay([res.data]); //날짜 저장
-
       let targetItem = getList.filter(item => {
         return item.id == res.data.id;
       });
@@ -40,18 +41,66 @@ export const Post = () => {
     }
   };
 
-  //해당 게시글 댓글 조회
-  const [commentData, setCommentData] = useState(); //댓글 데이터 저장
-  const [newComment, setNewComment] = useState(); //댓글 데이터 저장
-  const commentHandleData = async () => {
+  //게시글 삭제 요청
+  const onPostDelete = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/posts/${id}/comments?page=${0}`);
-      setCommentData(res.data);
-      handleTimeFilter(res.data);
+      await axios.delete(`${BASE_URL}/posts/${data.id}`);
+      sessionStorage.removeItem('postList');
+      sessionStorage.removeItem('pageNum');
+      navigate(PATH.MAIN);
     } catch (error) {
       console.log(error);
     }
   };
+
+  //게시글 수정 버튼 클릭시 실행 함수
+  const handlePostModify = () => {
+    sessionStorage.setItem('postModify', JSON.stringify(data)); //sessionStorage에 수정할 게시물 값 저장
+    navigate(PATH.EDIT_POST);
+  };
+
+  //해당 게시글 댓글 조회
+  const [commentData, setCommentData] = useState(); //댓글 데이터 저장
+  const [newComment, setNewComment] = useState(); //댓글 데이터 저장
+  const [commentPage, setCommentPage] = useState([]); //댓글 페이지 저장
+  const [totalPage, setTotalPage] = useState(); //댓글 총 페이지 수 저장
+  const [currentPage, setCurrentPage] = useState(0); //현재 활성화된 페이지 번호 저장
+  const [commentCount, setCommentCount] = useState(); //댓글 총 갯수 저장
+
+  //댓글 페이지 조회
+  const commentHandleData = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL}/posts/${id}/comments?page=${currentPage}`);
+      setCommentData(res.data.comments);
+      handleTimeFilter(res.data.comments);
+      setTotalPage(res.data.totalPage); //토탈페이지 수가 들어가면 됨
+      pagiNation(res.data.totalPage); //토탈페이지 수가 들어가면 됨
+      setCommentCount(res.data.totalCommentCount);
+      let targetItem = await getList.filter(item => {
+        return item.id == id;
+      });
+      targetItem[0].commentCount = res.data.totalCommentCount;
+      const newArray = [...getList, ...targetItem];
+      const filteredArr = filterArray(newArray);
+      sessionStorage.setItem('postList', JSON.stringify(filteredArr));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //현재 활성화된 페이지 번호가 변경 될 때 댓글 페이지 조회 함수 실행
+  useEffect(() => {
+    commentHandleData();
+  }, [currentPage]);
+
+  //댓글 페이지네이션
+  function pagiNation(totalPage) {
+    let pageArray = [];
+    for (let i = 1; i <= totalPage; i++) {
+      pageArray.push(i);
+    }
+    setCommentPage(pageArray);
+  }
 
   // 댓글 날짜 포맷팅
   const [day2, setDay2] = useState([]); //데이터의 날짜 저장
@@ -110,7 +159,31 @@ export const Post = () => {
                 </div>
                 <em>{data.member.nickname}</em>
               </div>
-              <PostLike data={data} postHandleData={postHandleData}></PostLike>
+              {data.isOwner == false && <PostLike data={data} postHandleData={postHandleData}></PostLike>}
+              {data.isOwner == true && (
+                <div className={styles.post_modify}>
+                  <ul>
+                    <li>
+                      <em
+                        onClick={() => {
+                          handlePostModify();
+                        }}
+                      >
+                        수정
+                      </em>
+                    </li>
+                    <li>
+                      <em
+                        onClick={() => {
+                          onPostDelete();
+                        }}
+                      >
+                        삭제
+                      </em>
+                    </li>
+                  </ul>
+                </div>
+              )}
             </div>
             <PostImg></PostImg>
             <div className={styles.text}>
@@ -125,12 +198,19 @@ export const Post = () => {
                   <em>좋아요 {data.likeCount}</em>
                 </li>
                 <li>
-                  <em>댓글 4</em>
+                  <em>댓글 {commentCount}</em>
                 </li>
               </ul>
             </div>
             <span className={styles.line}></span>
-            <Comment newComment={newComment} id={id} commentHandleData={commentHandleData}></Comment>
+            <Comment
+              newComment={newComment}
+              id={id}
+              commentHandleData={commentHandleData}
+              commentPage={commentPage}
+              totalPage={totalPage}
+              setCurrentPage={setCurrentPage}
+            ></Comment>
           </div>
         </section>
       )}

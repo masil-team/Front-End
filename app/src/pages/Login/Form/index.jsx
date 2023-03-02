@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import styles from './style.module.css';
 import { setCookie } from '../../../utils/cookie';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../../constants/api';
 
 const Form = () => {
   const { register, handleSubmit, getValues, formState } = useForm();
@@ -23,7 +24,7 @@ const Form = () => {
       password,
     };
     try {
-      const response = await axios.post(`http://13.209.94.72:8080/auth/login`, loginRequest);
+      const response = await axios.post(`${BASE_URL}/auth/login`, loginRequest);
       if (response) {
         sessionStorage.setItem('accessToken', response.data.accessToken);
         setCookie('refreshToken', response.data.refreshToken);
@@ -69,7 +70,9 @@ const Form = () => {
           </Link>
         </div>
         <button className={styles.btn}>로그인</button>
-        <button className={styles.btn}>회원가입</button>
+        <button onClick={() => nav('/signup')} className={styles.btn}>
+          회원가입
+        </button>
       </form>
     </>
   );

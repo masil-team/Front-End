@@ -7,14 +7,37 @@ import { useState } from 'react';
 import { BASE_URL } from '../../../constants/api';
 import axios from '../../../utils/token';
 import TwoComment from './TwoComment';
+import { useEffect } from 'react';
 
-const Index = ({ newComment, id, commentHandleData }) => {
+const Index = ({ newComment, id, commentHandleData, commentPage, totalPage, setCurrentPage }) => {
   const [tabTwoComment, setTabTwoComment] = useState(); //대댓글이 몇번째 댓글에 달려야 하는지 위치 지정
   const [commentValue, setCommentValue] = useState(); //input 입력값 저장
   const [commentPut, setCommentPut] = useState(0); //댓글 생성,댓글 수정 확인
   const [commentPutTarget, setCommentPutTarget] = useState(); //댓글 수정 ID 담기
   const [commentValue2, setCommentValue2] = useState(); //대댓글 input 입력값 저장
   const [commentPut2, setCommentPut2] = useState(0); //대댓글 생성,댓글 수정 확인
+
+  const [currentPageGroup, setCurrentPageGroup] = useState(0); //현재 페이지 그룹
+  const [page, setPage] = useState(); //현재 페이지 그룹의 페이지 번호 저장
+
+  //변경된 페이지 그룹으로 페이지 번호가 변경됨
+  function changePage() {
+    let commentPageCopy = [...commentPage];
+    commentPageCopy = commentPageCopy.slice(currentPageGroup * 5, (currentPageGroup + 1) * 5);
+    setPage(commentPageCopy);
+  }
+
+  //이전 , 다음 클릭시 페이지 그룹이 변경 되고 아래 changePage 함수 호출됨
+  useEffect(() => {
+    changePage();
+  }, [currentPageGroup]);
+
+  //페이지 번호가 있다면 첫화면에 0,5 페이지를 보여줌
+  useEffect(() => {
+    let commentPageCopy = [...commentPage];
+    commentPageCopy = commentPageCopy.slice(0, 5);
+    setPage(commentPageCopy);
+  }, [commentPage]);
 
   //댓글 입력
   const handleComment = async () => {
@@ -174,6 +197,39 @@ const Index = ({ newComment, id, commentHandleData }) => {
             })}
           </ul>
         )}
+        <div className={styles.page_number}>
+          <ul>
+            <li
+              onClick={() => {
+                setCurrentPageGroup(prev => prev - 1);
+              }}
+              className={`${currentPageGroup == 0 && styles.active}`}
+            >
+              <em>이전</em>
+            </li>
+            {page &&
+              page.map((item, index) => {
+                return (
+                  <li
+                    key={index}
+                    onClick={() => {
+                      setCurrentPage(item - 1);
+                    }}
+                  >
+                    <em>{item}</em>
+                  </li>
+                );
+              })}
+            <li
+              onClick={() => {
+                setCurrentPageGroup(prev => prev + 1);
+              }}
+              className={`${Math.ceil(totalPage / 5) == currentPageGroup + 1 && styles.active}`}
+            >
+              <em>다음</em>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );
@@ -183,6 +239,9 @@ Index.propTypes = {
   newComment: PropTypes.array,
   id: PropTypes.string,
   commentHandleData: PropTypes.func,
+  commentPage: PropTypes.array,
+  totalPage: PropTypes.number,
+  setCurrentPage: PropTypes.func,
 };
 
 export default Index;
