@@ -41,10 +41,13 @@
 
 /* 페이지네이션 */
 .page_number{}
-.page_number ul{display: flex; justify-content: center;}
-.page_number ul li{margin: 0 10px; padding: 5px; cursor: pointer;}
-.page_number ul li em{}
-.page_number ul li.active{pointer-events: none;}
+.page_number ul{display: flex; justify-content: center; align-items: center;}
+.page_number ul li{ margin: 0 10px;cursor: pointer;}
+.page_number ul li em{width: 25px;height: 25px; display: inline-block;  text-align: center; line-height: 25px; transition: all 0.3s;}
+.page_number ul li:first-child em,
+.page_number ul li:last-child em{width: 100%;height: 100%;}
+.page_number ul li.visible{pointer-events: none;}
+.page_number ul li.active em{background: rgb(147, 147, 252); color: #fff; border-radius: 5px;}
 
 
 

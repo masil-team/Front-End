@@ -44,7 +44,6 @@ axios.interceptors.response.use(
           },
           withCredentials: true,
         });
-        console.log(res);
         if (res.status === 200) {
           sessionStorage.setItem('accessToken', res.data.accessToken);
           return await axios.request(originalConfig);

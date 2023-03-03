@@ -26,7 +26,12 @@ const Form = () => {
     try {
       const response = await axios.post(`${BASE_URL}/auth/login`, loginRequest);
       if (response) {
-        sessionStorage.clear();
+        sessionStorage.removeItem('accessToken');
+        sessionStorage.removeItem('addressInfo');
+        sessionStorage.removeItem('postList');
+        sessionStorage.removeItem('category');
+        sessionStorage.removeItem('pageNum');
+        sessionStorage.removeItem('user');
         sessionStorage.setItem('accessToken', response.data.accessToken);
         setCookie('refreshToken', response.data.refreshToken);
         nav('/');

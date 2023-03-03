@@ -1,35 +1,48 @@
 /* 검색 */
-.form{}
-.form .search{width: 350px;height: 40px; position: relative;}
-.form .search input{width: 100%;height: 100%; border-radius: 20px; border: none; background: #fff; padding: 0 20px 0 60px; font-size: 16px;font-weight: 400;}
+.container{width: 500px; position: relative; }
+.form{width: 100%; }
+.form .search{width: 100%; height: 40px; position: relative;}
+.form .search input{width: 100%;height: 100%; border-radius: 20px; border: none; background: #fff; padding: 0 20px 0 60px; box-sizing: border-box; font-size: 16px;font-weight: 400;}
 .form .search .btn{position: absolute; top: 50%;left: 20px; transform: translateY(-50%); background: transparent; cursor: pointer; font-size: 20px; color: #555;}
+.form .search input.active{border-radius: 5px 5px 0 0; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;}
 
-@media (max-width : 767px){
-    .form{margin-left: -150px;}
-    .form .search{width: 300px;}
-}
+/* 설정 및 검색어 저장 */
+.option{width: 100%;background: #fff; padding: 10px; box-sizing: border-box; position: absolute; top: 100%;left: 0; border-radius:0 0 5px 5px; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;}
 
-@media (max-width : 700px){
-    .form .search{width: 200px;}
+/* 주소 검색 */
+.address{display: flex; justify-content: space-between;}
+.address em{}
+.address button{padding: 3px 7px; background: #d5e5f5; border-radius: 5px; cursor: pointer; color: #fff; }
+
+/* 최근 검색어 */
+.search_word{margin-top: 10px;}
+.search_word ul{}
+.search_word ul li{display: flex; align-items: center;}
+.search_word ul li em{cursor: pointer;  overflow: hidden;white-space: normal;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-orient: vertical;}
+.search_word ul li .icon{margin-left: 10px; cursor: pointer;}
+
+@media (max-width : 1023px){
+    .container{width: 400px;}
 }
 
 @media (max-width : 600px){
-    .form .search{width: 150px;}
+    .container{width: 300px;}
 }
 
-@media (max-width : 550px){
-    .form{margin-left: -100px;}
-    .form .search input{ font-size: 14px;font-weight: 400;}
+@media (max-width : 500px){
+    .container{width: 250px;}
+    .address{flex-direction: column;}
+    .address button{margin-top: 5px;}
 }
 
 @media (max-width : 450px){
-    .form{margin-left: -80px;}
-    .form .search{width: 130px;}
+    .container{width: 200px;}
+    .form .search input{padding-left: 40px; font-size: 14px;}
+    .form .search .btn{left: 20px; font-size: 14px;}
 }
 
 @media (max-width : 400px){
-    .form{margin-left: -50px;}
-    .form .search{width: 110px; height: 35px;}
-    .form .search input{font-size: 12px; padding-left: 30px;}
-    .form .search .btn{font-size: 14px; left: 10px;}
+    .container{width: 180px;}
+    .form .search input{padding-left: 30px;}
+    .form .search .btn{left: 10px; }
 }

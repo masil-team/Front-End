@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { PATH } from '../../../constants/path';
 import userCheck from '../../../utils/userCheck';
 
-const Index = ({ newComment, id, commentHandleData, commentPage, totalPage, setCurrentPage }) => {
+const Index = ({ newComment, id, commentHandleData, commentPage, totalPage, currentPage, setCurrentPage }) => {
   const navigate = useNavigate();
   const [tabTwoComment, setTabTwoComment] = useState(); //대댓글이 몇번째 댓글에 달려야 하는지 위치 지정
   const [commentValue, setCommentValue] = useState(); //input 입력값 저장
@@ -44,7 +44,7 @@ const Index = ({ newComment, id, commentHandleData, commentPage, totalPage, setC
     let commentPageCopy = [...commentPage];
     commentPageCopy = commentPageCopy.slice(0, 5);
     setPage(commentPageCopy);
-  }, [commentPage]);
+  }, [totalPage]);
 
   //댓글 입력
   const handleComment = async () => {
@@ -215,39 +215,42 @@ const Index = ({ newComment, id, commentHandleData, commentPage, totalPage, setC
             })}
           </ul>
         )}
-        <div className={styles.page_number}>
-          <ul>
-            <li
-              onClick={() => {
-                setCurrentPageGroup(prev => prev - 1);
-              }}
-              className={`${currentPageGroup == 0 && styles.active}`}
-            >
-              <em>이전</em>
-            </li>
-            {page &&
-              page.map((item, index) => {
-                return (
-                  <li
-                    key={index}
-                    onClick={() => {
-                      setCurrentPage(item - 1);
-                    }}
-                  >
-                    <em>{item}</em>
-                  </li>
-                );
-              })}
-            <li
-              onClick={() => {
-                setCurrentPageGroup(prev => prev + 1);
-              }}
-              className={`${Math.ceil(totalPage / 5) == currentPageGroup + 1 && styles.active}`}
-            >
-              <em>다음</em>
-            </li>
-          </ul>
-        </div>
+        {totalPage != 0 && (
+          <div className={styles.page_number}>
+            <ul>
+              <li
+                onClick={() => {
+                  setCurrentPageGroup(prev => prev - 1);
+                }}
+                className={`${currentPageGroup == 0 && styles.visible}`}
+              >
+                <em>이전</em>
+              </li>
+              {page &&
+                page.map((item, index) => {
+                  return (
+                    <li
+                      key={index}
+                      onClick={() => {
+                        setCurrentPage(item - 1);
+                      }}
+                      className={`${currentPage == item - 1 && styles.active}`}
+                    >
+                      <em>{item}</em>
+                    </li>
+                  );
+                })}
+              <li
+                onClick={() => {
+                  setCurrentPageGroup(prev => prev + 1);
+                }}
+                className={`${Math.ceil(totalPage / 5) == currentPageGroup + 1 && styles.visible}`}
+              >
+                <em>다음</em>
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -259,6 +262,7 @@ Index.propTypes = {
   commentHandleData: PropTypes.func,
   commentPage: PropTypes.array,
   totalPage: PropTypes.number,
+  currentPage: PropTypes.number,
   setCurrentPage: PropTypes.func,
 };
 

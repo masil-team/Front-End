@@ -215,6 +215,7 @@ export const Post = () => {
               commentHandleData={commentHandleData}
               commentPage={commentPage}
               totalPage={totalPage}
+              currentPage={currentPage}
               setCurrentPage={setCurrentPage}
             ></Comment>
           </div>

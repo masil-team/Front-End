@@ -5,5 +5,7 @@ export default function reset(url) {
     sessionStorage.removeItem('postList');
     sessionStorage.removeItem('myPageList');
     sessionStorage.removeItem('myPageNum');
+    sessionStorage.removeItem('searchAddress');
+    sessionStorage.removeItem('searchList');
   }
 }
