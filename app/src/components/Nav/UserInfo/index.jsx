@@ -24,6 +24,7 @@ const Index = ({ alert }) => {
   const handleUserIfo = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/members/login-user`);
+      console.log(res.data);
       setLogin(true);
       sessionStorage.setItem('user', JSON.stringify(res.data));
       sessionStorage.setItem('addressInfo', JSON.stringify(res.data.address));

@@ -37,11 +37,14 @@ const Index = () => {
   //회원가입 버튼 클릭시 전송
   const sendJoinForm = async () => {
     try {
-      const res = await Axios.post(`${BASE_URL}${USER_URL.SIGNUP} `, joinData);
-      console.log(res);
+      await Axios.post(`${BASE_URL}${USER_URL.SIGNUP} `, joinData);
       navigate(`${PATH.LOGIN}`);
     } catch (error) {
-      console.log(error);
+      if (error.response.data.code == 2002) {
+        alert(error.response.data.message);
+      } else if (error.response.data.code == 2003) {
+        alert(error.response.data.message);
+      }
     }
   };
 
