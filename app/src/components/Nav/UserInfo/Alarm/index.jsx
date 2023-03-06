@@ -27,7 +27,7 @@ const Index = ({ alert }) => {
   const handleAlarm = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/notifications`);
-      setData(res.data.notificationResponses);
+      setData(res.data.notifications);
     } catch (error) {
       console.log(error);
     }
@@ -48,10 +48,9 @@ const Index = ({ alert }) => {
 
   return (
     <li ref={target}>
-      <div className={`${styles.icon_box} ${alert == true && styles.active}`}>
+      <div className={`${styles.icon_box} ${alert == 'true' && styles.active}`}>
         <FontAwesomeIcon icon={faBell} className={styles.icon} />
       </div>
-
       {alarm == true && (
         <div className={styles.alarm}>
           {data.length == 0 && <em>알림이 없습니다</em>}
@@ -88,7 +87,7 @@ const Index = ({ alert }) => {
 };
 
 Index.propTypes = {
-  alert: PropTypes.bool,
+  alert: PropTypes.string,
 };
 
 export default Index;

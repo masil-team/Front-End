@@ -15,7 +15,8 @@ const Index = () => {
 
   let accessToken = sessionStorage.getItem('accessToken');
   const EventSource = EventSourcePolyfill || NativeEventSource;
-  const [alert] = useState(true); //실시간 알림 표시
+
+  const [alert, setAlert] = useState(); //실시간 알림 표시
 
   // sse 단방향 통신
   useEffect(() => {
@@ -31,7 +32,8 @@ const Index = () => {
           });
           eventSource.onmessage = async event => {
             const res = await event.data;
-            console.log('받은 정보', res);
+            console.log('sse받은 값', res);
+            setAlert(res);
           };
           eventSource.onerror = async event => {
             console.log('sse에러', event);
