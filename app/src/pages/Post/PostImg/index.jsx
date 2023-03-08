@@ -34,19 +34,24 @@ const Index = ({ img, imgCount }) => {
         }}
       >
         <ul>
-          {img[0] && (
+          {img[0][0] && (
             <li>
-              <img src={img[0]} alt="이미지3" />
+              <img src={img[0][0].url} alt="이미지3" />
             </li>
           )}
-          {img[1] && (
+          {img[0][1] && (
             <li>
-              <img src={img[1]} alt="이미지3" />
+              <img src={img[0][1].url} alt="이미지3" />
             </li>
           )}
-          {img[2] && (
+          {img[0][2] && (
             <li>
-              <img src={img[2]} alt="이미지3" />
+              <img src={img[0][2].url} alt="이미지3" />
+              {imgCount >= 4 && (
+                <div className={styles.more}>
+                  <em>+{imgCount - 3}</em>
+                </div>
+              )}
             </li>
           )}
         </ul>

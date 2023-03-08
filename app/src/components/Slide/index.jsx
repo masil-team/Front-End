@@ -24,7 +24,7 @@ export default function App({ img, setSlideActive }) {
       >
         <div>
           {img &&
-            img.map((item, index) => {
+            img[0].map((item, index) => {
               return (
                 <SwiperSlide key={index}>
                   <div
@@ -34,7 +34,7 @@ export default function App({ img, setSlideActive }) {
                     }}
                   >
                     <div className={styles.slide_img}>
-                      <img src={item} alt="슬라이드 이미지" />
+                      <img src={item.url} alt="슬라이드 이미지" />
                     </div>
                   </div>
                 </SwiperSlide>
