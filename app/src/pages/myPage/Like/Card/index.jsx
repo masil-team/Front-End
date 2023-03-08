@@ -4,10 +4,12 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStreetView, faComment } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-
-const Card = ({ postList }) => {
-  const nav = useNavigate();
-
+import Modify from '../Modify';
+// import BookMarkCheck from '../BookMarkCheck';
+// import LikeCheck from '../LikeCheck';
+const Card = ({ data, setData, setNewData, postList }) => {
+  const navigate = useNavigate();
+  // const postList = JSON.parse(sessionStorage.getItem('bookMarkList'));
   return (
     <>
       <div className={styles.post_wrap}>
@@ -16,7 +18,7 @@ const Card = ({ postList }) => {
             {postList &&
               postList.map(item => {
                 return (
-                  <li key={Math.random()}>
+                  <li key={item.id}>
                     <div className={styles.post}>
                       <div className={styles.info}>
                         <div className={styles.user_info}>
@@ -40,11 +42,14 @@ const Card = ({ postList }) => {
                             </div>
                           </div>
                         </div>
+                        {item.isOwner == true && (
+                          <Modify item={item} data={data} setData={setData} setNewData={setNewData}></Modify>
+                        )}
                       </div>
                       <div
                         className={styles.text_wrap}
                         onClick={() => {
-                          nav(`/post/${item.id}`);
+                          navigate(`/post/${item.id}`);
                         }}
                       >
                         <div className={styles.img}>
@@ -56,12 +61,12 @@ const Card = ({ postList }) => {
                       </div>
                       <div className={styles.sns}>
                         <ul>
-                          {/* <Like item={item} setData={setData}></Like> */}
+                          {/* <LikeCheck item={item} setData={setData}></LikeCheck> */}
                           <li>
                             <FontAwesomeIcon icon={faComment} className={styles.icon} />
                             <em>{item.commentCount}</em>
                           </li>
-                          {/* <BookMark item={item}></BookMark> */}
+                          {/* <BookMarkCheck item={item} setData={setData} setNewData={setNewData}></BookMarkCheck> */}
                         </ul>
                       </div>
                       <div className={styles.category}>
@@ -77,17 +82,21 @@ const Card = ({ postList }) => {
               })}
           </ul>
         )}
-        {/* {getList && getList.length == 0 && (
+        {postList && postList.length == 0 && (
           <div className={styles.non_post}>
             <em>게시글이 없습니다</em>
           </div>
-        )} */}
+        )}
       </div>
     </>
   );
 };
 
 Card.propTypes = {
+  data: PropTypes.array,
+  setData: PropTypes.func,
+  newData: PropTypes.array,
+  setNewData: PropTypes.func,
   postList: PropTypes.array,
 };
 export default Card;

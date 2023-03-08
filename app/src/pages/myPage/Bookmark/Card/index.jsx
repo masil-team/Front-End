@@ -4,9 +4,11 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStreetView, faComment } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-
-const Card = ({ postList }) => {
-  const nav = useNavigate();
+import Modify from '../Modify';
+import BookMarkCheck from '../BookMarkCheck';
+import LikeCheck from '../LikeCheck';
+const Card = ({ data, postList, setData, setNewData }) => {
+  const navigate = useNavigate();
   // const postList = JSON.parse(sessionStorage.getItem('bookMarkList'));
 
   return (
@@ -17,7 +19,7 @@ const Card = ({ postList }) => {
             {postList &&
               postList.map(item => {
                 return (
-                  <li key={Math.random()}>
+                  <li key={item.id}>
                     <div className={styles.post}>
                       <div className={styles.info}>
                         <div className={styles.user_info}>
@@ -41,11 +43,14 @@ const Card = ({ postList }) => {
                             </div>
                           </div>
                         </div>
+                        {item.isOwner == true && (
+                          <Modify item={item} data={data} setData={setData} setNewData={setNewData}></Modify>
+                        )}
                       </div>
                       <div
                         className={styles.text_wrap}
                         onClick={() => {
-                          nav(`/post/${item.id}`);
+                          navigate(`/post/${item.id}`);
                         }}
                       >
                         <div className={styles.img}>
@@ -57,12 +62,17 @@ const Card = ({ postList }) => {
                       </div>
                       <div className={styles.sns}>
                         <ul>
-                          {/* <Like item={item} setData={setData}></Like> */}
+                          <LikeCheck item={item} setData={setData}></LikeCheck>
                           <li>
                             <FontAwesomeIcon icon={faComment} className={styles.icon} />
                             <em>{item.commentCount}</em>
                           </li>
-                          {/* <BookMark item={item}></BookMark> */}
+                          <BookMarkCheck
+                            setData={setData}
+                            setNewData={setNewData}
+                            postList={postList}
+                            item={item}
+                          ></BookMarkCheck>
                         </ul>
                       </div>
                       <div className={styles.category}>
@@ -89,6 +99,10 @@ const Card = ({ postList }) => {
 };
 
 Card.propTypes = {
+  data: PropTypes.array,
+  newData: PropTypes.array,
   postList: PropTypes.array,
+  setData: PropTypes.func,
+  setNewData: PropTypes.func,
 };
 export default Card;

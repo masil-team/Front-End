@@ -47,6 +47,7 @@ const categories = [
   { text: '일상', val: 4 },
   { text: '분실/실종', val: 5 },
 ];
+// , ,
 const Form = ({ image, setImage, count, setCount }) => {
   const [show, setShow] = useState(false);
   const nav = useNavigate();
@@ -56,16 +57,7 @@ const Form = ({ image, setImage, count, setCount }) => {
     text: modify ? categories[modify.boardId - 1].text : '카테고리',
     val: modify ? categories[modify.boardId - 1].val : 0,
   });
-  const getImages = () => {
-    if (count === 10) {
-      alert('사진은 최대 10장입니다.');
-    } else {
-      setCount(prev => prev + 1);
-      setImage(prev => {
-        return [...prev, count];
-      });
-    }
-  };
+
   const editData = async () => {
     try {
       const response = await axios.patch(`${BASE_URL}/posts/${modify.id}`, {
@@ -85,11 +77,13 @@ const Form = ({ image, setImage, count, setCount }) => {
 
   const uploadData = async () => {
     const boardId = category.val;
+    const ids = image.map(i => i.id);
+    const fileIds = [...ids];
     if (boardId === 0) {
       alert('카테고리를 선택해주세요.');
     } else {
       try {
-        const response = await axios.post(`${BASE_URL}/posts`, { content: text, boardId });
+        const response = await axios.post(`${BASE_URL}/posts`, { boardId, content: text, fileIds });
         if (response.status === 201) {
           alert('게시물 업로드 완료');
           sessionStorage.removeItem('postList');
@@ -99,7 +93,25 @@ const Form = ({ image, setImage, count, setCount }) => {
       } catch (err) {
         console.log(err);
       }
-      console.log(boardId, text, image);
+    }
+  };
+  const onChangeImg = async e => {
+    if (count === 10) return alert('사진은 최대 10장 입니다.');
+    const uploadFile = e.target.files[0];
+    const formData = new FormData();
+    formData.append('file', uploadFile);
+    try {
+      const res = await axios.post(`${BASE_URL}/s3/post-image`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      setImage(prev => [...prev, res.data]);
+      setCount(prev => prev + 1);
+    } catch (err) {
+      console.log(err);
+      alert('image 업로드에 실패했습니다.');
     }
   };
   return (
@@ -143,11 +155,20 @@ const Form = ({ image, setImage, count, setCount }) => {
           </button>
         </div>
 
-        <div onClick={getImages} className={styles.photoupload}>
+        <input
+          type="file"
+          id="profile_upload"
+          accept="image/*"
+          onChange={e => {
+            onChangeImg(e);
+          }}
+          style={{ display: 'none' }}
+        />
+        <label htmlFor="profile_upload" className={styles.photoupload}>
           <FontAwesomeIcon style={{ fontSize: '32px' }} icon={faCamera} />
           <span style={{ fontSize: '16px' }}>사진올리기</span>
           <span style={{ fontSize: '12px' }}>(최대 10장)</span>
-        </div>
+        </label>
       </div>
       <div className={styles.secondsection}>
         <textarea
