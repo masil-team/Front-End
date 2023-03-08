@@ -18,13 +18,19 @@ const GridItem = ({ image, setImage, count, setCount }) => {
       setCount(prev => prev - 1);
     }
   };
+  console.log(image);
   useEffect(() => {}, [count]);
   return (
     <div className={styles.gridContainer}>
       <div className={styles.gridBox}>
-        {image.map((v, i) => {
+        {image.map(i => {
           return (
-            <div className={styles.gridItem} key={v}>
+            <div
+              style={{ backgroundImage: `url(${i.url})` }}
+              onClick={() => console.log(i.url)}
+              className={styles.gridItem}
+              key={i.id}
+            >
               <div className={styles.overView}>
                 <FontAwesomeIcon onClick={() => handleClick(i)} className={styles.icon} icon={faTrash} />
               </div>
