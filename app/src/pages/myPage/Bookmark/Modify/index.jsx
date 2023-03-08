@@ -33,15 +33,15 @@ const Index = ({ item, setData, setNewData }) => {
 
   //기존 목록과 삭제된 목록을 비교해서 새로운 배열에 담기
   const onFilter = () => {
-    let getList = sessionStorage.getItem('postList');
-    getList = JSON.parse(getList);
-    const copy = getList && [...getList];
+    let myPageList = sessionStorage.getItem('myPageList');
+    myPageList = JSON.parse(myPageList);
+    const copy = myPageList && [...myPageList];
     const filter = copy.filter(dataItem => {
       return dataItem.id !== item.id;
     });
     setData(filter);
     setNewData(filter);
-    sessionStorage.setItem('postList', JSON.stringify(filter));
+    sessionStorage.setItem('myPageList', JSON.stringify(filter));
   };
 
   //수정 버튼 클릭시 실행 함수

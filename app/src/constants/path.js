@@ -15,4 +15,6 @@ export const PATH = {
   PROFILE: 'profile',
   NEWS: 'news',
   SEARCH: '/search',
+  MYPOST: 'mypost',
+  MYCOMMENT: 'mycomment',
 };
