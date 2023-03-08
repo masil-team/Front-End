@@ -55,7 +55,11 @@ const Index = ({ data, setData, setNewData, postList }) => {
                       }}
                     >
                       <div className={styles.img}>
-                        <img src={`${process.env.PUBLIC_URL}/images/test/background.jpg`} alt="" />
+                        {item.thumbnail ? (
+                          <img src={item.thumbnail.url} alt="썸네일 이미지" />
+                        ) : (
+                          <img src={`${process.env.PUBLIC_URL}/images/test/background.jpg`} alt="썸네일 이미지" />
+                        )}
                       </div>
                       <div className={styles.text}>
                         <p>{item.content}</p>

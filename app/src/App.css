@@ -54,3 +54,15 @@ ExtraBold 800 Italic
 Black 900
 Black 900 Italic
 */
+
+/* 슬라이드 */
+.swiper-pagination.swiper-pagination-fraction.swiper-pagination-horizontal {
+  color: #fff;
+}
+
+.swiper-button-prev {
+  margin-left: 20px;
+}
+.swiper-button-next {
+  margin-right: 20px;
+}

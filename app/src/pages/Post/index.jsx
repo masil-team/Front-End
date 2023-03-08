@@ -23,6 +23,8 @@ export const Post = () => {
   let getList = sessionStorage.getItem('postList');
   getList = JSON.parse(getList);
   const location = useLocation();
+  const [img, setImg] = useState([]); //이미지 저장
+  const [imgCount, setImgCount] = useState(); //이미지 갯수 카운트
 
   //라우터 url이 변경될때 마다 게시글,댓글 조회 함수 실행
   useEffect(() => {
@@ -36,6 +38,8 @@ export const Post = () => {
       const res = await axios.get(`${BASE_URL}/posts/${id}`);
       setData(res.data);
       setDay([res.data]); //날짜 저장
+      setImg([res.data.files]);
+      setImgCount(res.data.files.length);
       let targetItem = getList.filter(item => {
         return item.id == res.data.id;
       });
@@ -198,7 +202,7 @@ export const Post = () => {
                 </div>
               )}
             </div>
-            <PostImg></PostImg>
+            <PostImg img={img} imgCount={imgCount}></PostImg>
             <div className={styles.text}>
               <p>{data.content}</p>
             </div>
