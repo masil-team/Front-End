@@ -10,6 +10,7 @@ import MyPage from './pages/myPage';
 import Profile from './pages/myPage/Profile';
 import Like from './pages/myPage/Like';
 import BookMark from './pages/myPage/Bookmark';
+import News from './pages/myPage/News';
 /* prop 타입체크 */
 // import PropTypes from 'prop-types';
 
@@ -34,6 +35,7 @@ function App() {
           <Route path={PATH.PROFILE} element={<Profile></Profile>}></Route>
           <Route path={PATH.LIKE} element={<Like></Like>}></Route>
           <Route path={PATH.BOOKMARK} element={<BookMark></BookMark>}></Route>
+          <Route path={PATH.NEWS} element={<News />} />
         </Route>
         <Route path={PATH.SEARCH} element={<Search />}></Route>
       </Routes>

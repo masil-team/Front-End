@@ -13,5 +13,6 @@ export const PATH = {
   LIKE: 'like',
   BOOKMARK: 'bookmark',
   PROFILE: 'profile',
+  NEWS: 'news',
   SEARCH: '/search',
 };
