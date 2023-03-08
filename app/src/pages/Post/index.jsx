@@ -23,6 +23,13 @@ export const Post = () => {
   let getList = sessionStorage.getItem('postList');
   getList = JSON.parse(getList);
   const location = useLocation();
+  const [img] = useState([
+    'https://file.mk.co.kr/meet/neds/2023/02/image_readtop_2023_117777_16759917015347929.jpg',
+    'https://img.hankyung.com/photo/202209/01.31260157.1.jpg',
+    'https://cdn.nbntv.co.kr/news/photo/202209/993581_107276_4449.gif',
+    'https://img.hankyung.com/photo/202209/01.31260167.1.jpg',
+  ]); //이미지 저장
+  const [imgCount] = useState(4); //이미지 갯수 카운트
 
   //라우터 url이 변경될때 마다 게시글,댓글 조회 함수 실행
   useEffect(() => {
@@ -198,7 +205,7 @@ export const Post = () => {
                 </div>
               )}
             </div>
-            <PostImg></PostImg>
+            <PostImg img={img} imgCount={imgCount}></PostImg>
             <div className={styles.text}>
               <p>{data.content}</p>
             </div>

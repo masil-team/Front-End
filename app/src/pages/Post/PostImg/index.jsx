@@ -1,11 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './style.module.css';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import Slide from '../../../components/Slide';
 
-const Index = () => {
-  const [imgCount] = useState(4); //이미지 갯수 카운트
+const Index = ({ img, imgCount }) => {
   const [imgClass, setImgClass] = useState(); //이미지 className 변경
+  const [slideActive, setSlideActive] = useState(false);
 
   //이미지 갯수 조건문
   const handleImgClass = () => {
@@ -24,20 +26,39 @@ const Index = () => {
     handleImgClass();
   }, [imgCount]);
   return (
-    <div className={`${styles.post_img} ${imgClass}`}>
-      <ul>
-        <li>
-          <img src={`${process.env.PUBLIC_URL}/images/test/background.jpg`} alt="" />
-        </li>
-        <li>
-          <img src={`${process.env.PUBLIC_URL}/images/test/post1.jpg`} alt="" />
-        </li>
-        <li>
-          <img src={`${process.env.PUBLIC_URL}/images/test/post2.jpg`} alt="" />
-        </li>
-      </ul>
-    </div>
+    <>
+      <div
+        className={`${styles.post_img} ${imgClass}`}
+        onClick={() => {
+          setSlideActive(true);
+        }}
+      >
+        <ul>
+          {img[0] && (
+            <li>
+              <img src={img[0]} alt="이미지3" />
+            </li>
+          )}
+          {img[1] && (
+            <li>
+              <img src={img[1]} alt="이미지3" />
+            </li>
+          )}
+          {img[2] && (
+            <li>
+              <img src={img[2]} alt="이미지3" />
+            </li>
+          )}
+        </ul>
+      </div>
+      {slideActive == true && <Slide img={img} setSlideActive={setSlideActive}></Slide>}
+    </>
   );
+};
+
+Index.propTypes = {
+  img: PropTypes.array,
+  imgCount: PropTypes.number,
 };
 
 export default Index;
