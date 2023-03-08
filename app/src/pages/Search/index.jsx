@@ -74,7 +74,7 @@ export const Search = () => {
   //데이터 호출 함수
   const handleData = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/posts/search?keyword=${value}&&rCode=${address.emdId}`);
+      const res = await axios.get(`${BASE_URL}/posts/search?keyword=${value}&&rCode=${address.emdId}&page=${pageNum}`);
       setData(prev => [...prev, ...res.data.posts]); //기존의 data값과 새로운 data값을 복제해서 setData에 추가해줌
       handleTimeFilter(res.data.posts);
       setLastPage(res.data.isLast);

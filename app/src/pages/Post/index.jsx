@@ -3,7 +3,7 @@ import styles from './style.module.css';
 import Nav from '../../components/Nav';
 import PostImg from './PostImg';
 import Comment from './Comment';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import useTime from '../../hooks/useTime';
@@ -22,6 +22,13 @@ export const Post = () => {
   const time = useTime(day); //커스텀훅 매개변수 배열로 전달 해야함
   let getList = sessionStorage.getItem('postList');
   getList = JSON.parse(getList);
+  const location = useLocation();
+
+  //라우터 url이 변경될때 마다 게시글,댓글 조회 함수 실행
+  useEffect(() => {
+    postHandleData(); //게시글 조회
+    commentHandleData(); //댓글 조회
+  }, [location]);
 
   //게시글 단건 조회
   const postHandleData = async () => {

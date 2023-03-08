@@ -20,11 +20,13 @@ const Index = ({ alert }) => {
   const target = useRef(null); //유저정보 팝업창
   const close = usePopupClose(target); //유저정보 팝업창 외 클릭시 팝업창 닫기
   const [user, setUser] = useState(); //유저 정보
+  let getUser = sessionStorage.getItem('user');
+  getUser = JSON.parse(getUser);
 
+  //로그인
   const handleUserIfo = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/members/login-user`);
-      console.log(res.data);
       setLogin(true);
       sessionStorage.setItem('user', JSON.stringify(res.data));
       sessionStorage.setItem('addressInfo', JSON.stringify(res.data.address));
@@ -36,16 +38,22 @@ const Index = ({ alert }) => {
     }
   };
 
-  const logout = () => {
-    setLogin(false);
-    sessionStorage.removeItem('accessToken');
-    sessionStorage.removeItem('addressInfo');
-    sessionStorage.removeItem('postList');
-    sessionStorage.removeItem('category');
-    sessionStorage.removeItem('pageNum');
-    sessionStorage.removeItem('user');
-    navigate('/');
-    window.location.reload();
+  //로그아웃
+  const logout = async () => {
+    try {
+      await axios.post(`${BASE_URL}/members/${getUser.id}/logout`);
+      setLogin(false);
+      sessionStorage.removeItem('accessToken');
+      sessionStorage.removeItem('addressInfo');
+      sessionStorage.removeItem('postList');
+      sessionStorage.removeItem('category');
+      sessionStorage.removeItem('pageNum');
+      sessionStorage.removeItem('user');
+      navigate(PATH.MAIN);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -135,7 +143,7 @@ const Index = ({ alert }) => {
 };
 
 Index.propTypes = {
-  alert: PropTypes.bool,
+  alert: PropTypes.string,
 };
 
 export default Index;
