@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import { getCookie, removeCookie } from './cookie';
-// import { PATH } from '../constants/path';
+import { PATH } from '../constants/path';
 import { BASE_URL } from '../constants/api';
 const axios = Axios.create({
   baseURL: BASE_URL, //API기본 주소
@@ -51,10 +51,10 @@ axios.interceptors.response.use(
       } catch (err) {
         console.log(err);
         if (err.response.data.code === 6003 || err.response.data.code === 6005) {
-          console.log(err.response);
+          console.log(err);
           sessionStorage.removeItem('accessToken');
           removeCookie('refreshToken');
-          // history.pushState(null, null, location.origin + PATH.LOGIN);
+          history.pushState(null, null, location.origin + PATH.LOGIN);
           // window.location.reload();
         }
       }

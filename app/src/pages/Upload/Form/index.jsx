@@ -76,6 +76,8 @@ const Form = ({ image, setImage, count, setCount }) => {
   };
 
   const uploadData = async () => {
+    if (image.length === 0) return alert('이미지는 필수 입니다.');
+    if (text.length === 0) return alert('내용은 필수 입니다.');
     const boardId = category.val;
     const ids = image.map(i => i.id);
     const fileIds = [...ids];
