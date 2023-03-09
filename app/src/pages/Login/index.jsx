@@ -5,7 +5,7 @@ import Social from './Social';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
-const Login = () => {
+export const Login = () => {
   const nav = useNavigate();
   useEffect(() => {
     sessionStorage.removeItem('postList');

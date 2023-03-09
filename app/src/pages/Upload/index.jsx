@@ -4,7 +4,7 @@ import styles from './style.module.css';
 import GridItem from './item/GridItem';
 import Form from './Form';
 import { useState } from 'react';
-const CreatePost = () => {
+export const CreatePost = () => {
   const [image, setImage] = useState([]);
   const [count, setCount] = useState(0);
 

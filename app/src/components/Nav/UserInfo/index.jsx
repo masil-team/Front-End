@@ -23,7 +23,7 @@ const Index = ({ alert }) => {
   let getUser = sessionStorage.getItem('user');
   getUser = JSON.parse(getUser);
 
-  //로그인
+  //유저 정보
   const handleUserIfo = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/members/login-user`);
@@ -121,7 +121,13 @@ const Index = ({ alert }) => {
               </li>
               <li>
                 <div className={styles.user}>
-                  <div className={styles.userImg}></div>
+                  <div className={styles.userImg}>
+                    {user.profileImage ? (
+                      <img src="" alt="사용자 프로필 이미지" />
+                    ) : (
+                      <img src={`${process.env.PUBLIC_URL}/images/user.png`} alt="사용자 프로필 이미지" />
+                    )}
+                  </div>
                   {user && <em>{user.nickname}</em>}
                 </div>
               </li>

@@ -18,7 +18,7 @@ const overlayEf = {
   },
 };
 
-const MyPage = () => {
+export const MyPage = () => {
   const [width, setWidth] = useState(window.innerWidth);
   const [show, setShow] = useState(false);
   useEffect(() => {
