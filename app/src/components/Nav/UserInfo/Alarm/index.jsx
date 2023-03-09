@@ -68,10 +68,8 @@ const Index = ({ alert }) => {
                     </div>
                     <div
                       className={`${styles.alarm_content} ${item.isRead == true && styles.active}`}
-                      onClick={e => {
-                        e.stopPropagation();
+                      onClick={() => {
                         readAlarm(item.id);
-                        setAlarm(false);
                         navigate(item.url);
                       }}
                     >
