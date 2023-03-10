@@ -3,6 +3,9 @@ import styles from './style.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMessage } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { BASE_URL } from '../../../constants/api';
+import axios from '../../../utils/token';
 
 const MyComment = () => {
   const item = Array.from({ length: 33 }, (v, i) => i + 1);
@@ -11,6 +14,13 @@ const MyComment = () => {
   let totalPages = Math.round(item.length / offset);
   const pages = Array.from({ length: totalPages }, (v, i) => i + 1);
   const nav = useNavigate();
+  const getList = async () => {
+    const res = await axios.get(`${BASE_URL}/my/comments`);
+    console.log(res);
+  };
+  useEffect(() => {
+    getList();
+  }, []);
   return (
     <div className={styles.container}>
       <div className={styles.NameBox}>

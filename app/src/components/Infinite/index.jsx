@@ -12,7 +12,7 @@ function Infinite() {
   ////
   let getPageNum = sessionStorage.getItem('myPageNum');
   getPageNum = JSON.parse(getPageNum);
-  const [pageNum, setPageNum] = useState(getPageNum); //페이지 번호
+  const [pageNum, setPageNum] = useState(getPageNum); //페이지 번호/my/comment
   const [lastPage, setLastPage] = useState(); //마지막 페이지 확인
   ////
   let myPageList = sessionStorage.getItem('myPageList');
@@ -26,7 +26,7 @@ function Infinite() {
     try {
       const res = bookMark
         ? await axios.get(`${BASE_URL}/bookmarks?page=${pageNum}&size=8`)
-        : await axios.get(`${BASE_URL}/boards/1/posts?rCode=11110111&page=${pageNum}&size=8`);
+        : await axios.get(`${BASE_URL}/my/post-likes`);
       setData(prev => [...prev, ...res.data.posts]);
       handleTimeFilter(res.data.posts);
       setLastPage(res.data.isLast);
