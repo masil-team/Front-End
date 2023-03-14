@@ -25,6 +25,7 @@ const Index = ({ img, imgCount }) => {
   useEffect(() => {
     handleImgClass();
   }, [imgCount]);
+
   return (
     <>
       <div
@@ -33,30 +34,32 @@ const Index = ({ img, imgCount }) => {
           setSlideActive(true);
         }}
       >
-        <ul>
-          {img[0][0] && (
-            <li>
-              <img src={img[0][0].url} alt="이미지3" />
-            </li>
-          )}
-          {img[0][1] && (
-            <li>
-              <img src={img[0][1].url} alt="이미지3" />
-            </li>
-          )}
-          {img[0][2] && (
-            <li>
-              <img src={img[0][2].url} alt="이미지3" />
-              {imgCount >= 4 && (
-                <div className={styles.more}>
-                  <em>+{imgCount - 3}</em>
-                </div>
-              )}
-            </li>
-          )}
-        </ul>
+        {img[0].length != 0 && (
+          <ul>
+            {img[0][0] && (
+              <li>
+                <img src={img[0][0].url} alt="이미지3" />
+              </li>
+            )}
+            {img[0][1] && (
+              <li>
+                <img src={img[0][1].url} alt="이미지3" />
+              </li>
+            )}
+            {img[0][2] && (
+              <li>
+                <img src={img[0][2].url} alt="이미지3" />
+                {imgCount >= 4 && (
+                  <div className={styles.more}>
+                    <em>+{imgCount - 3}</em>
+                  </div>
+                )}
+              </li>
+            )}
+          </ul>
+        )}
       </div>
-      {slideActive == true && <Slide img={img} setSlideActive={setSlideActive}></Slide>}
+      {slideActive == true && <Slide img={img[0]} setSlideActive={setSlideActive}></Slide>}
     </>
   );
 };
