@@ -4,6 +4,8 @@ import styles from '../style.module.css';
 import axios from '../../../../utils/token';
 import { BASE_URL } from '../../../../constants/api';
 import CommentUI from './commentUi';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCamera } from '@fortawesome/free-solid-svg-icons';
 
 const Index = ({
   item,
@@ -35,6 +37,23 @@ const Index = ({
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const [, setFileData] = useState(); //이미지 저장
+  /* 이미지 업로드 */
+  const onChangeImg = e => {
+    const uploadFile = e.target.files[0];
+    const formData = new FormData();
+    formData.append('image', uploadFile);
+
+    axios
+      .post(`${BASE_URL}`, formData)
+      .then(res => {
+        setFileData(prev => [...prev, ...res.data]);
+      })
+      .catch(error => {
+        console.log('이미지 업로드실패', error);
+      });
   };
 
   return (
@@ -76,19 +95,35 @@ const Index = ({
               />
               <button className={styles.btn}>입력</button>
             </div>
-            {commentPut2 == 1 && (
-              <div className={styles.cancel}>
-                <em
-                  onClick={() => {
-                    setCommentPut2(0);
-                    setCommentValue2('');
-                    setTabTwoComment(-1);
+            <div className={styles.input_put}>
+              <div className={styles.img_add}>
+                <input
+                  className={styles.file_input}
+                  type="file"
+                  id="img_upload"
+                  accept="image/*"
+                  onChange={e => {
+                    onChangeImg(e);
                   }}
-                >
-                  수정 취소
-                </em>
+                />
+                <label className={styles.img_upload_label} htmlFor="img_upload">
+                  <FontAwesomeIcon icon={faCamera} /> 사진 올리기
+                </label>
               </div>
-            )}
+              {commentPut2 == 1 && (
+                <div className={styles.cancel}>
+                  <em
+                    onClick={() => {
+                      setCommentPut2(0);
+                      setCommentValue2('');
+                      setTabTwoComment(-1);
+                    }}
+                  >
+                    수정 취소
+                  </em>
+                </div>
+              )}
+            </div>
           </div>
         </form>
       )}

@@ -23,7 +23,7 @@ export default function App({ img, setSlideActive }) {
       >
         <div>
           {img &&
-            img[0].map((item, index) => {
+            img.map((item, index) => {
               return (
                 <SwiperSlide key={index}>
                   <div

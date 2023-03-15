@@ -10,8 +10,15 @@
 .comment_input .input_box input{width: 100%;height: 40px; padding: 0 50px 0 15px; margin-left: 10px; font-size: 16px;font-weight: 300; box-sizing: border-box; background: #fff; border: 1px solid #aaaa; border-radius: 5px;}
 .comment_input .input_box .btn{ box-sizing: border-box; position: absolute; top: 50%; right: 15px; transform: translateY(-50%); color: #2d8efe; background: none; cursor: pointer;}
 
-.cancel{text-align: right; margin-top: 10px;}
+.input_put{margin: 10px 0 0 40px; display: flex; justify-content: space-between; align-items: center;}
+
+.cancel{text-align: right; }
 .cancel em{cursor: pointer; font-size: 12px; padding: 3px 5px; background: #65adff; border-radius: 3px; color: #fff;}
+
+/* 댓글 이미지 등록 */
+.img_add{ position: relative;}
+.img_add input[type="file"] {position: absolute;width: 0;height: 0;padding: 0;overflow: hidden;border: 0;}
+.img_add .img_upload_label{display: inline-block; padding: 5px 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 5px; cursor: pointer; }
 
 
 /* 댓글 리스트 */
