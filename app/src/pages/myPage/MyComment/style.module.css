@@ -37,7 +37,7 @@
   justify-content: space-between;
 }
 .tag {
-  width: 85%;
+  width: fit-content;
   height: 100%;
   display: flex;
 }
@@ -62,11 +62,18 @@
   border-radius: 30px;
 }
 .content {
-  width: 90%;
+  width: fit-content;
   height: 50px;
   margin-left: 10px;
   display: flex;
   flex-direction: column;
+}
+.maincontent {
+  width: 60%;
+  max-width: 100%;
+  min-width: fit-content;
+  display: flex;
+  align-items: center;
 }
 .content > span {
   margin-bottom: 10px;
