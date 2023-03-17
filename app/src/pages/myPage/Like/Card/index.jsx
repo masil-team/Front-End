@@ -5,11 +5,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStreetView, faComment } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import Modify from '../Modify';
-// import BookMarkCheck from '../BookMarkCheck';
-// import LikeCheck from '../LikeCheck';
+import BookMarkCheck from '../BookMarkCheck';
+import LikeCheck from '../LikdeCheck';
 const Card = ({ data, setData, setNewData, postList }) => {
   const navigate = useNavigate();
-  // const postList = JSON.parse(sessionStorage.getItem('bookMarkList'));
+  console.log('hereis like');
   return (
     <>
       <div className={styles.post_wrap}>
@@ -61,12 +61,12 @@ const Card = ({ data, setData, setNewData, postList }) => {
                       </div>
                       <div className={styles.sns}>
                         <ul>
-                          {/* <LikeCheck item={item} setData={setData}></LikeCheck> */}
+                          <LikeCheck item={item} setData={setData} setNewData={setNewData}></LikeCheck>
                           <li>
                             <FontAwesomeIcon icon={faComment} className={styles.icon} />
                             <em>{item.commentCount}</em>
                           </li>
-                          {/* <BookMarkCheck item={item} setData={setData} setNewData={setNewData}></BookMarkCheck> */}
+                          <BookMarkCheck item={item} setData={setData} setNewData={setNewData}></BookMarkCheck>
                         </ul>
                       </div>
                       <div className={styles.category}>

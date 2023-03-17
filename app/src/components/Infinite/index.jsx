@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useMatch } from 'react-router-dom';
 import { BASE_URL } from '../../constants/api';
-import Card from '../../pages/myPage/Bookmark/Card';
+import BookCard from '../../pages/myPage/Bookmark/Card';
+import LikeCard from '../../pages/myPage/Like/Card';
 import axios from '../../utils/token';
 import useTime from '../../hooks/useTime';
 
@@ -21,12 +22,14 @@ function Infinite() {
   const [data, setData] = useState([]);
   const [newData, setNewData] = useState([]);
   /////
+  const userInfo = JSON.parse(sessionStorage.getItem('user'));
+  const memberId = userInfo.id;
   const [postList, setPostList] = useState(myPageList);
   const getBookData = async () => {
     try {
       const res = bookMark
         ? await axios.get(`${BASE_URL}/bookmarks?page=${pageNum}&size=8`)
-        : await axios.get(`${BASE_URL}/my/post-likes`);
+        : await axios.get(`${BASE_URL}/members/${memberId}/my/post-likes`);
       setData(prev => [...prev, ...res.data.posts]);
       handleTimeFilter(res.data.posts);
       setLastPage(res.data.isLast);
@@ -115,8 +118,15 @@ function Infinite() {
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, [data]);
-  return <Card postList={postList} setData={setData} setNewData={setNewData} />;
+  return (
+    <>
+      {bookMark ? (
+        <BookCard postList={postList} setData={setData} setNewData={setNewData} />
+      ) : (
+        <LikeCard postList={postList} setData={setData} setNewData={setNewData} />
+      )}
+    </>
+  );
 }
 
 export default Infinite;
-//App code

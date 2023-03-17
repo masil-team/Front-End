@@ -10,7 +10,7 @@ import userCheck from '../../../../utils/userCheck';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '../../../../constants/path';
 
-const Index = ({ item, setData, setNewData }) => {
+const Index = ({ item }) => {
   const [bookColor, setBookColor] = useState();
   let getList = sessionStorage.getItem('myPageList');
   getList = JSON.parse(getList);
@@ -33,11 +33,8 @@ const Index = ({ item, setData, setNewData }) => {
       targetItem[0].isScrap = res.data.isScrap;
       const newArray = [...getList, ...targetItem];
       const filteredArr = filterArray(newArray);
-      console.log(filteredArr);
       sessionStorage.setItem('myPageList', JSON.stringify(filteredArr));
       setBookColor(res.data.isScrap);
-      setNewData(filteredArr);
-      setData(filteredArr);
     } catch (error) {
       console.log(error);
     }
