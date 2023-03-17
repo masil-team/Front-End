@@ -19,22 +19,13 @@ const Index = ({ item, setData, setNewData }) => {
   const [likeColor, setLikeColor] = useState();
   let getList = sessionStorage.getItem('myPageList');
   getList = JSON.parse(getList);
-  console.log(getList);
   function filterArray() {
     const copy = [...getList];
     let targetItem = copy.filter(target => {
       return target.id !== item.id;
     });
-    // boolean, count
     console.log(targetItem);
-    // const filteredArr = newArray.reduce((acc, current) => {
-    //   const x = acc.find(item => item.id === current.id);
-    //   if (!x) {
-    //     return acc.concat([current]);
-    //   } else {
-    //     return acc;
-    //   }
-    // }, []);
+
     setNewData(targetItem);
     setData(targetItem);
     sessionStorage.setItem('myPageList', JSON.stringify(targetItem));

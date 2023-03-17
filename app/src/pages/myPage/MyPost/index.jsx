@@ -1,19 +1,14 @@
-import React, { useEffect } from 'react';
-import { BASE_URL } from '../../../constants/api';
-import axios from '../../../utils/token';
+import React from 'react';
+import Infinite from '../../../components/Infinite';
+import styles from './style.module.css';
 
 const MyPost = () => {
-  const getPost = async () => {
-    const res = await axios.get(`${BASE_URL}/my/posts`);
-    console.log(res);
-  };
-  useEffect(() => {
-    try {
-      getPost();
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
-  return <h1>MyPost</h1>;
+  return (
+    <section className={styles.section}>
+      <div className={styles.container}>
+        <Infinite />
+      </div>
+    </section>
+  );
 };
 export default MyPost;

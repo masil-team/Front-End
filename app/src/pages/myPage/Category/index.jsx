@@ -132,6 +132,7 @@ const Category = ({ width, show, setShow }) => {
               onClick={() => {
                 nav('/mypage/bookmark');
                 setShow(prev => !prev);
+                sessionStorage.removeItem('myPageList');
               }}
               className={styles.mobileItem}
             >
@@ -145,6 +146,7 @@ const Category = ({ width, show, setShow }) => {
               onClick={() => {
                 nav('/mypage/like');
                 setShow(prev => !prev);
+                sessionStorage.removeItem('myPageList');
               }}
               className={styles.mobileItem}
             >
@@ -158,6 +160,7 @@ const Category = ({ width, show, setShow }) => {
               onClick={() => {
                 nav('/mypage/profile');
                 setShow(prev => !prev);
+                sessionStorage.removeItem('myPageList');
               }}
               className={styles.mobileItem}
             >

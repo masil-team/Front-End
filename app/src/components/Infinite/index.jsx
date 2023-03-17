@@ -5,11 +5,12 @@ import BookCard from '../../pages/myPage/Bookmark/Card';
 import LikeCard from '../../pages/myPage/Like/Card';
 import axios from '../../utils/token';
 import useTime from '../../hooks/useTime';
+// import MyPost from '../../pages/myPage/MyPost';
 
 function Infinite() {
   const bookMark = useMatch('/mypage/bookmark');
   const like = useMatch('/mypage/like');
-
+  const myPost = useMatch('/mypage/mypost');
   ////
   let getPageNum = sessionStorage.getItem('myPageNum');
   getPageNum = JSON.parse(getPageNum);
@@ -29,7 +30,11 @@ function Infinite() {
     try {
       const res = bookMark
         ? await axios.get(`${BASE_URL}/bookmarks?page=${pageNum}&size=8`)
-        : await axios.get(`${BASE_URL}/members/${memberId}/my/post-likes`);
+        : like
+        ? await axios.get(`${BASE_URL}/members/${memberId}/my/post-likes`)
+        : myPost
+        ? await axios.get(`${BASE_URL}/members/${memberId}/my/posts`)
+        : null;
       setData(prev => [...prev, ...res.data.posts]);
       handleTimeFilter(res.data.posts);
       setLastPage(res.data.isLast);
@@ -37,12 +42,12 @@ function Infinite() {
       console.log(err);
     }
   };
-
+  console.log(postList);
   function initialValue() {
     if (myPageList === null || myPageList === undefined) {
       sessionStorage.setItem('myPageList', JSON.stringify([]));
     }
-    if (getPageNum == null || getPageNum == undefined) {
+    if (getPageNum === null || getPageNum === undefined) {
       setPageNum(0);
       sessionStorage.setItem('myPageNum', JSON.stringify(0));
     }
@@ -70,10 +75,10 @@ function Infinite() {
   }, [newData, pageNum]);
 
   useEffect(() => {
-    if (bookMark || like) sessionStorage.removeItem('myPageList');
+    if (bookMark || like || myPost) sessionStorage.removeItem('myPageList');
     sessionStorage.removeItem('myPageNum');
     getBookData();
-  }, [pageNum, bookMark, like]);
+  }, [pageNum, bookMark, like, myPost]);
 
   const onScroll = () => {
     const scrollTop = document.documentElement.scrollTop;
@@ -122,9 +127,9 @@ function Infinite() {
     <>
       {bookMark ? (
         <BookCard postList={postList} setData={setData} setNewData={setNewData} />
-      ) : (
+      ) : like ? (
         <LikeCard postList={postList} setData={setData} setNewData={setNewData} />
-      )}
+      ) : null}
     </>
   );
 }

@@ -9,7 +9,6 @@ import BookMarkCheck from '../BookMarkCheck';
 import LikeCheck from '../LikdeCheck';
 const Card = ({ data, setData, setNewData, postList }) => {
   const navigate = useNavigate();
-  console.log('hereis like');
   return (
     <>
       <div className={styles.post_wrap}>
