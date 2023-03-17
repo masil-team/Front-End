@@ -170,6 +170,7 @@ const Category = ({ width, show, setShow }) => {
             <div
               onClick={() => {
                 nav('/mypage/news');
+                setShow(prev => !prev);
                 sessionStorage.removeItem('myPageList');
               }}
               className={styles.categoryitem}
@@ -183,6 +184,7 @@ const Category = ({ width, show, setShow }) => {
             <div
               onClick={() => {
                 nav('/mypage/mypost');
+                setShow(prev => !prev);
                 sessionStorage.removeItem('myPageList');
               }}
               className={styles.categoryitem}
@@ -196,6 +198,7 @@ const Category = ({ width, show, setShow }) => {
             <div
               onClick={() => {
                 nav('/mypage/mycomment');
+                setShow(prev => !prev);
                 sessionStorage.removeItem('myPageList');
               }}
               className={styles.categoryitem}
