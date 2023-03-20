@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useMatch } from 'react-router-dom';
 import { BASE_URL } from '../../constants/api';
-import Card from '../../pages/myPage/Bookmark/Card';
+import BookCard from '../../pages/myPage/Bookmark/Card';
+import LikeCard from '../../pages/myPage/Like/Card';
 import axios from '../../utils/token';
 import useTime from '../../hooks/useTime';
+import MyPost from '../../pages/myPage/MyPost';
+// import MyPost from '../../pages/myPage/MyPost';
 
 function Infinite() {
   const bookMark = useMatch('/mypage/bookmark');
   const like = useMatch('/mypage/like');
-
+  const myPost = useMatch('/mypage/mypost');
   ////
   let getPageNum = sessionStorage.getItem('myPageNum');
   getPageNum = JSON.parse(getPageNum);
-  const [pageNum, setPageNum] = useState(getPageNum); //페이지 번호
+  const [pageNum, setPageNum] = useState(getPageNum); //페이지 번호/my/comment
   const [lastPage, setLastPage] = useState(); //마지막 페이지 확인
   ////
   let myPageList = sessionStorage.getItem('myPageList');
@@ -21,12 +24,16 @@ function Infinite() {
   const [data, setData] = useState([]);
   const [newData, setNewData] = useState([]);
   /////
+  const userInfo = JSON.parse(sessionStorage.getItem('user'));
+  const memberId = userInfo.id;
   const [postList, setPostList] = useState(myPageList);
   const getBookData = async () => {
     try {
       const res = bookMark
         ? await axios.get(`${BASE_URL}/bookmarks?page=${pageNum}&size=8`)
-        : await axios.get(`${BASE_URL}/boards/1/posts?rCode=11110111&page=${pageNum}&size=8`);
+        : like
+        ? await axios.get(`${BASE_URL}/members/${memberId}/my/post-likes`)
+        : myPost && (await axios.get(`${BASE_URL}/members/${memberId}/my/posts`));
       setData(prev => [...prev, ...res.data.posts]);
       handleTimeFilter(res.data.posts);
       setLastPage(res.data.isLast);
@@ -34,12 +41,11 @@ function Infinite() {
       console.log(err);
     }
   };
-
   function initialValue() {
     if (myPageList === null || myPageList === undefined) {
       sessionStorage.setItem('myPageList', JSON.stringify([]));
     }
-    if (getPageNum == null || getPageNum == undefined) {
+    if (getPageNum === null || getPageNum === undefined) {
       setPageNum(0);
       sessionStorage.setItem('myPageNum', JSON.stringify(0));
     }
@@ -67,10 +73,10 @@ function Infinite() {
   }, [newData, pageNum]);
 
   useEffect(() => {
-    if (bookMark || like) sessionStorage.removeItem('myPageList');
+    if (bookMark || like || myPost) sessionStorage.removeItem('myPageList');
     sessionStorage.removeItem('myPageNum');
     getBookData();
-  }, [pageNum, bookMark, like]);
+  }, [pageNum, bookMark, like, myPost]);
 
   const onScroll = () => {
     const scrollTop = document.documentElement.scrollTop;
@@ -115,8 +121,17 @@ function Infinite() {
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, [data]);
-  return <Card postList={postList} setData={setData} setNewData={setNewData} />;
+  return (
+    <>
+      {bookMark ? (
+        <BookCard postList={postList} setData={setData} setNewData={setNewData} />
+      ) : like ? (
+        <LikeCard postList={postList} setData={setData} setNewData={setNewData} />
+      ) : (
+        myPost && <MyPost postList={postList} setData={setData} setNewData={setNewData} />
+      )}
+    </>
+  );
 }
 
 export default Infinite;
-//App code

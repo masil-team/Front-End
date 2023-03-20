@@ -49,12 +49,13 @@ axios.interceptors.response.use(
           return await axios.request(originalConfig);
         }
       } catch (err) {
+        console.log(err);
         if (err.response.data.code === 6003 || err.response.data.code === 6005) {
-          console.log(err.response);
+          console.log(err);
           sessionStorage.removeItem('accessToken');
           removeCookie('refreshToken');
           history.pushState(null, null, location.origin + PATH.LOGIN);
-          window.location.reload();
+          // window.location.reload();
         }
       }
       return Promise.reject(err);

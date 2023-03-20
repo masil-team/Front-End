@@ -90,7 +90,7 @@ const Card = ({ data, postList, setData, setNewData }) => {
         )}
         {postList && postList.length == 0 && (
           <div className={styles.non_post}>
-            <em>게시글이 없습니다</em>
+            <em>북마크한 게시글이 없습니다</em>
           </div>
         )}
       </div>
