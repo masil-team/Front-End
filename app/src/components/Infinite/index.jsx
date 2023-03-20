@@ -5,6 +5,7 @@ import BookCard from '../../pages/myPage/Bookmark/Card';
 import LikeCard from '../../pages/myPage/Like/Card';
 import axios from '../../utils/token';
 import useTime from '../../hooks/useTime';
+import MyPost from '../../pages/myPage/MyPost';
 // import MyPost from '../../pages/myPage/MyPost';
 
 function Infinite() {
@@ -32,9 +33,7 @@ function Infinite() {
         ? await axios.get(`${BASE_URL}/bookmarks?page=${pageNum}&size=8`)
         : like
         ? await axios.get(`${BASE_URL}/members/${memberId}/my/post-likes`)
-        : myPost
-        ? await axios.get(`${BASE_URL}/members/${memberId}/my/posts`)
-        : null;
+        : myPost && (await axios.get(`${BASE_URL}/members/${memberId}/my/posts`));
       setData(prev => [...prev, ...res.data.posts]);
       handleTimeFilter(res.data.posts);
       setLastPage(res.data.isLast);
@@ -42,7 +41,6 @@ function Infinite() {
       console.log(err);
     }
   };
-  console.log(postList);
   function initialValue() {
     if (myPageList === null || myPageList === undefined) {
       sessionStorage.setItem('myPageList', JSON.stringify([]));
@@ -129,7 +127,9 @@ function Infinite() {
         <BookCard postList={postList} setData={setData} setNewData={setNewData} />
       ) : like ? (
         <LikeCard postList={postList} setData={setData} setNewData={setNewData} />
-      ) : null}
+      ) : (
+        myPost && <MyPost postList={postList} setData={setData} setNewData={setNewData} />
+      )}
     </>
   );
 }
