@@ -29,8 +29,11 @@ const Index = ({ alert }) => {
       const res = await axios.get(`${BASE_URL}/members/login-user`);
       setLogin(true);
       sessionStorage.setItem('user', JSON.stringify(res.data));
-      sessionStorage.setItem('addressInfo', JSON.stringify(res.data.address));
       setUser(res.data);
+      if (res.data.address == null) {
+        return;
+      }
+      sessionStorage.setItem('addressInfo', JSON.stringify(res.data.address));
     } catch (error) {
       if (error) {
         sessionStorage.removeItem('user');
