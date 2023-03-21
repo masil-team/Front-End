@@ -5,8 +5,7 @@ import BookCard from '../../pages/myPage/Bookmark/Card';
 import LikeCard from '../../pages/myPage/Like/Card';
 import axios from '../../utils/token';
 import useTime from '../../hooks/useTime';
-import MyPost from '../../pages/myPage/MyPost';
-// import MyPost from '../../pages/myPage/MyPost';
+import MyPostCard from '../../pages/myPage/MyPost/Card';
 
 function Infinite() {
   const bookMark = useMatch('/mypage/bookmark');
@@ -123,13 +122,10 @@ function Infinite() {
   }, [data]);
   return (
     <>
-      {bookMark ? (
-        <BookCard postList={postList} setData={setData} setNewData={setNewData} />
-      ) : like ? (
-        <LikeCard postList={postList} setData={setData} setNewData={setNewData} />
-      ) : (
-        myPost && <MyPost postList={postList} setData={setData} setNewData={setNewData} />
-      )}
+      {bookMark && <BookCard postList={postList} setData={setData} setNewData={setNewData} />}{' '}
+      {like && <LikeCard postList={postList} setData={setData} setNewData={setNewData} />}
+      {myPost && <MyPostCard postList={postList} setData={setData} setNewData={setNewData} />}
+      {/* {myPost && <MyPost postList={postList} setData={setData} setNewData={setNewData} />} */}
     </>
   );
 }

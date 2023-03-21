@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 
 export default function useTime(targetTime) {
   const [time, setTime] = useState(); //리턴해야 하는 값 저장
-
   const timeForToday = value => {
     const newTime =
       value &&

@@ -8,7 +8,7 @@ import { BASE_URL } from '../../../constants/api';
 import axios from '../../../utils/token';
 import useTime from '../../../hooks/useTime';
 
-const MyComment = () => {
+const CommentLike = () => {
   const [item, setItem] = useState([]);
   const [newItem, setNewItem] = useState([]);
   const offset = 5;
@@ -22,7 +22,7 @@ const MyComment = () => {
   const memberId = user.id;
   const getList = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/members/${memberId}/my/comments`);
+      const res = await axios.get(`${BASE_URL}/members/${memberId}/my/comment-likes`);
       setItem(res.data.comments);
       setDay(res.data.comments);
     } catch (err) {
@@ -52,7 +52,7 @@ const MyComment = () => {
   return (
     <div className={styles.container}>
       <div className={styles.NameBox}>
-        <h1 className={styles.h1}>내 댓글</h1>
+        <h1 className={styles.h1}>좋아요한 댓글</h1>
       </div>
       <ul className={styles.ulbox}>
         {newItem.slice(offset * page, offset * page + offset).map(i => (
@@ -86,4 +86,4 @@ const MyComment = () => {
   );
 };
 
-export default MyComment;
+export default CommentLike;

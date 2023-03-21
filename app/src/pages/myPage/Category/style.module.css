@@ -4,6 +4,7 @@
   position: fixed;
   margin-top: 80px;
   font-size: 1.4rem;
+  min-width: fit-content;
 }
 .categoryitem {
   width: 80%;
@@ -36,7 +37,7 @@
 }
 .mobileItem {
   width: 78.5%;
-  height: fit-content;
+  min-height: fit-content;
   padding: 15px 20px;
   margin-bottom: 10px;
   border-radius: 1rem;
@@ -49,17 +50,17 @@
 }
 .mobileContainer {
   width: 250px;
-  height: 400px;
   position: absolute;
   top: 60px;
   display: flex;
   z-index: 20;
+  min-height: fit-content;
 }
 .mobileMenu {
   background-color: white;
   width: 200px;
-  height: 400px;
   border-right: none;
+  min-height: fit-content;
 }
 .mobileMenuIcon {
   width: 45px;
