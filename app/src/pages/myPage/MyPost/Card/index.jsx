@@ -17,7 +17,7 @@ const Card = ({ data, setData, setNewData, postList }) => {
             {postList &&
               postList.map(item => {
                 return (
-                  <li key={item.id}>
+                  <li key={Math.random()}>
                     <div className={styles.post}>
                       <div className={styles.info}>
                         <div className={styles.user_info}>

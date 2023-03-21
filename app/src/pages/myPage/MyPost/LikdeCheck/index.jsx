@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { PATH } from '../../../../constants/path';
 import userCheck from '../../../../utils/userCheck';
 
-const Index = ({ item, setData, setNewData }) => {
+const Index = ({ item }) => {
   //유저 여부 확인
   const user = userCheck();
   const navigate = useNavigate();
@@ -19,17 +19,26 @@ const Index = ({ item, setData, setNewData }) => {
   const [likeColor, setLikeColor] = useState();
   let getList = sessionStorage.getItem('myPageList');
   getList = JSON.parse(getList);
-  function filterArray() {
+
+  function filterArray(boolean, count) {
     const copy = [...getList];
     let targetItem = copy.filter(target => {
-      return target.id !== item.id;
+      return target.id == item.id;
     });
-    console.log(targetItem);
-
-    setNewData(targetItem);
-    setData(targetItem);
-    sessionStorage.setItem('myPageList', JSON.stringify(targetItem));
+    targetItem[0].isLiked = boolean;
+    targetItem[0].likeCount = count;
+    const newArray = [...copy, ...targetItem];
+    const filteredArr = newArray.reduce((acc, current) => {
+      const x = acc.find(item => item.id === current.id);
+      if (!x) {
+        return acc.concat([current]);
+      } else {
+        return acc;
+      }
+    }, []);
+    sessionStorage.setItem('myPageList', JSON.stringify(filteredArr));
   }
+
   const onDataLike = async () => {
     try {
       const res = await axios.put(`${BASE_URL}/posts/${item.id}/like`);
@@ -59,7 +68,7 @@ const Index = ({ item, setData, setNewData }) => {
     <li>
       <FontAwesomeIcon
         icon={faHeart}
-        className={`${styles.icon} ${likeColor === true && styles.active} ${item.isOwner == true && styles.visible}`}
+        className={`${styles.icon} ${likeColor == true && styles.active} ${item.isOwner == true && styles.visible}`}
         onClick={() => {
           if (user == false) {
             navigate(PATH.LOGIN);
@@ -76,7 +85,6 @@ const Index = ({ item, setData, setNewData }) => {
 Index.propTypes = {
   item: PropTypes.object,
   setData: PropTypes.func,
-  setNewData: PropTypes.func,
 };
 
 export default Index;

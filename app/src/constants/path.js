@@ -17,4 +17,5 @@ export const PATH = {
   SEARCH: '/search',
   MYPOST: 'mypost',
   MYCOMMENT: 'mycomment',
+  COMMENTLIKE: 'commentlikes',
 };

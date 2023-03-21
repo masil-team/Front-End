@@ -10,6 +10,7 @@ import BookMark from './pages/myPage/Bookmark';
 import News from './pages/myPage/News';
 import MyPost from './pages/myPage/MyPost';
 import MyComment from './pages/myPage/MyComment';
+import CommentLike from './pages/myPage/LikeComment';
 /* prop 타입체크 */
 // import PropTypes from 'prop-types';
 
@@ -37,6 +38,7 @@ function App() {
           <Route path={PATH.NEWS} element={<News />} />
           <Route path={PATH.MYPOST} element={<MyPost />} />
           <Route path={PATH.MYCOMMENT} element={<MyComment />} />
+          <Route path={PATH.COMMENTLIKE} element={<CommentLike />} />
         </Route>
         <Route path={PATH.SEARCH} element={<Search />}></Route>
       </Routes>

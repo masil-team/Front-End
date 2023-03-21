@@ -8,6 +8,7 @@ import {
   faBell,
   faBookOpen,
   faCommentAlt,
+  faHeart,
 } from '@fortawesome/free-solid-svg-icons';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -35,6 +36,7 @@ const Category = ({ width, show, setShow }) => {
   const newsMatch = useMatch('/mypage/news');
   const commentMatch = useMatch('/mypage/mycomment');
   const postMatch = useMatch('/mypage/mypost');
+  const comment_like_match = useMatch('/mypage/commentlikes');
   return (
     <>
       {width > 780 ? (
@@ -117,6 +119,19 @@ const Category = ({ width, show, setShow }) => {
             </div>
             {commentMatch && <motion.div className={styles.circle} layoutId="1" />}
           </div>
+          <div
+            onClick={() => {
+              nav('/mypage/commentlikes');
+              sessionStorage.removeItem('myPageList');
+            }}
+            className={styles.categoryitem}
+          >
+            <div>
+              <FontAwesomeIcon icon={faHeart} />
+              <span className={styles.categoryspan}>좋아요한 댓글</span>
+            </div>
+            {comment_like_match && <motion.div className={styles.circle} layoutId="1" />}
+          </div>
         </div>
       ) : (
         <motion.div
@@ -176,7 +191,7 @@ const Category = ({ width, show, setShow }) => {
                 setShow(prev => !prev);
                 sessionStorage.removeItem('myPageList');
               }}
-              className={styles.categoryitem}
+              className={styles.mobileItem}
             >
               <div>
                 <FontAwesomeIcon icon={faBell} />
@@ -190,7 +205,7 @@ const Category = ({ width, show, setShow }) => {
                 setShow(prev => !prev);
                 sessionStorage.removeItem('myPageList');
               }}
-              className={styles.categoryitem}
+              className={styles.mobileItem}
             >
               <div>
                 <FontAwesomeIcon icon={faBookOpen} />
@@ -204,13 +219,28 @@ const Category = ({ width, show, setShow }) => {
                 setShow(prev => !prev);
                 sessionStorage.removeItem('myPageList');
               }}
-              className={styles.categoryitem}
+              className={styles.mobileItem}
             >
               <div>
                 <FontAwesomeIcon icon={faCommentAlt} />
                 <span className={styles.categoryspan}>내 댓글</span>
               </div>
               {commentMatch && <motion.div className={styles.circle} layoutId="1" />}
+            </div>
+            <div
+              onClick={() => {
+                nav('/mypage/commentlikes');
+                setShow(prev => !prev);
+                sessionStorage.removeItem('myPageList');
+              }}
+              className={styles.mobileItem}
+            >
+              <div>
+                <FontAwesomeIcon icon={faHeart} />
+
+                <span className={styles.categoryspan}>좋아요한 댓글</span>
+              </div>
+              {comment_like_match && <motion.div className={styles.circle} layoutId="1" />}
             </div>
           </div>
           <div className={styles.mobileMenuIcon}>
